@@ -1,0 +1,35 @@
+
+/* overwrite settings defined in base_threeCol.css here */
+.thrColEls #sidebar1 {
+	width: 26%; /* since this element is floated, a width must be given */
+	padding-top:1em;
+}
+.thrColEls #sidebar1 #blurb li em{
+	font-weight: bold;
+	font-style: italic;
+}
+/* overwrite settings defined in base_threeCol.css here */
+.thrColEls #sidebar2 {
+	width: 26%; /* since this element is floated, a width must be given */
+	padding:0.5em;
+	padding-top:1em;
+}
+
+/* overwrite settings defined in base_threeCol.css here */
+.thrColEls #mainContent {
+  margin: 1em 27% 0 28%; /* the right margin can be given in ems or pixels. It creates the space down the right side of the page. */
+} 
+#recentEntries, #updates, #recentComments{
+	margin-bottom: 1em;
+}
+.smallLink {
+	font-size: 0.6em;
+	font-weight: normal;
+	position:relative;
+	top:-1px;
+}
+h2 {
+	margin:0.3em 0;
+}
+
+

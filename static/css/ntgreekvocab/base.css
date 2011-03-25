@@ -1,0 +1,183 @@
+/* 
+    Document   : base
+    Created on : Nov 4, 2010, 12:27:22 AM
+    Author     : leehsueh
+    Description:
+        Base settings for ntgreekvocab
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+/*
+    Reset logic
+*/
+nav, header, footer, section, article {
+	display: block;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    display:inline;
+}
+ul li {
+    text-align: left;
+}
+a:hover {
+    cursor: pointer;
+}
+a, a:link, a:visited {
+    color: #222;
+}
+a:hover {
+    color: #36c;
+}
+.errorlist {
+    color: red;
+}
+root { 
+    display: block;
+}
+@font-face {
+    font-face: GentiumPlus;
+    src: url(/static/GentiumPlus-R.ttf);
+}
+@font-face {
+    font-face: GentiumPlusItalic;
+    src: url(/static/GentiumPlus-I.ttf);
+}
+body {
+    font-family: GentiumPlus, "Gentium Plus", "Gentium", Tahoma;
+    font-size: 1em;
+    text-align: center;
+    color: rgb(35,35,35);
+    margin: 0 auto;
+    width: 40em;
+    background-color: rgb(250,250,250);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FAFAFA), to(#FDFDFD));
+}
+h2 {
+    text-align: left;
+    padding: 0.2em;
+}
+#container #topheader {
+    margin-bottom: 2em;
+}
+#container #topheader h1 {
+    margin-bottom:0;
+}
+#container #topheader nav {
+    font-size:1.25em;
+}
+#container #topheader nav ul li {
+    margin: 0 0.2em;
+}
+#container #bottomfooter {
+    font-size: smaller;
+    margin: 2em 0 1em 0;
+    padding-top:1em;
+    clear: both;
+}
+#container #bottomfooter ul {
+    margin:0;
+    padding:0;
+}
+#container #bottomfooter ul li{
+    list-style-type: none;
+    text-align:center;
+
+}
+
+section#word_info {
+    border:1px solid #888;
+    background-color: #e2e2e2;
+    margin: auto 4em;
+    padding: 0.2em 1em;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+}
+section#word_info ul#related_cards {
+    margin: 0;
+    padding: 0;
+}
+section#word_info ul#related_cards li {
+    display: inline;
+    margin: 0;
+    list-style-type: none;
+}
+section#word_info footer {
+    font-size: smaller;
+    margin: 2em 0 1em 0;
+    text-align: right;
+}
+article {
+    border-top: dotted 0.1em;
+    border-bottom: dotted 0.1em;
+    padding-bottom:1em;
+    position: relative; /* #lesson_filters positioned absolutely inside the article */
+}
+article #lesson_filters {
+    color: #888;
+    left: 10px;
+    position: absolute;
+    top: 0px;
+    font-family: Arial;
+    font-style: italic;
+    font-size: 0.8em;
+}
+article header h1 {
+    font-size:6em;
+    margin:0.5em 0 0 0;
+}
+article header h1 span#def_article {
+    color: #cecece;
+}
+article p#feedback_text {
+    font-size:1.5em;
+    color: #999;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: -0.3em;
+}
+article .toggle_link {
+    font-size:1.5em;
+}
+article header h1 a, article header h1 a:visited, article header h1 a:hover {
+    text-decoration:none;
+    color: inherit;
+}
+article header h1 a.rollover {
+    
+}
+span.italic {
+    font-style: italic;
+}
+span.strong {
+    font-weight: bold;
+}
+.hidden {
+    visibility: hidden;
+}
+.floatLeft {
+    float:left;
+}
+
+/* form elements */
+input, textarea {
+    font-family: Arial;
+    font-size: 0.8em;
+
+    width: 90%;
+    padding: 0.4em;
+    border: #ccc 0.1em solid;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+}
+input:focus, textarea:focus, select:focus {
+    border-color: #f90;
+}

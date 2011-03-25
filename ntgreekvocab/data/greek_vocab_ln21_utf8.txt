@@ -1,0 +1,16 @@
+Word	Part of Speech	definition	lesson number	parsing info	notes	hints
+ἁμαρτάνω	verb	I sin	21	"present, active, indicative, 1st person, singular"		
+δικαιοσύνη	noun	righteousness	21	"feminine, singular nominative"		
+ἐάν	particle	if (with subjunctive)	21			
+εἰ	particle	if (with indicative)	21			
+εὐαγγελίζομαι	verb	I preach the gospel	21	"present, middle, indicative, 1st person, singular"	deponent with middle forms	
+ἵνα	conjunction	in order that	21			
+λαός	noun	a people	21	"masculine, singular, nominative"		
+"λοιπός, -ή, -όν"	adjective	remaining	21	singular nominative		
+οἱ λοιποί	phrase	the rest	21	"masculine, plural, nominative"		
+"μακάριος, -α, -ον"	adjective	blessed	21	"singular, nominative"		
+μαρτυρία	noun	"a witnessing, a testimony, a witness"	21	"feminine, singular, nominative"		
+μηδέ	conjunction	"and not, nor, not even (with moods other than the indicative)"	21			
+μηδέ...μηδέ	construct	neither...nor (with moods other than the indicative)	21			
+μηκέτι	adverb	no longer (with moods other than the indicative)	21			
+ὄχλος	noun	"a crowd, a multitude"	21	"masculine, singular, nominative"		

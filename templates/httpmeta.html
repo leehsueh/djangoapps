@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}The HttpRequest object{% endblock %}
+
+{% block header1 %}Attributes of HttpRequest{% endblock %}
+
+{% block content %}
+<table>
+{% for key, val in attr_list %}
+    <tr>
+    <td>{{ key }}</td>
+    <td>{{ val }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

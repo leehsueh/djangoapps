@@ -1,0 +1,119 @@
+/* 
+    Document   : listcards
+    Created on : Nov 7, 2010, 1:18:01 AM
+    Author     : leehsueh
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+/* List Words */
+h2 {
+    font-size: 1em;
+    margin:0;
+    padding:0.1em;
+}
+h2 span {
+    font-weight: normal;
+}
+h2:hover {
+    cursor: pointer;
+    color: #36c;
+}
+#fixedbottom ul {
+    margin: 0;
+    padding: 0;
+}
+#fixedbottom {
+    position: fixed;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    font-size: 1.5em;
+    
+    margin:0;
+    padding:0.5em;
+    background-color: #e0e0e0;
+    border-top: 1px #888 solid;
+}
+#fixedbottom div {
+    display:inline-block;
+    width:30%;
+    vertical-align:top;
+}
+
+#container #bottomfooter {
+    margin-bottom:18em;
+}
+ul.inline_list li {
+    display: inline;
+    margin: 0;
+    list-style-type: none;
+}
+ul.inline_list li a {
+    display: inline-block;
+    padding: 0.05em 0.2em;
+}
+#fixedbottom li a:link, #fixedbottom li a:visited, #fixedbottom li a:focus {
+    text-decoration: none;
+    border: 1px solid #e0e0e0;
+}
+#fixedbottom li a:hover {
+    text-decoration: none;
+    background-color: #cecece;
+    border: 1px solid #888;
+    border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+}
+section {
+    /*border-top: dotted 0.1em;*/
+    padding: 1em;
+}
+section h1 {
+    margin: 0;
+    padding: 0;
+    border-top: dotted 0.04em;
+    float:left;
+    width:2em;
+    color: #cecece;
+    font-size: 2.5em;
+}
+section ul {
+    margin-left:6em;
+    clear: both; /* needed since section h1 is float:left */
+}
+section ul li {
+    list-style-type: none;
+    font-size: 1.3em;
+}
+section ul li a {
+    display: inline-block;
+    padding: 0.1em 0 0 0.5em;
+    text-decoration: none;
+    width: 13em;
+}
+section ul li span a {
+    width: 3em;
+    text-align: center;
+}
+.roundedborderhover, section ul li span:hover {
+    background-color: #cfcfcf;
+    border: 1px solid #888;
+    border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+    visibility: visible;
+}
+#fixedbottom li a.selected, #fixedbottom li a.selected:hover {
+    background-color: #cecece;
+    color: #222;
+    border: 1px solid #888;
+    border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+}

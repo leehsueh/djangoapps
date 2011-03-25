@@ -1,0 +1,18 @@
+<section id="word_info">
+<h2>{{ card.greek_word }}{% if def_article %}, {{ def_article }}{% endif %}</h2>
+<p><span class="italic" title="part of speech">{{ card.get_part_of_speech }}</span>.
+    <span class="strong" title="definition">{{ card.definition }}</span>
+    {% if card.lesson_number %}&nbsp;&nbsp;|&nbsp;&nbsp;lesson {{ card.lesson_number }}{% endif %}
+</p>
+{% if card.notes %}<p title="notes">{{ card.notes|linebreaksbr }}</p>{% endif %}
+{% if card.parsing_info %}<p title="parsing"><span class="italic">{{ card.parsing_info }}</span></p>{% endif %}
+
+{% for word in card.related_cards.all %}
+    {% if forloop.first %}
+    <ul id="related_cards"><li>also see</li>{% endif %}
+    <li><a href="{% url ntgreekvocab:card-view card_id=word.id %}" title="{{ word.part_of_speech }}., {{ word.definition }}">{{word.greek_word}}</a>{% if forloop.last %}</li></ul>{% else %}, </li>{% endif %}
+{% endfor %}
+<footer>
+    <p><a href="{% url ntgreekvocab:card-edit card_id=card.id %}">edit</a></p>
+</footer>
+</section>

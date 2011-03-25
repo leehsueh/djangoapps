@@ -1,0 +1,13 @@
+{% load comments %}
+<div class="entryContainer">
+  <div class="entryWrapper">
+  <div class="passageRef fltlft">{{ entry.get_book }}<br />{{ entry.get_passage_ref }}</div>
+  <div class="entryInfoWrapper fltlft">
+  	<div class="entryInfo">
+      <h3><a href="{% url bibledb:entry-view entry_id=entry.id %}">{% if entry.title %}{{ entry.title }}{% else %}(Untitled)...{{entry.get_book}} {{ entry.get_passage_ref }}{% endif %}</a></h3>
+      <p class="entryAudit">Posted by <a href="{% url bibledb:entries-username slug=entry.created_by.username %}">{{ entry.created_by.username }}</a> on <span class="date">{{ entry.pub_date|date:"m/d/Y" }}</span></p>
+    </div>
+    <p class="algnrt">{% get_comment_count for bibledb.entry entry.id as count %}{{ count }} comment{{ count|pluralize }}&nbsp;|&nbsp;{{ entry.num_votes }} vote{{ entry.num_votes|pluralize }}</p>
+  </div>
+  </div>
+</div>

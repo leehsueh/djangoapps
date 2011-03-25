@@ -1,0 +1,13 @@
+<h2>Categories</h2>
+<div>{% if category_tree %}
+    <ul>{% for cat_dict in category_tree %}
+        <li><a href="{% url bibledb:entries-cat slug=cat_dict.slug %}">{{ cat_dict.category }}</a>{% if not cat_dict.subcategories.all %}</li>{% else %}
+        {% for subcat in cat_dict.subcategories.all %}{% if forloop.first %}<ul>{% endif %}
+            <li><a href="{% url bibledb:entries-cat slug=subcat.slug %}">{{ subcat.category|capfirst }}</a></li>{% if forloop.last %}
+        </ul>{% endif %}{% endfor %}
+        </li>{% endif %}
+    {% endfor %}</ul>
+{% else %}
+    <p>No categories yet.</p>
+{% endif %}
+</div>

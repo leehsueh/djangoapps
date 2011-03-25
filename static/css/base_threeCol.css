@@ -1,0 +1,52 @@
+/*@charset "utf-8";*/
+
+/* Tips for Elastic layouts 
+1. Since the elastic layouts overall sizing is based on the user's default fonts size, they are more unpredictable. Used correctly, they are also more accessible for those that need larger fonts size since the line length remains proportionate.
+2. Sizing of divs in this layout are based on the 100% font size in the body element. If you decrease the text size overall by using a font-size: 80% on the body element or the #container, remember that the entire layout will downsize proportionately. You may want to increase the widths of the various divs to compensate for this.
+3. If font sizing is changed in differing amounts on each div instead of on the overall design (ie: #sidebar1 is given a 70% font size and #mainContent is given an 85% font size), this will proportionately change each of the divs overall size. You may want to adjust based on your final font sizing.
+*/
+
+
+/* Tips for sidebar1:
+1. Be aware that if you set a font-size value on this div, the overall width of the div will be adjusted accordingly.
+2. Since we are working in ems, it's best not to use padding on the sidebar itself. It will be added to the width for standards compliant browsers creating an unknown actual width. 
+3. Space between the side of the div and the elements within it can be created by placing a left and right margin on those elements as seen in the ".thrColEls #sidebar1 p" rule.
+*/
+.thrColEls #sidebar1 {
+	float: left; 
+	width: 34em; /* since this element is floated, a width must be given */
+	background: #EBEBEB; /* the background color will be displayed for the length of the content in the column, but no further */
+	padding: 0 0.5em; /* top and bottom padding create visual space within this div */
+}
+
+.thrColEls #sidebar2 {
+	float: right; 
+	width: 22em; /* since this element is floated, a width must be given */
+	background: #fff; /* the background color will be displayed for the length of the content in the column, but no further */
+	padding: 0 0.5em; /* top and bottom padding create visual space within this div */
+}
+
+.thrColEls #sidebar1 div, .thrColEls #sidebar2 div {
+	margin-left: 0.5em; /* the left and right margin should be given to every element that will be placed in the side columns */
+	margin-right: 0.5em;
+}
+
+
+/* Tips for mainContent:
+1. If you give this #mainContent div a font-size value different than the #sidebar1 div, the margins of the #mainContent div will be based on its font-size and the width of the #sidebar1 div will be based on its font-size. You may wish to adjust the values of these divs.
+2. The space between the mainContent and sidebar1 is created with the left margin on the mainContent div.  No matter how much content the sidebar1 div contains, the column space will remain. You can remove this left margin if you want the #mainContent div's text to fill the #sidebar1 space when the content in #sidebar1 ends.
+3. To avoid float drop, you may need to test to determine the approximate maximum image/element size since this layout is based on the user's font sizing combined with the values you set. However, if the user has their browser font size set lower than normal, less space will be available in the #mainContent div than you may see on testing.
+4. In the Internet Explorer Conditional Comment below, the zoom property is used to give the mainContent "hasLayout." This avoids several IE-specific bugs that may occur.
+*/
+.thrColEls #mainContent {
+  margin: 0em 26em 0 36em; /* the right margin can be given in ems or pixels. It creates the space down the right side of the page. */
+  
+} 
+
+.thrColEls .date {
+	color: #999;
+}
+.thrColEls .editLink {
+	font-size: 0.9em;
+	font-weight: normal;
+}

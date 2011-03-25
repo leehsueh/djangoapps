@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/!svn/ver/161/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data
+END
+extended_greek_mapping.csv
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/!svn/ver/190/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/extended_greek_mapping.csv
+END
+create_script.sql
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/!svn/ver/165/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script.sql
+END
+create_script_2011-01-31.sql
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/!svn/ver/204/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script_2011-01-31.sql
+END
+create_script_2011-03-21.sql
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/!svn/ver/212/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script_2011-03-21.sql
+END
+create_script_2011-02-14.sql
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/!svn/ver/209/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script_2011-02-14.sql
+END
+parse_accent_mapping.py
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/!svn/ver/204/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/parse_accent_mapping.py
+END
+create_script_101221.sql
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/!svn/ver/204/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script_101221.sql
+END
+greek_vocab_utf8.txt
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/!svn/ver/170/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/greek_vocab_utf8.txt
+END
+create_script_2011-03-15.sql
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/!svn/ver/212/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script_2011-03-15.sql
+END
+create_script_101123.sql
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/!svn/ver/204/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script_101123.sql
+END
+create_script_110117.sql
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/!svn/ver/204/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script_110117.sql
+END
+create_script_101108.sql
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/!svn/ver/170/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/create_script_101108.sql
+END
+test_encoding.txt
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/!svn/ver/204/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/test_encoding.txt
+END
+basic_greek_mapping.csv
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/!svn/ver/190/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/basic_greek_mapping.csv
+END
+dump.sql
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/!svn/ver/167/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/dump.sql
+END
+import_csv_data.py
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/!svn/ver/209/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/import_csv_data.py
+END
+dump_101108.sql
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/!svn/ver/170/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/dump_101108.sql
+END
+find_accented_first_letters.sql
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/!svn/ver/189/djcode/siteapps_v1/trunk/siteapps_v1/ntgreekvocab/data/find_accented_first_letters.sql
+END

@@ -1,0 +1,183 @@
+/* overwrite the default settings defined in base_threeCol.css for sidebar here */
+.thrColEls #sidebar1 {
+	width: 18em; /* since this element is floated, a width must be given */
+	padding: 5.5em 0; /* top and bottom padding create visual space within this div */
+}
+
+.thrColEls #sidebar1 .entryMeta {
+	border: 1px #444 solid;
+	padding: 0;
+	margin-bottom: 1em;
+}
+.thrColEls #sidebar1 .entryMeta p{
+	padding: 0;
+	margin: 0.5em 0.2em;
+}
+.thrColEls #sidebar1 .entryMeta ul{
+	border: 1px #444 solid;
+	margin: 0 1em 1em 2em;
+	padding: 1em;
+	background-color:#ddd;
+}
+.thrColEls #sidebar1 .entryMeta ul li{
+	list-style-position: outside;
+	list-style-type: square;
+	margin-left: 10px;
+}
+.thrColEls #sidebar1 .entryMeta .tagUl li{
+	display: inline;
+	list-style-type:none;
+	margin-left:0;
+}
+.thrColEls #sidebar1 .entryMeta #addTagsForm {
+	margin-left: 4em;
+}
+
+.thrColEls #sidebar1 .entryMeta h4{
+	margin: 0.2em;
+}
+.thrColEls #sidebar1 .entryFieldHeader {
+
+}
+
+/* overwrite the default settings defined in base_threeCol.css for sidebar here  */
+.thrColEls #sidebar2 {
+	float: right; 
+	width: 27em; /* since this element is floated, a width must be given */
+	padding: 5.5em 0; /* top and bottom padding create visual space within this div */
+}
+
+.thrColEls #sidebar2 .discussion {
+	border: 1px #444 solid;
+	margin-bottom: 1em;
+	padding: 0.3em;
+}
+.thrColEls .share_link{
+	font-size:0.9em;
+}
+.thrColEls .share_link img{
+	position:relative;
+	top:3px;
+	margin:0 3px;
+}
+.thrColEls #sidebar2 .discussion p {
+	margin:0;
+	padding:0;
+}
+.thrColEls #sidebar2 .discussion p.error {
+	color:red;
+	text-align:center;
+	margin:15px;
+	padding:5px;
+	background-color:#FFDDDD;
+	border:0.1em solid red;
+}
+.thrColEls #sidebar2 .discussion .discussionHeaderWrapper{
+	margin: 0;
+}
+.thrColEls #sidebar2 .discussion .discussionHeader{
+	font-size: 1.2em;
+	font-weight: bold;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper {
+	margin-top: 0.5em;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper div{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper table {
+	border-spacing: 0.2em;
+	width: 24.7em;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper table tr {
+	background: #EBEBEB;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper table tr:hover {
+	background: #444;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper table td {
+	padding: 0;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper td.colSpacer{
+	width: 1em;
+	border: 0;
+	background: none;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper .commentAudit{
+	text-align: right;
+	padding-top: 0.5em;
+	background-color: #fff;
+	font-size: 0.9em;
+}
+.thrColEls #sidebar2 .discussion .commentWrapper .commentText{
+	background-color: #ddd;
+	border: 0.1em solid #444;
+	padding: 0.5em;
+	width: 22em;
+}
+.thrColEls #sidebar2 .discussion #id_comment{
+	background-color:#ddd;
+	border: 0.1em solid #444;
+	width:90%;
+	margin: 0.5em 0.5em 0.5em 1em;
+}
+
+.thrColEls #mainContent {
+  margin: 2em 28em 0 19em; /* the right margin can be given in ems or pixels. It creates the space down the right side of the page. */
+} 
+.thrColEls #mainContent h2 {
+	margin: 0;
+}
+.thrColEls #mainContent #entryAudit {
+	padding: 0.3em 0;
+	border:0;
+	margin-bottom: 2em;
+}
+.thrColEls #mainContent #entryAudit p{
+	margin: 0;
+	font-size: 0.9em;
+}
+.thrColEls #mainContent .entryFieldHeader {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+.thrColEls #mainContent .fieldWrapper {
+	margin: 0;
+	margin-bottom: 1em;
+}
+.thrColEls #mainContent table.verseTable {
+	margin-top: 1em;
+	border: 0;
+	border-spacing: 0.2em;
+}
+.thrColEls #mainContent table.verseTable tr {
+	background: #ccc;
+}
+.thrColEls #mainContent table.verseTable tr:hover {
+	background: #444;
+}
+.thrColEls #mainContent table.verseTable td {
+	padding: 1px;
+}
+.thrColEls #mainContent table.verseTable td.verseNum,td.verseText {
+	background-color: #fff;
+}
+.thrColEls #mainContent table.verseTable td.colSpacer {
+	width: 0.3em;
+	background: none;
+}
+.thrColEls #mainContent .fieldWrapper h4{
+	margin: 0;
+	padding: 0;
+	border: 1px solid black;
+}
+.thrColEls #sidebar1 p,.thrColEls #sidebar1 ul, .thrColEls #sidebar2 .commentText {font-size:95%;}
+.thrColEls .date {
+	color: #999;
+}
+.thrColEls .editLink {
+	font-size: 0.9em;
+	font-weight: normal;
+}

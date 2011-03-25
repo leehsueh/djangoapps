@@ -1,0 +1,42 @@
+#Word	Part of Speech	definition	lesson number	parsing info	notes	hints
+ἁγιάζω	verb	"I sanctify, I consecrate, I make/keep holy"	28	"present, active, indicative, 1st person, singular"		
+ἀγρός	noun	a field	28	"masculine, singular, nominative"		
+γῆ	noun	"earth, land"	28	"feminine, singular, nominative"		
+ἑγγύς	adverb	near	28			
+ἐλεέω	verb	"I have mercy on, I pity"	28	"present, active, indicative, 1st person, singular"		
+"ὅσος, -η, -ον"	adjective	"as great as, as much as, as many as"	28	"singular, nominative"		
+ὅστις	pronoun	"whoever, whichever, whatever (masculine)"	28	"masculine, singular, nominative"	Almost always occurs in the nominative case and can be synonymous with ὄς ἄν or ὄς ἐάν but with a verb in the indicative rather than subjunctive mood.	
+ἥτις	pronoun	"whoever, whichever, whatever (feminine)"	28	"feminine, singular, nominative"	Almost always occurs in the nominative case and can be synonymous with ὄς ἄν or ὄς ἐάν but with a verb in the indicative rather than subjunctive mood.	
+ὅ τι	pronoun	"whoever, whichever, whatever (neuter)"	28	"neuter, singular, nominative"	Almost always occurs in the nominative case and can be synonymous with ὄς ἄν or ὄς ἐάν but with a verb in the indicative rather than subjunctive mood.	
+οἵτινες	pronoun	"whoever, whichever, whatever (plural)"	28	"plural, nominative"	Almost always occurs in the nominative case and can be synonymous with ὄς ἄν or ὄς ἐάν but with a verb in the indicative rather than subjunctive mood.	
+"οὖς, ὠτός"	noun	an ear	28	"neuter, singular, nominative"	dative plural is ὠσί(ν)	
+ὀφθαλμός	noun	an eye	28	"masculine, singular, nominative"		"""ophthalmology"""
+"σκότος, σκότους"	noun	darkness	28	"neuter, singular, nominative"	declined like γένος	
+"ὕδωρ, ὕδατος"	noun	water	28	"neuter, singular, nominative"		"""hydrolics"""
+"φῶς, φωτός"	noun	light	28	"neuter, singular, nominative"		
+"χείρ, χειρός"	noun	a hand	28	"feminine, singular, nominative"		
+"ἐλάσσων, -ον"	comparative	less	30	"masculine/feminine, neuter, singular, nominative"		
+"ἐμός, -ή, -όν"	adjective	"belonging to me, my"	30	"singular, nominative"	possessive adjective	
+ἔμπροσθεν	adverb	"in front, in the presence of (with genitive)"	30			
+ἐνώπιον	adverb	"before, in the sight of, in the presence of (with genitive)"	30			
+ἔξω	adverb	outside	30			
+ἐχθρός	noun	an enemy	30	"masculine, singular, nominative"		
+ἤ	conjunction	than; also can mean or.	30			
+"ἡμέτερος, -α, -ον"	adjective	"belong to us, our"	30	"singular, nominative"	plural of ἐμός	
+"ἴδιος, -α, -ον"	adjective	"private, belonging to one's self, one's own"	30	"singular, nominative"		
+"ἱκανός, -ή, -όν"	adjective	"sufficient, worthy, considerable"	30	"singular, nominative"		
+"ἰσχυρότερος, -α, -ον"	comparative	stronger	30	"singular, nominative"		
+"ἰσχυρός, -ά, -όν"	adjective	strong	30	"singular, nominative"		
+καλῶς	adverb	well	30		adverb form of καλός	
+"κρείσσων, -ον"	comparative	better	30	"masculine/feminine, neuter, singular, nominative"	comparative of ἀγαθός	
+μᾶλλον	adverb	"more, rather"	30			
+"μείζων, -ον"	comparative	greater	30	"masculine/feminine, neuter, singular, nominative"		
+μέγας	adjective	great	30	"neuter, singular, nominative"		
+μήποτε	conjunction	"lest, lest perhaps"	30		"can also be a particle meaning ""at some time"""	
+ὅπως	conjunction	in order that (takes the subjunctive)	30		"can also be an adverb, used very much like ἵνα but less common."	
+πάλιν	adverb	again	30			
+"πλείων, -ον"	comparative	more	30	"masculine/feminine, neuter, singular, nominative"		
+πολύς	adjective	many	30	"neuter, singular, nominative"		
+σάββατον	noun	Sabbath	30	"neuter, singular, nominative"	"The plural τὰ σάββατα, with irregular dative plural τοῖς σάββασι[ν], is often used in the singular sense."	
+"σός, -ή, -όν"	adjective	"belonging to you (s), your"	30	"singular, nominative"	possessive adjective	
+"ὑμέτερος, -α, -ον"	adjective	"belonging to you (p), your"	30	"plural, nominative"	possessive adjective	

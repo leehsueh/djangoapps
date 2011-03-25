@@ -1,0 +1,14 @@
+div.faqWrapper {
+	border: 0.1em #ddd solid;
+	padding: 1em;
+	margin: 0;
+	margin-bottom: 1em;
+}
+h3.faq {
+	margin:0;
+	padding:0;
+}
+
+p.answer {
+	margin: 1em 0 1em 2em; 
+}

@@ -1,0 +1,85 @@
+{% extends 'bibledb/base_threeCol.html' %}
+{% block additionalcss %}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/forms.css" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/verses.css" />
+{% endblock %}
+{% block maincontent %}
+<h2>{{ content_header }}</h2>
+<div>
+{% if verse_list %}
+{% for t in translations %}
+{% if forloop.first %}<div id="translation_links"><ul><li>View in: </li>{% endif %}
+<li><a href="http://www.blueletterbible.org/Bible.cfm?b={% ifequal verse_list.0.book "Song of Solomon" %}Sgs{% else %}{{ verse_list.0.book|cut:" " }}{% endifequal %}&amp;c={{ verse_list.0.chapter_ref }}&amp;v={{ verse_list.0.verse_ref }}&amp;t={{ t }}#{{ verse_list.0.verse_ref }}" target="_blank">{{ t }}</a></li>
+{% if forloop.last %}</ul></div>{% endif %}
+{% endfor %}
+	<table class="verseTable">
+    	<tr><td colspan="3" class="browseBibleNav">{% if prevchapter %}<a href="{% url bibledb:browse-kjv-verses bookname=prevchapter.0|slugify,chpnum=prevchapter.1 %}">Previous Chapter</a>{% else %}Previous Chapter{% endif %}&nbsp;|&nbsp;<a href="{% url bibledb:browse-kjv-verses bookname=bookname|slugify,chpnum=verse_list.0.chapter_ref %}">Expand Chapter</a>&nbsp;|&nbsp;{% if nextchapter %}<a href="{% url bibledb:browse-kjv-verses bookname=nextchapter.0|slugify,chpnum=nextchapter.1 %}">Next Chapter</a>{% else %}Next Chapter{% endif %}</td></tr>
+        {% for verse in verse_list %}<tr class="verse">
+            <td class="verseNum">{{ verse.verse_ref }}</td><td class="colSpacer">&nbsp;</td><td class="verseText">{{ verse.verse_text }}</td>
+        </tr>{% endfor %}
+        <tr><td colspan="3" class="browseBibleNav">{% if prevchapter %}<a href="{% url bibledb:browse-kjv-verses bookname=prevchapter.0|slugify,chpnum=prevchapter.1 %}">Previous Chapter</a>{% else %}Previous Chapter{% endif %}&nbsp;|&nbsp;<a href="{% url bibledb:browse-kjv-verses bookname=bookname|slugify,chpnum=verse_list.0.chapter_ref %}">Expand Chapter</a>&nbsp;|&nbsp;{% if nextchapter %}<a href="{% url bibledb:browse-kjv-verses bookname=nextchapter.0|slugify,chpnum=nextchapter.1 %}">Next Chapter</a>{% else %}Next Chapter{% endif %}</td></tr>
+	</table>
+{% endif %}
+
+{% if chprange and not verse_list %}
+    <ul>
+        {% for chp in chprange %}
+            <li><a href="{% url bibledb:browse-kjv-verses bookname=bookname|slugify,chpnum=chp %}">Chapter {{ chp }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if books %}
+<ul>
+{% for b in books %}
+    <li><a href="{% url bibledb:browse-kjv-chapters bookname=b|slugify %}">{{ b }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+
+</div>
+
+{% endblock %}
+
+
+{% block sidebar1content %}
+<div id="verseForm">
+<form action="{% url bibledb:browse-kjv %}" method="get">
+{% if browse_bible_form.errors or browse_bible_form.non_field_errors %}
+    <ul>
+    	{% for error in browse_bible_form.book.errors %}<li>Book: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.chapter.errors %}<li>Chapter: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.startverse.errors %}<li>Start verse: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.endverse.errors %}<li>End verse: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+<p>{{ browse_bible_form.book }}</p>
+<p>{{ browse_bible_form.chapter }}:{{ browse_bible_form.startverse }}-{{ browse_bible_form.endverse }} <button class="button_as_link" type="submit" name="browseBible" value="Submit"><span>Go</span></button></p>
+</form>
+</div>
+<div>{%if verse_list and chprange%}
+	<h3>Chapters in {{ bookname }}</h3>
+    <ul>{% for chp in chprange %}
+		<li><a href="{% url bibledb:browse-kjv-verses bookname=bookname|slugify,chpnum=chp %}">Chapter {{ chp }}</a></li>
+	{% endfor %}</ul>
+{% endif %}</div>
+{% endblock %}
+
+{% block sidebar2content %}
+{% if verse_list %}<div class="relatedEntries">
+  <h3>Entries Associated with {{ bookname }} {{ verse_list.0.chapter_ref }}</h3>
+	{% for entry in relatedentrieschp %}{% if forloop.first %}<ul>{% endif %}
+      <li><a href="{% url bibledb:entry-view entry_id=entry.id %}" title="{{ entry.title }}">{% if entry.title %}{{entry.title}}{%else%}Untitled{%endif%} ({{ entry.get_passage_ref }})</a></li>
+    {% if forloop.last %}</ul>{% endif %}
+    {%empty%}<p>(None)</p>{% endfor %}
+  </div>{% endif %}
+  
+{% if bookname %}<div class="relatedEntries">
+  <h3>Entries Associated with {{ bookname }}</h3>
+	{% for entry in relatedentriesbook %}{% if forloop.first %}<ul>{% endif %}
+      <li><a href="{% url bibledb:entry-view entry_id=entry.id %}" title="{{ entry.title }}">{% if entry.title %}{{entry.title}}{%else%}Untitled{%endif%} ({{ entry.get_passage_ref }})</a></li>
+    {% if forloop.last %}</ul>{% endif %}
+    {%empty%}<p>(None)</p>{% endfor %}
+</div>{% endif %}
+{% endblock %}

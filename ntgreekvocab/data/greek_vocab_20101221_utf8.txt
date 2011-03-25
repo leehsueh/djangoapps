@@ -1,0 +1,77 @@
+#Word	Part of Speech	definition	lesson number	parsing info	notes	hints
+δηλόω	verb	"I show, I make clear"	23	"present, active, indicative, 1st person, singular"		
+ἀγαπάω	verb	I love	23	"present, active, indicative, 1st person, singular"	"the most frequent word for ""I love"" in the NT"	
+ἀκολουθέω	verb	I follow	23	"present, active, indicative, 1st person, singular"	takes the dative	
+Γαλιλαία	verb	Galilee	23	"present, active, indicative, 1st person, singular"		
+εὐλογέω	verb	I bless	23	"present, active, indicative, 1st person, singular"		"""eulogy"""
+εὐχαριστέω	verb	I give thanks	23	"present, active, indicative, 1st person, singular"		"""eucharist"""
+ζητέω	verb	I seek	23	"present, active, indicative, 1st person, singular"		
+θεωρέω	verb	"I gaze at, I stare intently at"	23	"present, active, indicative, 1st person, singular"		
+καλέω	verb	I call	23	"present, active, indicative, 1st person, singular"		
+καλέσω	verb	I will call	23	"future, active, indicative, 1st person, singular"		
+ἐκάλεσα	verb	I called	23	"aorist, active, indicative, 1st person, singular"		
+ἐκλήθην	verb	I was called	23	"aorist, passive, indicative, 1st person, singular"		
+λαλέω	verb	I speak	23	"present, active, indicative, 1st person, singular"		
+παρακαλέω	verb	"I exhort, I comfort"	23	"present, active, indicative, 1st person, singular"		
+περιπατέω	verb	I walk	23	"present, active, indicative, 1st person, singular"		
+ποιέω	verb	"I do, I make"	23	"present, active, indicative, 1st person, singular"		
+προσκυνέω	verb	I worship	23	"present, active, indicative, 1st person, singular"	usually takes the dative	
+σταυρόω	verb	I crucify	23	"present, active, indicative, 1st person, singular"		
+τηρέω	verb	I keep	23	"present, active, indicative, 1st person, singular"		
+τιμάω	verb	I honor	23	"present, active, indicative, 1st person, singular"		
+φιλέω	verb	I love	23	"present, active, indicative, 1st person, singular"	occurs much less frequently in the NT than ἀγαπάω)	
+χώρα	noun	"a country, a region"	23	"feminine, singular, nominative"		
+ἀλλήλων	pronoun	"of each other, of one another"	24	"plural, genitive"	reciprocal pronoun; occurs in NT in only 3 forms (plural dative and plural accusative)	ἀλλος
+ἀποθανοῦμαι	verb	I will die	24	"future, middle, indicative, 1st person, singular"	future of ἀποθνήσκω	
+ἁποκτενῶ	verb	I will kill	24	"future, active, indicative, 1st person, singular"		
+ἁπέκτεινα	verb	I killed	24	"aorist, active, indicative, 1st person, singular"		
+ἁποστελῶ	verb	I will send	24	"future, active, indicative, 1st person, singular"		
+ἁπέστειλα	verb	I sent	24	"aorist, active, indicative, 1st person, singular"		
+ἀρῶ	verb	"I will take up, I will take away"	24	"future, active, indicative, 1st person, singular"		
+ἦρα	verb	"I took up, I took away"	24	"aorist, active, indicative, 1st person, singular"		
+βαλῶ	verb	"I will throw, I will cast"	24	"future, active, indicative, 1st person, singular"		
+"ἑαυτοῦ, -ης, -ου"	pronoun	"of him- (her-, it-) self"	24	"3rd person, singular, genitive"	reflexive pronoun	
+ἐγερῶ	verb	I will raise up	24	"future, active, indicative, 1st person, singular"		
+ἤγειρα	verb	I raised up	24	"aorist, active, indicative, 1st person, singular"		
+ἐμαυτοῦ	pronoun	of myself	24	"1st person, singular, genitive"		
+ἐπί	preposition	"with gen., over, on, at the time of; with dat., on, on the basis of, at; with acc., on, to, against"	24		common word but difficult to translate because it has so many meanings	
+ἔσομαι	verb	I will be	24	"future, middle, indicative, 1st person, singular"		
+μενῶ	verb		24	"future, active, indicative, 1st person, singular"		
+ἔμεινα	verb		24	"aorist, active, indicative, 1st person, singular"		
+μετανοέω	verb	I repent	24	"present, active, indicative, 1st person, singular"	"""after mind, change of mind"""	
+σεαυτοῦ	pronoun	of yourself	24	"2nd person, singular, genitive"		
+σπείρω	verb	I sow	24	"present, active, indicative, 1st person, singular"		
+σπερῶ	verb	I will sow	24	"future, active, indicative, 1st person, singular"		
+ἔσπειρα	verb	I sowed	24	"aorist, active, indicative, 1st person, singular"		
+ἑσπάρην	verb	I was sown	24	"aorist, passive, indicative, first person, singular"		
+φοβέομαι	verb	"I am afraid, I fear, I am afraid of"	24	"present, middle/passive, indicative, 1st person, singular"	deponent with passive forms	"""phobia"""
+κεφαλή	noun	a head	18A	"feminine, singular, nominative"		
+κράζω	verb	I cry out	18A	"present, active, indicative, 1st person, singular"		
+κράξω	verb	I will cry out	18A	"future, active, indicative, 1st person, singular"		
+ἔκράξα	verb	I cried out	18A	"aorist, active, indicative, 1st person, singular"		
+προσέρχομαι	verb	"I come to, I go to"	18A	"present, middle/passive, indicative, 1st person, singular"	"deponent, with the dative"	
+"ὤν, οὖσα, ὄν"	participle	being	18A	"present, active, indicative, singular, nominative"	progressive participle of εἰμί	
+ἀσπάζομαι	verb	"I greet, I salute"	18B	"present, middle/passive, indicative, 1st person, singular"	deponent	
+γλῶσσα	noun	"a tongue, a language"	18B	"feminine, singular, nominative"		
+"ἔκαστος,-η, -ον"	adjective	each	18B	"singular, nominative"		
+μυστήριον	noun	"a mystery, a secret"	18B	"neuter, singular, nominative"		
+οἶνος	noun	wine	18B	"masculine, singular, nominative"		
+πρεσβύτερος	noun	"an old man, an elder (leader in the church)"	18B	"masculine, singular, nominative"		"""presbyterian"", 張老"
+σημεῖον	noun	"a sign, a miracle"	18B	"neuter, singular, nominative"		
+σοφία	noun	wisdom	18B	"feminine, singular, nominative"		
+ἀγαγών	participle	having led	19	"aorist, active, indicative, masculine, singular, nominative"	2nd aorist active participle of ἄγω	
+ἀπέθανον	verb	I died	19	"aorist, active, indicative, 1st person, singular"	2nd aorist of ἀποθνήσκω	
+ἀπεκρίθην	verb	I answered	19	"aorist, passive, indicative, masculine, singular, nominative"	"passive in form, but active in meaning"	
+εἰπών	participle	having said	19	"aorist, active, indicative, masculine, singular, nominative"	2nd aorist active participle of λέγω	
+ἐλθών	participle	having come	19	"aorist, active, indicative, masculine, singular, nominative"	2nd aorist active participle of ἔρχομαι	
+ἐνεγκών	participle	"having borne, having brought"	19	"aorist, active, indicative, masculine, singular, nominative"	"2nd aorist active participle of φέρω, but the 1st aorist form of this verb, ἤνεγκα, is more common in the indicative."	
+ἰδών	participle	having seen	19	"aorist, active, indicative, masculine, singular, nominative"	2nd aorist active participle of βλέπω or ὁράω	
+γραφείς	participle	having been written	20	"aorist, passive, indicative, masculine, singular, nominative"	2nd aorist passive participle of γράφω (declined like a 1st aorist passive participle)	
+ἐκεῖ	adverb	there	20			
+εὐθέως or εὐθύς	adverb	"immediately, right away"	20			
+ἱμάτιον	noun	a garment	20	"neuter, singular, nominative"		
+οἶκία	noun	a house	20	"feminine, singular, nominative"	synonym of οἶκος	
+παιδίον	noun	a little child	20	"neuter, singular, nominative"		
+στρατιώτης	noun	a soldier	20	"masculine, singular, nominative"		"""strut-ter"""
+συναγωγή	noun	a synagogue	20	"feminine, singular, nominative"		
+φυλακή	noun	"a guard, a prison"	20	"feminine, singular, nominative"		

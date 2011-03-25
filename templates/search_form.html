@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Books{% endblock %}
+
+{% block header1 %}Search Books App Database{% endblock %}
+
+{% block content %}
+{% if error %}
+    <ul>
+    {% for e in error %}
+        <li>{{ e }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+<form action="" method="get">
+    <input type="text" name="q" />
+    <input type="submit" value="Search" />
+</form>
+{% endblock %}

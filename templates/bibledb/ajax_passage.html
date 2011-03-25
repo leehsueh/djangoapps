@@ -1,0 +1,6 @@
+<p><strong>{{ bookname }} {{chpnum}}:{{startverse}}-{{endverse}}</strong></p>
+<table>
+{%for verse in passage%}
+<tr><td>{{verse.verse_ref}}</td><td>{{verse.verse_text}}</td></tr>
+{%endfor%}
+</table>

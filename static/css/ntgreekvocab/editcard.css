@@ -1,0 +1,76 @@
+/* 
+    Document   : editcard
+    Created on : Dec 28, 2010, 6:16:02 PM
+    Author     : leehsueh
+    Description:
+        Edit card form layout.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+form div {
+    text-align: left;
+    padding: 0.2em;
+}
+div.row {
+    clear:both;
+}
+div.row div.firstCol {
+    float: left;
+    width: 60%;
+}
+#related_cards_container {
+    overflow: auto;
+}
+#related_cards_container h3 {
+    margin: 0;
+    padding: 0;
+}
+#related_cards_container ul#related_cards_list {
+    width: 11em;
+    padding: 0;
+}
+#related_cards_container ul#related_cards_list li {
+    list-style-type: none;
+    padding: 0.2em 0.2em 0.2em 0.5em;
+    background: #dddeee;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    margin-top: 0.2em;
+}
+a.x_style {
+    font-size: 0.8em;
+    text-decoration: none;
+    font-weight: bold;
+    color: #CE0000;
+    background-color: #bbb;
+    border-radius: 20em;
+    font-family: sans-serif;
+    text-align: center;
+    float: right;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+a.x_style:hover {
+    background-color:#cc0000;
+    color: #ff9090;
+}
+input[id=id_greek_word] {
+    font-family: "Gentium Plus";
+    font-size: 1em;
+    padding: 0.2em;
+}
+input[id=id_lesson_number] {
+    width: 3em;
+}
+#related_cards_container p {
+    margin-bottom:0;
+}
+#toggle_link {
+    margin-top:0;
+    font-size:0.8em;
+}

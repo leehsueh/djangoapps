@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <!--link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/html5reset-1.6.1.css" /-->
+        <link rel="stylesheet" href="{{ MEDIA_URL }}js/contactable/contactable.css" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/base.css" />
+        {% block additionalcss %}{% endblock %}
+        <title>NT Greek Vocabulary</title>
+    </head>
+    <body>
+    <div id="container">
+    <header id="topheader">
+        <h1>NT Greek Vocabulary</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url ntgreekvocab:home %}">Home</a></li>
+                <li><a href="{% url ntgreekvocab:cards-list %}">Word List</a></li>
+                <li><a href="{% url ntgreekvocab:card-lookup %}">Word Lookup</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+    <footer id="bottomfooter">
+        <ul>
+            <li><a href="http://scripts.sil.org/Gentium_download" rel="external">Get the Gentium Plus font</a></li>
+            <li><a href="http://www.google.com/search?q=New+Testament+Greek+for+Beginners+(2nd+Edition)" rel="external">NT Greek for Beginners, 2nd Edition</a></li>
+        </ul>
+        <p>This site uses some HTML5 specific elements.</p>
+    </footer>
+    </div>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.4.min.js"></script>
+
+    <!-- jQuery contactable plugin (also contactable.css in header) -->
+    <div id="contact">
+    </div>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/contactable/jquery.validate.pack.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/contactable/jquery.contactable.js"></script>
+    <script type="text/javascript">
+	$('#contact').contactable({
+	 		subject: 'NT Greek Feedback',
+                        disclaimer: 'Your feedback is appreciated. Especially if there are mistakes.',
+                        actionUrl: '{% url ajax-contactable %}'
+	 });
+    </script>
+    <!-- End jQuery contactable plugin -->
+    
+    {% block customjs %}{% endblock %}
+</body>
+</html>

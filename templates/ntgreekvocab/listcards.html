@@ -1,0 +1,41 @@
+{% extends "ntgreekvocab/base.html" %}
+{% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/listcards.css" />{% endblock %}
+{% block content %}
+    <p>({{total_fetched }}/{{ total_words }} word{{ total_words|pluralize }} fetched)</p>
+    {% for letter, words in words_by_letter %}
+    <section id="{{ letter }}">
+        <h1>{{ letter }}</h1>
+        <!--p><a href="#container">[Top]</a></p-->
+        <ul>{% for card in words %}
+            <li class="greekword ln{{card.lesson_number }} {{ card.part_of_speech }}"><a href="{% url ntgreekvocab:card-view card_id=card.id %}?show" title="{{ card.part_of_speech }}., {{ card.definition }}">{{ card.greek_word }}</a>
+                <span class="hidden"><a href="{% url ntgreekvocab:card-edit card_id=card.id %}">edit</a></span>
+            </li>
+        {% endfor %}</ul>
+    </section>
+    {% endfor %}
+<div id="fixedbottom">
+    <div id="letters">
+        <h2><span>[-]</span> Jump to letter</h2>
+        <ul class="inline_list">{% for letter in letters %}
+            <li><a href="#{{ letter }}">{{ letter }}</a></li>
+        {% endfor %}</ul>
+    </div>
+    <div id="lessons">
+        <h2><span>[+]</span> Filter by lesson</h2>
+        <ul class="inline_list">
+            <li><a href="#" class="lesson_filter">NA</a></li>{% for lesson in lessons %}
+            <li><a href="#" class="lesson_filter">{{ lesson }}</a></li>
+        {% endfor %}</ul>
+    </div>
+    <div id="parts_of_speech">
+        <h2><span>[+]</span> Filter by part of speech</h2>
+        <ul class="inline_list">{% for pos in parts_of_speech %}
+            <li><a href="#" title="{{ pos.1 }}" class="pos_filter">{{ pos.0 }}</a></li>
+        {% endfor %}</ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block customjs %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/ntgreekvocab/listcards.js"></script>
+{% endblock %}

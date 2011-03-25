@@ -1,0 +1,34 @@
+{% extends "ntgreekvocab/base.html" %}
+{% block content %}
+    <article>
+        {% if lesson_numbers %}<div id="lesson_filters">
+            <p>Words from lesson{{ lesson_numbers|pluralize }}
+            {% for ln in lesson_numbers %}{% if forloop.last %}{{ ln }}{% else %}{{ ln }}, {% endif %}{% endfor %}. <a href="#">clear</a>
+            </p>
+        </div>{% endif %}
+        <header>
+            <h1><a href="{% url ntgreekvocab:card-view card_id=random_card_id %}">{{ card.greek_word }}{% if def_article %}<span id="def_article" title="definite article">, {{ def_article }}</span>{% endif %}</a></h1>
+        </header>
+
+        <p id="feedback_text"><span>click for random word</span><!--a id="toggle_info_link">[+] Show</a--></p>
+        <p><a id="toggle_info_link" class="toggle_link">{% if show_word_info %}[-] Hide{% else %}[+] Show{% endif %}</a>{% if card.hints %}&nbsp;&nbsp;&nbsp;&nbsp;<a class="toggle_link" title="{{ card.hints }}">[?] Hints</a>{% endif %}</p>
+        <section id="word_info"{% if not show_word_info %} style="display:none;{% endif %}">
+            <p><span class="italic" title="part of speech">{{ card.get_part_of_speech }}</span>. <span class="strong" title="definition">{{ card.definition }}</span>{% if card.lesson_number %}&nbsp;&nbsp;|&nbsp;&nbsp;lesson {{ card.lesson_number }}{% endif %}</p>
+            {% if card.notes %}<p title="notes">{{ card.notes|linebreaksbr }}</p>{% endif %}
+            {% if card.parsing_info %}<p title="parsing"><span class="italic">{{ card.parsing_info }}</span></p>{% endif %}
+
+            {% for word in card.related_cards.all %}
+                {% if forloop.first %}
+                <ul id="related_cards"><li>also see</li>{% endif %}
+                <li><a href="{% url ntgreekvocab:card-view card_id=word.id %}" title="{{ word.part_of_speech }}., {{ word.definition }}">{{word.greek_word}}</a>{% if forloop.last %}</li></ul>{% else %}, </li>{% endif %}
+            {% endfor %}
+            <footer>
+                <p><a href="{% url ntgreekvocab:card-edit card_id=card.id %}">edit</a></p>
+            </footer>
+        </section>
+    </article>
+{% endblock %}
+
+{% block customjs %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/ntgreekvocab/home.js"></script>
+{% endblock %}

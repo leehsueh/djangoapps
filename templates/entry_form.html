@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block header1 %}Send me a message!{% endblock %}
+
+{% block content %}
+{% if error %}
+    <p>Please correct the error{{ form.errors|pluralize }} below.</p>
+{% endif %}
+<form action="" method="post">
+    {{ form.as_table }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

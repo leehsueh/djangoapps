@@ -1,0 +1,147 @@
+/*@charset "utf-8";*/
+body  {
+	font: 72% Verdana, Arial, Helvetica, sans-serif;
+	background: #666666;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	text-align: left; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #444;
+}
+img {
+	border:0;
+}
+a:link, a:visited {
+	color: #36c;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	text-decoration: underline;
+}
+#container { 
+	position:relative; 
+	min-width:760px; 
+	max-width:110em;
+	  /* width: 80%; this will create a container 80% of the browser width */
+	background: #FFFFFF;
+	margin: 0 1em; /* the auto margins (in conjunction with a width) center the page */
+	border: 0.1em solid #444;
+	text-align: left; /* this overrides the text-align: center on the body element. */
+} 
+#container ul {
+	list-style-type:square;
+	padding:0;
+	padding-left:1.5em;
+}
+#header { 
+	/*height: 80px;*/
+	background: #DDDDDD; 
+	padding: 0 10px;  /* this padding matches the left alignment of the elements in the divs that appear beneath it. If an image is used in the #header instead of text, you may want to remove the padding. */
+	border: 0;
+	border-bottom: 0.1em solid #444;
+} 
+#header h1 {
+	margin: 0; /* zeroing the margin of the last element in the #header div will avoid margin collapse - an unexplainable space between divs. If the div has a border around it, this is not necessary as that also avoids the margin collapse */
+	padding: 10px 0; /* using padding instead of margin will allow you to keep the element away from the edges of the div */
+	padding-bottom: 0.1em;
+}
+#header #tagline {
+	margin: 0;
+	padding: 0;
+	text-align: right;
+
+	font-size: 1.2em;
+	font-style: italic;
+	font-weight: normal;
+}
+#header #navbar {
+	position: relative;
+	top: 0.1em;
+}
+#header #navbar ul {
+	margin: 0;
+}
+#header #navbar li {
+	list-style-type: none;
+	display: inline;
+	margin: 0px 0.2em;
+}
+#header #navbar li a {
+	display: inline-block;
+	padding: 0.3em 1em;
+	border: 0.1em solid #444;
+	/*width: 9em;*/
+	background-color: #bbb;
+	text-align:center;
+	color: black;
+	font-size: 1.1em;
+	text-decoration: none;
+	font-weight: bold;
+
+}
+#header #navbar li a:hover {
+	background-color: #444;
+	color:#fff;
+}
+#header #navbar li a.navCurrent {
+	background-color: #fff;
+	color:#444;
+	border-bottom: 0.1em solid #fff;
+}
+#contentContainer {
+	overflow: auto;
+}
+#footer { 
+	padding: 10px 10px; /* this padding matches the left alignment of the elements in the divs that appear above it. */
+	background:#DDDDDD;
+	border-top: 0.1em solid #444;
+	margin-top: 4em;
+} 
+#footer p {
+	margin: 0; /* zeroing the margins of the first element in the footer will avoid the possibility of margin collapse - a space between divs */
+	text-align: center;
+}
+#footer ul {
+	margin: 0 auto;
+}
+
+/* Miscellaneous classes for reuse */
+.fltrt { /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class should be placed on a div or break element and should be the final element before the close of a container that should fully contain a float */
+	clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
+.hidden {
+    display:none;
+}
+
+.smalltext {
+	font-size:0.9em;
+}
+
+div.lightBorder {
+	border: 0.1em #ddd solid;
+	padding: 1em;
+}
+div.paddedDiv {
+	padding: 1em;
+	margin: 0;
+	margin-bottom: 1em;
+}
+
+/** Used for browsing the Bible and for viewing single entry **/
+#translation_links ul {
+	padding-left: 0px;
+}
+#translation_links ul li {
+	display: inline;
+    list-style-type: none;
+}

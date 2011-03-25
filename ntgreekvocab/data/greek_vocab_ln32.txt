@@ -1,0 +1,24 @@
+#Word	Part of Speech	definition	lesson number	parsing info	notes	hints
+ἀνοίγω	verb	I open	32	"present, active, indicative, 1st person, singular"		
+ἀρχή	noun	"a beginning, a first thing, a principle"	32	"feminine, singular, nominative"		
+αφίημι	verb	"I let go, I permit, I leave, I forgive"	32	"present, active, indicative, 1st person, singular"	"When it means ""forgive,"" takes the accusative of the thing forgiven and the dative of the person to whom it is forgiven."	
+ἐπιτίθημι	verb	I lay upon	32	"present, active, indicative, 1st person, singular"	Takes the accusative of the thing laid and dative of the person or thing upon which it is laid.	
+εὐρίσκω	verb	I find	32	"present, active, indicative, 1st person, singular"		
+καθώς	adverb	just as	32			
+καιρός	noun	"a time, a fixed time, an appointed time, an appropriate season"	32	"masculine, singular, nominative"		
+κωλύω	verb	"I hinder, I prevent"	32	"present, active, indicative, 1st person, singular"	opposite of αφίημι	
+μνημεῖον	noun	a tomb	32	"neuter, singular, nominative"		
+μόνον	adverb	only	32			
+οὔτε	conjunction	"and not, nor"	32		essentially the same as οὐδε	
+"πῦρ, πυρός"	noun	a fire	32	"neuter, singular, nominative, genitive"		
+"στόμα, στόματος"	noun	a mouth	32	"neuter, singular, nominative, genitive"		
+τίθημι	verb	"I place, I put"	32	"present, active, indicative, 1st person, singular"		
+τίθημι τὴν ψυχήν	phrase	I lay down my life	32			
+"τοιοῦτος, τοιαύτη, τοιοῦτο"	adjective	such	32	"masculine, feminine, neuter, singular, nominative"	often used with the article	
+ὑπάγω	verb	I go away	32	"present, active, indicative, 1st person, singular"		
+χαίρω	verb	I rejoice	32	"present, active, indicative, 1st person, singular"		
+ἐχάρην	verb	I rejoiced	32	"2nd aorist, passive, indicative, 1st person, singular"		
+χρόνος	noun	time	32	"masculine, singular, nominative"	"especially a period of time or duration of time καιρός, a definite time"	"""chronology"""
+ὧδε	adverb	"hither, here"	32			
+ὥσπερ	adverb	just as	32			
+ὥστε	conjunction	so that	32		"occurs with the accusative and infinitive to express result (""with the result that""). Slightly differs from ἵνα (with the subjunctive) which expresses intended result, vs. actual result."	

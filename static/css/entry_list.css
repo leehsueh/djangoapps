@@ -1,0 +1,94 @@
+/* overwrite base 2 col widths */
+.thrColEls #mainContent { 
+	margin: 0 20px 0 27%;
+} 
+
+.thrColEls #sidebar1 {
+	width: 25%;
+}
+.thrColEls #sidebar2 {
+	width: 24%;
+	padding: 5.5em 0.5em; /* top and bottom padding create visual space within this div */
+}
+.thrColEls #sidebar2 #sortOptions {
+	border: 0.1em solid #ddd;
+	padding: 0.5em;
+}
+.thrColEls #mainContent h2 {
+	margin-bottom:1.5em;
+	
+}
+/* CSS for styling entry list "blocks" */
+.entryAudit {
+	margin: 0;
+	font-size: 0.9em;
+	padding: 0.3em 0;
+	border:0;
+	margin-bottom: 2em;
+}
+.date {
+	color: #999;
+}
+.algnrt {
+	text-align: right;
+	padding-right: 1em;
+	font-size: 0.9em;
+}
+div.entryContainer {
+/*	border: 0.1em solid black;*/
+	
+	padding: 0;
+	overflow: auto;
+	background-color: #fff;
+	margin-bottom: 1.5em;
+	max-width: 50em;
+}
+div.entryContainer:hover {
+	background-color: #444;
+}
+div.entryContainer div {
+
+}
+div.passageRef {
+	width: 16%;
+	margin:0;
+	margin-bottom: 0em;
+	text-align: center;
+	font-size: 0.9em;
+	padding: 0 0.5em 2em 0.5em;
+	background-color:#fff;
+	border-bottom: 0.1em #444 solid;
+}
+div.entryWrapper{
+	overflow:auto;
+	width:98%;
+}
+div.entryInfoWrapper {
+	margin: 0;
+	width: 78%;
+	border-left: 0.1em #444 solid;
+	border-bottom: 0.1em #444 solid;
+	padding-left: 1em;
+	background-color:#fff;
+}
+div.entryInfoWrapper p{
+	margin: 0;
+}
+div.entryInfoWrapper div.entryInfo h3 {
+	margin: 0;
+	margin-top:1em;
+}
+h3 a:link,h3 a:visited {
+	color:#444;
+	text-decoration:none;
+}
+h3 a:hover,h3 a:focus {
+	text-decoration:underline;
+}
+div.pagination {
+	text-align:left;
+}
+span.paginationLinks {
+	font-size:0.9em;
+	font-weight:bold;
+}

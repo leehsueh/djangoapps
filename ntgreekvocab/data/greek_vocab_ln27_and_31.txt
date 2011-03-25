@@ -1,0 +1,34 @@
+#Word	Part of Speech	definition	lesson number	parsing info	notes	hints
+"αἰώνιος, -ον"	adjective	eternal	31	"masculine/feminine, neuter, singular, nominative"		
+ἀντί	preposition	"with the gen., instead of, for, in exchange for"	31			
+ἀποδίδωμι	verb	"I give back, I give what is owed or promised, I render, I pay"	31	"present, active, indicative, 1st person, singular"		
+"γυνή, γυναικός"	noun	a woman	31	"feminine, singular, nominative"	with an irregular accent in some forms	
+δίδωμι	verb	I give	31	"present, active, indicative, 1st person, singular"		
+ἕγνων	verb	I knew	31	"aorist, active, indicative, 1st person, singular"	2nd aorist of γινώσκω	
+ἐξουσία	noun	authority	31	"feminine, singular, nominative"	"followed by a genitive, as in ""authority over"""	
+ἕσχον	verb	I had	31	"aorist, active, indicative, 1st person, singular"	2nd aorist of ἔχω	
+ζάω	verb	I live	31	"present, active, indicative, 1st person, singular"	"has η instead of α in the progressive system; e.g. ζῆς, ζῆ instead of ζᾶς, ζᾶ"	
+ἰδού	particle		31		demonstrative particle	
+"μόνος, -η, -ον"	adjective	"alone, only"	31	"singular, nominative"		"""mono-"""
+παραδίδωμι	verb	I deliver over	31	"present, active, indicative, 1st person, singular"		
+πειράζω	verb	I tempt (or I test)	31	"present, active, indicative, 1st person, singular"	"literally means ""I pressure"""	
+"ποῖος, -α, -ον"	pronoun	what sort of?	31	"singular, nominative"		
+"Σίμων, Σίμωνος"	noun	Simon	31	"masculine, singular, nominative, genitive"		
+διδόναι	verb	to give	31	"present, active, infinitive"		
+δοῦναι	verb	to give	31	"aorist, active, infinitive"		
+αἰτέω	verb	"I ask, I request"	27	"present, active, indicative, 1st person, singular"		
+ἐπερωτάω	verb	"I ask a question of, I question"	27	"present, active, indicative, 1st person, singular"		
+ἑρωτάω	verb	"I ask a question, I ask a question of, I question, I ask"	27	"present, active, indicative, 1st person, singular"	"Originially meant ""to ask"" in the sense of ""to question,"" and αἰτέω meant ""to ask"" in the sense of ""to request,"" but in NT Greek this word is frequently used in both senses."	
+καρπός	noun	a fruit	27	"masculine, singular, nominative"		
+"κρίσις, κρίσεως"	noun	a judgment	27	"feminine, singular, nominative/genitive"		
+ὄπου	adverb	where (relative)	27			
+"ὅς, ἥ, ὅ"	pronoun	"who, which, that"	27	"singular, nominative"		
+ὅταν	phrase	whenever (with subjunctive)	27		for ὅτε ἄν	
+ὅτε	adverb	when (relative)	27			
+οὖν	conjunction	"accordingly, therefore, then"	27		"postpositive, like δέ and γάρ"	
+ποῦ	adverb	where? (interrogative)	27			
+πῶς	adverb	how? (interrogative)	27			
+"τίς, τί"	pronoun	who? which? what? (interrogative)	27	"masculine/feminine, neuter, singular, nominative"		
+"τις, τι"	pronoun	"someone, something, a certain one, a certain thing"	27	"masculine/feminine, neuter, singular, nominative"	indefinite pronoun	
+φάγομαι	verb	I will eat	27	"future, middle/passive, indicative, 1st person, singular"	very irregular future of ἐσθίω	
+ἔφαγον	verb	I ate	27	"aorist, active, indicative, 1st person, singular"		

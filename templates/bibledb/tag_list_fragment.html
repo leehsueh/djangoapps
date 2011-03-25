@@ -1,0 +1,7 @@
+<h2>Tags</h2>
+<div>
+    <p>
+    {% for tag in tag_list %}<a style="font-size:{{tag.weight}}em;" href="{% url bibledb:entries-tag slug=tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </p>
+</div>

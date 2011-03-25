@@ -1,0 +1,9 @@
+{% extends "ntgreekvocab/base.html" %}
+{% block content %}
+<p>{{ object_list.count }} word{{ object_list.count|pluralize }}</p>
+{% for card in object_list %}
+    {% if forloop.first %}<ul>{% endif %}
+        <li><a href="{% url ntgreekvocab:card-view card_id=card.id %}">{{ card }}</a></li>
+    {% if forloop.last %}</ul>{% endif %}
+{% endfor %}
+{% endblock %}

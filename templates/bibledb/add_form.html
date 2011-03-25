@@ -1,0 +1,28 @@
+{% extends 'bibledb/base_twoCol.html' %}
+{% block additionalcss %}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/forms.css" />
+{% endblock %}
+{% block leftcolcontent %}
+{% if form_submit_name == "addVerseList" %}
+{% include "bibledb/cat_list_fragment.html" %}
+
+{% else %}
+{{ static_explanation|safe }}
+{% endif %}
+{% endblock %}
+
+{% block rightcolcontent %}
+<h2>{{ form_header }}</h2>
+<form action="" method="post">{% csrf_token %}{% if form.book %}
+{% include "bibledb/entry_form_fragment.html" %}
+
+{% else %}{{ static_explanation|safe }}
+<div id="addListForm">
+    {{ form.as_p }}
+    <p><button type="submit" name="{{ form_submit_name }}" value="Submit">Submit</button></p>
+</div>{% endif %}
+
+</form>
+
+
+{% endblock %}

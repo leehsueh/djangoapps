@@ -1,0 +1,58 @@
+label { font-weight: bold;}
+button {
+	background-color: #ccc;
+	margin: 0 0.5em;
+	padding: 0.1em;
+	border: 1px solid #444;
+	font-weight: bold;
+}
+button:hover {
+	cursor: pointer;
+}
+textarea {
+	width:100%;
+}
+#verseForm {
+	margin: 2em 0 1em 0;
+}
+#passage_preview{
+	background: #efefef;
+}
+#addEntryForm {
+
+}
+.fieldWrapper {
+	margin: 1em 0.5em;
+}
+
+#addListForm {
+
+}
+#formCol1 { width:60%; }
+#formCol2 { width:33%; }
+#addTagsForm {
+	margin-left: 4em;
+}
+button.button_as_link {
+	background: none;
+	border: 0;
+	font-family:inherit;
+	font-size:0.9em;
+	margin:0;
+	padding:0;
+}
+button.button_as_link span{
+	color: #36c;
+	font-weight: normal;
+	text-decoration: none;
+}
+button.button_as_link:focus, button.button_as_link:hover span{
+	background: none;
+	text-decoration: underline;
+}
+#voteButton {
+	font-size:1em;
+}
+.error, .errorlist li {
+	color: red;
+}

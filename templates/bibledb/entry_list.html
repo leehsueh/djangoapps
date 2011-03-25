@@ -1,0 +1,60 @@
+{% extends 'bibledb/base_threeCol.html' %}
+
+{% block additionalcss %}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/forms.css" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/entry_list.css" />
+{% endblock %}
+
+{% block sidebar1content %}
+<h2>By Passage</h2>
+<div id="verseForm">
+<form action="{% url bibledb:entries-browse %}" method="get">
+{% if browse_bible_form.errors or browse_bible_form.non_field_errors %}
+    <ul>
+    	{% for error in browse_bible_form.book.errors %}<li>Book: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.chapter.errors %}<li>Chapter: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.startverse.errors %}<li>Start verse: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.endverse.errors %}<li>End verse: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+<p>{{ browse_bible_form.book }} {{ browse_bible_form.chapter }}<!--:{{ browse_bible_form.startverse }}-{{ browse_bible_form.endverse }}--> <button class="button_as_link" type="submit" value="Submit"><span>Go</span></button></p>
+</form>
+</div>
+
+{% include "bibledb/cat_list_fragment.html" %}
+{% include "bibledb/tag_list_fragment.html" %}
+
+<h2><a href="{% url bibledb:users %}">Users</a></h2>
+<h2><a href="{% url bibledb:entries-all %}">View All</a></h2>
+{% endblock %}
+
+{% block maincontent %}
+<h2>{{ content_header }}</h2>
+{% for entry in entries_paginator.object_list %}
+{% include "bibledb/entry_list_fragment.html" %}
+{% if forloop.last %}
+<div class="pagination">
+  <span class="paginationLinks">{% if entries_paginator.has_previous %}
+  	<a href="?p={{ entries_paginator.previous_page_number }}">&lt;&lt;</a>&nbsp;|&nbsp;{% endif %}
+    {{ entries_paginator.number }} of {{ entries_paginator.paginator.num_pages }}
+    {% if entries_paginator.has_next %}&nbsp;|&nbsp;<a href="?p={{ entries_paginator.next_page_number }}">&gt;&gt;</a>{% endif %}
+  </span>
+</div>{% endif %}
+{% empty %}
+<p>No entries yet.</p>
+{% endfor %}
+
+{% endblock %}
+
+{% block sidebar2content %}
+<div id="sortOptions">
+<h3>Sort by</h3>
+<ul>
+  <li>post date (<a href="?sort=-pub_date">newest</a>, <a href="?sort=pub_date">oldest</a>)</li>
+  <li>title (<a href="?sort=title">alphabetical</a>, <a href="?sort=-title">reverse-alphabetical</a>)</li>
+  <li>passage (<a href="?sort=startverse">forward</a>, <a href="?sort=-startverse">backward</a>)</li>
+  <li>number of votes (<a href="?sort=-num_votes">most</a>, <a href="?sort=num_votes">least</a>)</li>
+</ul>
+</div>
+{% endblock %}

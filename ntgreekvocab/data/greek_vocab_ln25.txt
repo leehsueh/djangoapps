@@ -1,0 +1,18 @@
+#Word	Part of Speech	definition	lesson number	parsing info	notes	hints
+"ἀληθής, -ές"	adjective	true 	25	"masculine/feminine, neuter, singular, nominative"		
+"ἀνήρ, ἀνδρός"	noun	a man	25	"masculine, singular, nominative/genitive"	"a man, as distinguished from women and children, vs. ἄνθρωπος which refers to a human being"	
+"ἁρξιερεύς, ἀρχιερέως"	noun	a chief priest	25	"masculine, singular, nominative/genitive"	3rd declension ending like to βασιλεύς	"ἁρχων is ruler, and ἱερώ is temple"
+"βασιλεύς, βασιλέως"	noun	a king	25	"masculine, singular, nominative/genitive"		
+"γένος, γένους"	noun	"a race, a kind"	25	"neuter, singular, nominative/accusative, genitive"	"root word of ""genocide"""	"""genotype"""
+"γραμματεύς, γραμματέως"	noun	a scribe	25	"masculine, singular, nominative/genitive"	3rd declension ending like to βασιλεύς	
+"ἔθνος, ἔθνους"	noun	a nation	25	"neuter, singular, nominative/accusative, genitive"	3rd declension ending to γένος	"""ethnic"""
+τὰ ἔθνη	noun	"the nations, the Gentiles"		"neuter, plural, nominative/accusative"		
+"ἱερεύς, ἱερέως"	noun	a priest	25	"masculine, singular, nominative/genitive"	3rd declension ending like to βασιλεύς	
+"μήτηρ, μήτρός"	noun	a mother	25	"feminine, singular, nominative/genitive"		
+"ὀξύς, -εῖα, -ύ"	adjective	sharp	25	"singular, nominative"		
+"ὄρος, ὄρους"	noun	a mountain	25	"neuter, singular, nominative/accusative, genitive"	3rd declension ending like to γένος	
+"πατήρ, πατρός"	noun	a father	25	"masculine, singular, nominative/genitive"		
+"πίστις, πίστεως"	noun	faith	25	"feminine, singular, nominative/genitive"	"3rd declension ending like πόλις, πόλεως"	
+"πλήρης, -ες"	adjective	full	25	"masculine/feminine, neuter, singular, nominative"	3rd declension ending like ἀληθής	
+"πόλις, πόλεως"	noun	a city	25	"feminine, singular, nominative/genitive"	"origin of ""policy""; rules governing a city."	"metro-""polis"""
+"χάρις, χάριτος"	noun	grace	25	"feminine, singular, nominative/genitive"		

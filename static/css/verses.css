@@ -1,0 +1,54 @@
+.thrColEls #sidebar1 {
+	width:18em;
+}
+
+.thrColEls #sidebar2 {
+	float: right; 
+	width: 22em; /* since this element is floated, a width must be given */
+	background: #fff; /* the background color will be displayed for the length of the content in the column, but no further */
+	padding: 5.5em 0.5em; /* top and bottom padding create visual space within this div */
+}
+.thrColEls #mainContent {
+  margin: 0em 23em 0 20em; /* the right margin can be given in ems or pixels. It creates the space down the right side of the page. */
+} 
+
+.thrColEls #sidebar2 .relatedEntries {
+	border: 0.1em solid #ddd;
+	padding: 0.5em;
+	margin-bottom: 1em;
+}
+.thrColEls #sidebar2 .relatedEntries h3{
+	margin:0;
+}
+.thrColEls #sidebar2 .relatedEntries ul {
+	margin-top:5px;
+	padding:0;
+	padding-left:1.5em;
+	list-style-type:square;
+}
+table.verseTable {
+	margin-top: 1em;
+	border: 0;
+	border-spacing: 0.2em;
+}
+table.verseTable td.browseBibleNav {
+	text-align:center;
+	padding: 10px 1em;
+	font-weight:bold;
+}
+table.verseTable tr.verse {
+	background: #ccc;
+}
+table.verseTable tr.verse:hover {
+	background: #444;
+}
+table.verseTable td {
+	padding: 1px;
+}
+table.verseTable td.verseNum,td.verseText {
+	background-color: #fff;
+}
+table.verseTable td.colSpacer {
+	width: 0.3em;
+	background: none;
+}
