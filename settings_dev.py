@@ -99,7 +99,6 @@ INSTALLED_APPS = (
 	'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.comments',
-	'siteapps_v1.dailyblessings',
     'siteapps_v1.bibledb',
     'siteapps_v1.ntgreekvocab'
 )

@@ -11,7 +11,6 @@ urlpatterns = patterns('',
     
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    (r'^dailyblessings/', include('siteapps_v1.dailyblessings.urls')),
     #(r'^bibledb/', include('siteapps_v1.bibledb.urls')),
     
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
