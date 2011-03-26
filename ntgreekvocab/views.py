@@ -153,6 +153,20 @@ def card_list(request):
     }
     return render_to_response('ntgreekvocab/listcards.html', context, RequestContext(request))
 
+def cards_by_lesson(request, lesson_num):
+    try:
+        cards = SimpleCard.objects.filter(lesson_number__iexact=lesson_num)
+        if cards.count() == 0:
+            return Http404(u'No words for lesson ' + lesson_num + '.')
+            
+        context = {
+            'cards': cards,
+            'lesson_number': lesson_num,
+        }
+        return render_to_response('ntgreekvocab/lesson.html', context, RequestContext(request))
+    except:
+        return HttpResponseRedirect(reverse('ntgreekvocab:cards-list'))
+
 def card_lookup(request):
     context = {}
     return render_to_response('ntgreekvocab/lookupcard.html', context, RequestContext(request))

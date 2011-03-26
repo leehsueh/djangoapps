@@ -28,6 +28,10 @@ urlpatterns = patterns('',
         'siteapps_v1.ntgreekvocab.views.card_list',
         name='cards-list'
     ),
+    url(r'^lesson/(?P<lesson_num>[0-9]{1,2}[ABab]{0,1})/$',
+        'siteapps_v1.ntgreekvocab.views.cards_by_lesson',
+        name='lesson'
+    ),
     url(r'^card/lookup/$',
         'siteapps_v1.ntgreekvocab.views.card_lookup',
         name='card-lookup'

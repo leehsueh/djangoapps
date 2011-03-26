@@ -1,0 +1,6 @@
+<ul>{% for word in cards %}
+    <li>{{ word.greek_word }}</li>{% endfor %}
+</ul>
+{% for card in cards %}
+    {% include 'ntgreekvocab/fetchcard.html' %}
+{% endfor %}
