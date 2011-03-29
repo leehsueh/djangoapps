@@ -1,0 +1,16 @@
+#Word	Part of Speech	definition	lesson number	parsing info	notes	hints
+ἀνίστημι	verb	"transitive: I cause to rise. Intransitive: I stand up, I arise"	33	"present, active, indicative, 1st person, singular"	"a -μι verb. Transitive meaning when in present, future, or 1st aorist. Intransitive meaning when in 2nd aorist, perfect active, or middle."	
+δοκέω	verb	"I seem, I think"	33	"present, active, indicative, 1st person, singular"		
+δύναμαι	verb	I am able	33	"present, active, indicative, 1st person, singular"	deponent	
+"δύναμις, δυνάμεως"	noun	"power, a miracle"	33	"feminine, singular, nominative"		
+ἔβην	verb	I went	33	"2nd aorist, active, indicative, 1st person, singular"	2nd aorist of βαίνω	
+"ἕτερος, -α, -ον"	adjective	another	33	"masculine, feminine, neuter, singular, nominative"	"sometimes, but not always, implies difference of kind, whereas ἄλλος often denotes mere numerical distinction"	"""heterogeneous"""
+ἵστημι	verb	transitive: I cause to stand. Intransitive: I stand.	33	"present, active, indicative, 1st person, singular"	"a -μι verb. Transitive meaning when in present, future, or 1st aorist. Intransitive meaning when in 2nd aorist, perfect active, or middle."	
+κάθημαι	verb	I sit	33	"present, middle, indicative, 1st person, singular"	deponent	
+καθήμενος	participle	sitting	33	"present, middle, indicative, singular, masculine, nominative"		
+"ὅλος, -η, -ον"	adjective	"whole, all"	33	"masculine, feminine, neuter, singular, nominative"		
+"ὅμοιος, -α, -ον"	adjective	"like, similar"	33	"masculine, feminine, neuter, singular, nominative"	takes the dative of that to which something is similar. opposite of ἕτερος.	"""homogeneous"""
+παραγίνομαι	verb	"I become near, I arrive, I come"	33	"present, middle, indicative, 1st person, singular"		
+φανερόω	verb	"I make known, I reveal"	33	"present, active, indicative, 1st person, singular"		
+φημί	verb	I say	33	"present, active, indicative, 1st person, singular"	μι verb with stem φα-; much less common than λέγω	
+ὡς	adverb	"as, when"	33			
