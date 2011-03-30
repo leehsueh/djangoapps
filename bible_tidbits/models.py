@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Verse(models.Model):
     book = models.CharField(max_length=64, editable=False)
@@ -32,3 +33,19 @@ class CrossRef(models.Model):
             return u'%s %s:%s-%s:%s' % (startverse.book,
                                 startverse.chapter_ref, startverse.verse_ref,
                                 endverse.chapter_ref, endverse.verse_ref)
+    class Meta:
+        ordering = ['startverse', 'endverse']
+
+class Tidbit(models.Model):
+    tidbit = models.TextField()
+    cross_refs = models.ManyToManyFIeld(CrossRef)
+    reflection = models.TextField(blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User)
+    
+    def __unicode(self):
+        return u'%s, by %s' % (self.tidbit[:50], self.created_by.username)
+        
+    class Meta:
+        ordering = ['updated_on', 'created_on', 'id']
