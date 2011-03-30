@@ -88,6 +88,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(os.path.dirname(__file__),'templates').replace('\\','/'),
+    os.path.join(os.path.dirname(__file__),'bible_tidbits/templates').replace('\\','/'),
 )
 
 INSTALLED_APPS = (
@@ -95,11 +96,12 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-	'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.comments',
     'siteapps_v1.bibledb',
-    'siteapps_v1.ntgreekvocab'
+    'siteapps_v1.ntgreekvocab',
+    'siteapps_v1.bible_tidbits',
 )
 
 EMAIL_HOST = 'smtp.webfaction.com'

@@ -8,6 +8,9 @@ urlpatterns = patterns('',
     
     # NT greek app
     (r'^ntgreek/', include('siteapps_v1.ntgreekvocab.urls', namespace='ntgreekvocab', app_name='ntgreekvocab')),
+
+    # Bible tidbits app
+    (r'^tidbits/', include('siteapps_v1.bible_tidbits.urls', namespace='tidbits', app_name='bible_tidbits')),
     
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),

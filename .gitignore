@@ -1,3 +1,7 @@
+# Netbeans project folder #
+###########################
+nbproject/
+
 # Compiled source #
 ###################
 *.com
