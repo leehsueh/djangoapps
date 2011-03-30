@@ -23,29 +23,35 @@ class CrossRef(models.Model):
     endverse = models.ForeignKey(Verse, related_name="endverse")
 
     def __unicode__(self):
-        if startverse.id == endverse.id:
-            return u'%s %s:%s' % (startverse.book, startverse.chapter_ref,
-                                  startverse.verse_ref)
-        elif startverse.chapter_ref == endverse.chapter_ref:
-            return u'%s %s:%s-%s' % (startverse.book, startverse.chapter_ref,
-                                     startverse.verse_ref, endverse.verse_ref)
+        if self.startverse.id == self.endverse.id:
+            return u'%s %s:%s' % (self.startverse.book, self.startverse.chapter_ref,
+                                  self.startverse.verse_ref)
+        elif self.startverse.chapter_ref == self.endverse.chapter_ref:
+            return u'%s %s:%s-%s' % (self.startverse.book, self.startverse.chapter_ref,
+                                     self.startverse.verse_ref, self.endverse.verse_ref)
         else:
-            return u'%s %s:%s-%s:%s' % (startverse.book,
-                                startverse.chapter_ref, startverse.verse_ref,
-                                endverse.chapter_ref, endverse.verse_ref)
+            return u'%s %s:%s-%s:%s' % (self.startverse.book,
+                                self.startverse.chapter_ref, self.startverse.verse_ref,
+                                self.endverse.chapter_ref, self.endverse.verse_ref)
     class Meta:
         ordering = ['startverse', 'endverse']
+        unique_together = ('startverse', 'endverse')
+        verbose_name = "Cross Reference"
+
+class Tag(models.Model):
+    tag = models.CharField(max_length=128, unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
 
 class Tidbit(models.Model):
     tidbit = models.TextField()
-    cross_refs = models.ManyToManyFIeld(CrossRef)
+    cross_refs = models.ManyToManyField(CrossRef)
     reflection = models.TextField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User)
     
-    def __unicode(self):
+    def __unicode__(self):
         return u'%s, by %s' % (self.tidbit[:50], self.created_by.username)
         
     class Meta:
-        ordering = ['updated_on', 'created_on', 'id']
+        ordering = ['-updated_on', '-created_on', '-id']

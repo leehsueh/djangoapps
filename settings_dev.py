@@ -44,7 +44,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = 'c://Users//leehsueh//webdev//svn.leehsueh.net//djcode//siteapps_v1//trunk//siteapps_v1//static//'
+MEDIA_ROOT = 'c://Users//leehsueh//webdev//gitstuff//siteapps_v1//static//'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -67,8 +67,8 @@ BIBLIA_API_KEY = 'd43cf9c9e02a3f4187e917a0e4f682a1'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
+    'django.template.loaders.filesystem.load_template_source',
 #     'django.template.loaders.eggs.load_template_source',
 )
 
@@ -89,7 +89,6 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(os.path.dirname(__file__),'templates').replace('\\','/'),
-    os.path.join(os.path.dirname(__file__),'bible_tidbits/templates').replace('\\','/'),
 )
 
 INSTALLED_APPS = (

@@ -1,0 +1,13 @@
+/* 
+    Document   : reset
+    Created on : Mar 29, 2011, 10:51:53 PM
+    Author     : leehsueh
+    Description:
+        Reset stuff.
+*/
+
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+

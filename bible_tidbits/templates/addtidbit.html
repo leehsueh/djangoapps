@@ -1,0 +1,9 @@
+<form action="{% url tidbits:add %}" method="post" id="add_tidbit_form">
+    <textarea name="tidbit"></textarea>
+    <fieldset id="cross_refs">
+        <legend>Cross References</legend>
+        <input name="cf" class="cf" type="text" placeholder="Enter passage">
+    </fieldset>
+    <input type="submit" value="Save">
+    {% csrf_token %}
+</form>

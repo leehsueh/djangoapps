@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<title>Bible Tidbits: {% block title %}Home{% endblock %}</title>
+	<meta name="description" content="">
+	<base href="/">
+
+	<!-- for mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="{{ MEDIA_URL }}tidbits/css/reset.css">
+	<link rel="stylesheet" href="{{ MEDIA_URL }}tidbits/css/style.css">
+</head>
+
+<body>
+    <div id="container">
+        <header>
+        <hgroup>
+          <h1><a href="{% url tidbits:home %}">Bible Tidbits</a></h1>
+          <h2>for those impromptu bits of insight</h2>
+        </hgroup>
+        <nav>
+            <ul>
+                <li><a href="{% url tidbits:home %}">Home</a></li>
+                <li><a href="{% url tidbits:home %}">Log In</a></li>
+                <li><a href="{% url tidbits:add %}">New Tidbit</a></li>
+            </ul>
+        </nav>
+        </header>
+        {% block content %}
+        <p>This text should be replaced by sub-templates.</p>
+        {% endblock %}
+    </div>
+
+
+
+</body>
+
+</html>
