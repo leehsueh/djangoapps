@@ -1,0 +1,96 @@
+<style type="text/css">
+a {
+    cursor: pointer;
+}
+#cross_refs li {
+    list-style-type: none;    
+}
+
+.valid {
+    border: 1px green solid;    
+}
+.invalid {
+    border: 1px red solid;    
+}
+</style>
+<form action="{% url tidbits:add %}" method="post" id="add_tidbit_form">
+    <textarea name="tidbit"></textarea>
+    <fieldset>
+        <legend>Cross References</legend>
+        <ul id="cross_refs">
+            <li><input type="text" name="cf" class="cf" type="text" placeholder="Enter passage"> <a>x</a></li>
+        </ul>
+        <button>Add</button>
+    </fieldset>
+    <input type="number">
+    <input type="submit" value="Save" id="save_btn">
+    <input type="submit" value="Cancel" id="cancel_btn">
+</form>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script>
+add_input_text = function(event) {
+    event.preventDefault();
+    $("#cross_refs").append('<li><input type="text" name="cf" class="cf" placeholder="Enter passage"> <a>x</a></li>');
+    $("#cross_refs a").click(remove_input_text);
+    $("#cross_refs input[type=text]").keydown(clear_validate);
+}
+
+remove_input_text = function(event) {
+    event.preventDefault();
+    var liItem = $(this).parentsUntil("ul")
+    
+    // animate/remove list item
+    liItem[0].style.visibility = 'hidden';
+    liItem.animate({
+                opacity: 0,
+                height: 0
+              }, 300, function() { liItem.remove(); });
+}
+
+cancel_action = function(event) {
+    event.preventDefault();
+    window.location="";
+}
+
+timeoutId = 0;
+clear_validate = function(event) {
+    if (timeoutId != 0) {
+        window.clearTimeout(timeoutId);
+    }
+    timeoutId = window.setTimeout(validate_cross_ref, 500, event);
+}
+
+validate_cross_ref = function(event) {
+    inputobj = event.currentTarget;
+    var text = inputobj.value;
+    var matches = re.exec(text);
+    if (matches == null) {
+        // mark input as invalid
+        $(inputobj).removeClass("valid").addClass("invalid");
+    } else {
+        // mark input as good to go 
+        //alert(matches);
+        $(inputobj).removeClass("invalid").addClass("valid");
+    }
+}
+
+check_for_invalids = function(event) {
+    event.preventDefault();
+    if ($("form .invalid").size() > 0)
+        alert("Please correct fields in red");
+    else
+        $("form").submit();
+}
+
+re = new RegExp(/[12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?/);
+
+$(document).ready(function() {
+    // initial event binding
+    $("button").click(add_input_text);
+    $("#cross_refs a").click(remove_input_text);
+    $("#cancel_btn").click(cancel_action);
+    $("#cross_refs input[type=text]").keydown(clear_validate);
+    $("#save_btn").click(check_for_invalids);
+})
+</script>
