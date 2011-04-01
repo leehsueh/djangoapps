@@ -18,10 +18,12 @@ def home(request):
 def add(request):
     """Render form for adding a tidbit"""
     if request.method == 'POST':
-        params = request.POST
+        params = dict(request.POST)
         import pdb; pdb.set_trace()
         tidbit = params['tidbit']
-        crossref = params['cf']
+        crossrefs = params['cf']    # a list if more than one sent
+        if isinstance(crossrefs, str):
+            crossrefs = list(crossrefs)
 
         newtidbit = Tidbit()
         newtidbit.tidbit = tidbit
@@ -30,40 +32,45 @@ def add(request):
         
         # create cross reference passage
         regex = re.compile("(?P<book>([12]?[A-Za-z ]+[A-Za-z]))( ?(?P<start_chapter>[0-9]+)((:(?P<start_verse>[0-9]+))? ?(- ?(?P<end_chp_or_verse>[0-9]+)(:(?P<end_verse>[0-9]+))?)?)?)?")
-        matches = regex.search(crossref)
-        groups = matches.groupdict()
-        book = groups['book']
-        startchp = groups['start_chapter']
-        startvs = groups['start_verse']
-        endchporvs = groups['end_chp_or_verse']
-        endvs = groups['end_verse']
-
-        if not endchporvs:
-            endchp = startchp
-            endvs = startvs
-        if not endvs:
-            endvs = endchporvs
-            endchp = startchp
-        else:
-            endchp = endchporvs
-
-        startverse = Verse.objects.get(book__iexact=book,
-                                        chapter_ref=int(startchp),
-                                        verse_ref=int(startvs))
-        endverse = Verse.objects.get(book__iexact=book,
-                                        chapter_ref=int(endchp),
-                                        verse_ref=int(endvs))
-        # check for existing cf
-        try:
-            cf = CrossRef.objects.get(startverse=startverse, endverse=endverse)
-            newtidbit.cross_refs.add(cf)
-        except CrossRef.DoesNotExist:
-            newcf = CrossRef()
-            newcf.startverse = startverse
-            newcf.endverse = endverse
-            newcf.save()
-            newtidbit.cross_refs.add(newcf)
-
+        for cf in crossrefs:
+            matches = regex.search(crossref)
+            if matches == None:
+                continue
+            groups = matches.groupdict()
+            book = groups['book']
+            startchp = groups['start_chapter']
+            startvs = groups['start_verse']
+            endchporvs = groups['end_chp_or_verse']
+            endvs = groups['end_verse']
+    
+            if not endchporvs:
+                endchp = startchp
+                endvs = startvs
+            if not endvs:
+                endvs = endchporvs
+                endchp = startchp
+            else:
+                endchp = endchporvs
+    
+            startverse = Verse.objects.get(book__iexact=book,
+                                            chapter_ref=int(startchp),
+                                            verse_ref=int(startvs))
+            endverse = Verse.objects.get(book__iexact=book,
+                                            chapter_ref=int(endchp),
+                                            verse_ref=int(endvs))
+            # check for existing cf
+            try:
+                cf = CrossRef.objects.get(startverse=startverse, endverse=endverse)
+                newtidbit.cross_refs.add(cf)
+            except CrossRef.DoesNotExist:
+                newcf = CrossRef()
+                newcf.startverse = startverse
+                newcf.endverse = endverse
+                newcf.save()
+                newtidbit.cross_refs.add(newcf)
+        
+        newtidbit.save()
+        
         # redirect to home
         return HttpResponseRedirect(reverse("tidbits:home"))
 
