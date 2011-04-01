@@ -8,7 +8,6 @@ from siteapps_v1.bible_tidbits.models import *
 import re
 
 def test_form(request):
-    import pdb; pdb.set_trace()
     return render_to_response("testform.html", 
                             context_instance=RequestContext(request))
 
@@ -24,22 +23,30 @@ def home(request):
 def add(request):
     """Render form for adding a tidbit"""
     if request.method == 'POST':
-        params = dict(request.POST)
+        params = dict(request.POST) # values are lists
         import pdb; pdb.set_trace()
-        tidbit = params['tidbit']
-        crossrefs = params['cf']    # a list if more than one sent
-        if isinstance(crossrefs, str):
-            crossrefs = list(crossrefs)
+        # check for required parameters
+        keys = params.keys()
+        if 'tidbit' not in keys or 'cf' not in keys:
+            return HttpResponse("Missing parameters.")
+        
+        tidbit = params['tidbit'][0]
 
+        # filter out blank cf's
+        crossrefs = [cf for cf in params['cf'] if cf != u'']
+        if tidbit == u'' or crossrefs == []:
+            return HttpResponse("Tidbit and at least one cf is required.")
+
+        # required values populated; create new Tidbit
         newtidbit = Tidbit()
         newtidbit.tidbit = tidbit
         newtidbit.created_by = request.user
         newtidbit.save()    # need to save before adding cross refs
         
         # create cross reference passage
-        regex = re.compile("(?P<book>([12]?[A-Za-z ]+[A-Za-z]))( ?(?P<start_chapter>[0-9]+)((:(?P<start_verse>[0-9]+))? ?(- ?(?P<end_chp_or_verse>[0-9]+)(:(?P<end_verse>[0-9]+))?)?)?)?")
+        regex = re.compile("(?P<book>([12]?[A-Za-z ]+[A-Za-z]))( ?(?P<start_chapter>[0-9]+)((:(?P<start_verse>[0-9]+))? ?(- ?(?P<end_chp_or_verse>[0-9]+)(:(?P<end_verse>[0-9]+))?)?)?)?$")
         for cf in crossrefs:
-            matches = regex.search(crossref)
+            matches = regex.search(cf)
             if matches == None:
                 continue
             groups = matches.groupdict()
@@ -48,22 +55,25 @@ def add(request):
             startvs = groups['start_verse']
             endchporvs = groups['end_chp_or_verse']
             endvs = groups['end_verse']
-    
+            
             if not endchporvs:
                 endchp = startchp
                 endvs = startvs
-            if not endvs:
+            elif not endvs:
                 endvs = endchporvs
                 endchp = startchp
             else:
                 endchp = endchporvs
-    
-            startverse = Verse.objects.get(book__iexact=book,
-                                            chapter_ref=int(startchp),
-                                            verse_ref=int(startvs))
-            endverse = Verse.objects.get(book__iexact=book,
-                                            chapter_ref=int(endchp),
-                                            verse_ref=int(endvs))
+            try:
+                startverse = Verse.objects.get(book__istartswith=book,
+                                                chapter_ref=int(startchp),
+                                                verse_ref=int(startvs))
+                endverse = Verse.objects.get(book__istartswith=book,
+                                                chapter_ref=int(endchp),
+                                                verse_ref=int(endvs))
+            except Verse.DoesNotExist:
+                return HttpResponse("A cf is invalid!")
+            
             # check for existing cf
             try:
                 cf = CrossRef.objects.get(startverse=startverse, endverse=endverse)

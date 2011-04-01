@@ -13,7 +13,7 @@ a {
     border: 1px red solid;    
 }
 </style>
-<form action="/tidbits/test/" method="post" id="add_tidbit_form">
+<form action="{% url tidbits:add %}" method="post" id="add_tidbit_form">
     <textarea name="tidbit"></textarea>
     <fieldset>
         <legend>Cross References</legend>
@@ -28,6 +28,7 @@ a {
 </form>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script src="{{ MEDIA_URL }}js/livevalidation1.3.min.js"></script>
 <script>
 add_input_text = function(event) {
     event.preventDefault();
@@ -77,6 +78,7 @@ validate_cross_ref = function(event) {
 
 check_for_invalids = function(event) {
     event.preventDefault();
+    if ($("textarea[name=tidbit]").text() == '')
     if ($("form .invalid").size() > 0)
         alert("Please correct fields in red");
     else
