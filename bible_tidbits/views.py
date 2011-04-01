@@ -7,19 +7,25 @@ from django.contrib.auth.decorators import login_required
 from siteapps_v1.bible_tidbits.models import *
 import re
 
+def test_form(request):
+    import pdb; pdb.set_trace()
+    return render_to_response("testform.html", 
+                            context_instance=RequestContext(request))
+
 def home(request):
     """The home view"""
     c = {
         'tidbits': Tidbit.objects.all(),
     }
-    return render_to_response("home.html", c, context_instance=RequestContext(request))
+    return render_to_response("home.html", c,
+                            context_instance=RequestContext(request))
 
 @login_required
 def add(request):
     """Render form for adding a tidbit"""
     if request.method == 'POST':
         params = request.POST
-        import pdb; pdb.set_trace()
+        
         tidbit = params['tidbit']
         crossref = params['cf']
 

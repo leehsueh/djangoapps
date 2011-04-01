@@ -13,7 +13,7 @@ a {
     border: 1px red solid;    
 }
 </style>
-<form action="{% url tidbits:add %}" method="post" id="add_tidbit_form">
+<form action="/tidbits/test/" method="post" id="add_tidbit_form">
     <textarea name="tidbit"></textarea>
     <fieldset>
         <legend>Cross References</legend>
@@ -22,9 +22,9 @@ a {
         </ul>
         <button>Add</button>
     </fieldset>
-    <input type="number">
     <input type="submit" value="Save" id="save_btn">
     <input type="submit" value="Cancel" id="cancel_btn">
+    {% csrf_token %}
 </form>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>

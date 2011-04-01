@@ -13,4 +13,7 @@ urlpatterns = patterns('',
         'siteapps_v1.bible_tidbits.views.edit',
         name='edit'
     ),
+    url(r'^test/$',
+        'siteapps_v1.bible_tidbits.views.test_form',
+    ),
 )
