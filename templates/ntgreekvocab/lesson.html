@@ -1,6 +1,177 @@
-<ul>{% for word in cards %}
-    <li>{{ word.greek_word }}</li>{% endfor %}
+{% extends 'ntgreekvocab/base.html' %}
+{% block additionalcss %}
+    <style type="text/css">
+
+    #slider {
+      width: 620px;
+      margin: 0 0 0 230px;
+      position:fixed;
+      top:160px;
+    }
+
+    .scroll {
+      height: 400px;
+      width: 602px;
+      overflow: auto;
+      position: relative; /* fix for IE to respect overflow */
+    }
+
+    .scrollContainer section.word_info {
+      padding: 20px;
+      margin: 0;
+      width: 560px; /* change to 560px if not using JS to remove rh.scroll */
+      display: none;
+    }
+
+    ul.navigation {
+        width: 150px;
+        /*height: 400px;*/
+        overflow: auto;
+        float: left;
+    }
+    ul.navigation li a {
+        text-decoration: none;
+        padding: 2px 4px;
+        margin: 2px 0;
+        border: 1px solid rgb(250,250,250);
+        display: block;
+    }
+    ul.navigation li a:hover {
+        border-radius: 4px;
+        border: 1px solid #666;
+        color: #333;
+    }
+    ul.navigation li a.selected {
+        border-radius: 4px;
+        border: 1px solid #666;
+        font-weight: bold;
+        background-color: #e2e2e2;
+
+    }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+<div id="content_container">
+<ul class="navigation">{% for word in cards %}
+    <li><a href="#{{ word.greek_word }}">{{ word.greek_word }}</a></li>{% endfor %}
 </ul>
-{% for card in cards %}
-    {% include 'ntgreekvocab/fetchcard.html' %}
-{% endfor %}
+<div id="slider">
+    <div class="scroll">
+        <div class="scrollContainer">
+            {% for card in cards %}
+                {% include 'ntgreekvocab/fetchcard.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</div><!-- end slider -->
+</div><!-- end container -->
+{% endblock %}
+
+{% block customjs %}
+<script src="{{ MEDIA_URL }}js/jquery.scrollTo-min.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}js/jquery.localscroll-min.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}js/jquery.serialScroll-min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var $panels = $('#slider .scrollContainer > section');
+        var $container = $('#slider .scrollContainer');
+
+        // if true, we'll float all the panels left and fix the width
+        // of the container
+        var horizontal = false;
+
+        // float the panels left if we're going horizontal
+        if (horizontal) {
+          $panels.css({
+            'float' : 'left',
+            'position' : 'relative' // IE fix to ensure overflow is hidden
+          });
+
+          // calculate a new width for the container (so it holds all panels)
+          $container.css('width', $panels[0].offsetWidth * $panels.length);
+        }
+
+        // collect the scroll object, at the same time apply the hidden overflow
+        // to remove the default scrollbars that will appear
+        var $scroll = $('#slider .scroll').css('overflow', 'hidden');
+
+        // handle nav selection
+        function selectNav() {
+          $(this)
+            .parents('ul:first')
+              .find('a')
+                .removeClass('selected')
+              .end()
+            .end()
+            .addClass('selected');
+        }
+
+        $('ul.navigation').find('a').click(selectNav);
+
+        // go find the navigation link that has this target and select the nav
+        function trigger(data) {
+          var el = $('ul.navigation').find('a[href="#' + data.id + '"]').get(0);
+          selectNav.call(el);
+          $('section.word_info[id="' + data.id + '"]').slideDown(200);
+        }
+
+        if (window.location.hash) {
+          trigger({ id : window.location.hash.substr(1) });
+        } else {
+          //$('ul.navigation a:first').click();
+        }
+
+        // offset is used to move to *exactly* the right place, since I'm using
+        // padding on my example, I need to subtract the amount of padding to
+        // the offset.  Try removing this to get a good idea of the effect
+        var offset = parseInt((horizontal ?
+          $container.css('paddingTop') :
+          $container.css('paddingLeft'))
+          || 0) * -1;
+
+
+        var scrollOptions = {
+          target: $scroll, // the element that has the overflow
+
+          // can be a selector which will be relative to the target
+          items: $panels,
+
+          navigation: 'ul.navigation a',
+
+          // allow the scroll effect to run both directions
+          axis: 'xy',
+
+          onAfter: trigger, // our final callback
+          onBefore: function() { $("section.word_info").slideUp(200);},
+          
+          offset: offset,
+
+          // duration of the sliding effect
+          duration: 500,
+
+          // easing - can be used with the easing plugin:
+          // http://gsgd.co.uk/sandbox/jquery/easing/
+          easing: 'swing'
+        };
+
+        // apply serialScroll to the slider - we chose this plugin because it
+        // supports// the indexed next and previous scroll along with hooking
+        // in to our navigation.
+        $('#slider').serialScroll(scrollOptions);
+
+        // now apply localScroll to hook any other arbitrary links to trigger
+        // the effect
+        $.localScroll(scrollOptions);
+
+        // finally, if the URL has a hash, move the slider in to position,
+        // setting the duration to 1 because I don't want it to scroll in the
+        // very first page load.  We don't always need this, but it ensures
+        // the positioning is absolutely spot on when the pages loads.
+        scrollOptions.duration = 1;
+        $.localScroll.hash(scrollOptions);
+    })
+</script>
+{% endblock %}
+

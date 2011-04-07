@@ -92,7 +92,7 @@ h2 {
 
 }
 
-section#word_info {
+section.word_info {
     border:1px solid #888;
     background-color: #e2e2e2;
     margin: auto 4em;
@@ -100,16 +100,16 @@ section#word_info {
     border-radius: 8px;
     -moz-border-radius: 8px;
 }
-section#word_info ul#related_cards {
+section.word_info ul#related_cards {
     margin: 0;
     padding: 0;
 }
-section#word_info ul#related_cards li {
+section.word_info ul#related_cards li {
     display: inline;
     margin: 0;
     list-style-type: none;
 }
-section#word_info footer {
+section.word_info footer {
     font-size: smaller;
     margin: 2em 0 1em 0;
     text-align: right;

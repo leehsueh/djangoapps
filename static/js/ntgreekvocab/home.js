@@ -18,15 +18,14 @@ $(document).ready(function() {
     var toggle_show_hide_link = function(event) {
         event.preventDefault();
         if ($(this).text() == "[-] Hide") {
-            $("#word_info").animate({
+            $("section.word_info").animate({
                 opacity: 0,
                 height: 'toggle'
               }, 300);
-            $("#word_info").slideUp(200);
             $(this).empty();
             $(this).append("[+] Show");
         } else {
-            $("#word_info").animate({
+            $("section.word_info").animate({
                 opacity: 1,
                 height: 'toggle'
               }, 300);
@@ -36,7 +35,7 @@ $(document).ready(function() {
     }
 
     $("#toggle_info_link").click(toggle_show_hide_link);
-    //$("#word_info").hide();
+    //$("section.word_info").hide();
 
     $("article header h1 a").mouseenter(
         function () {
