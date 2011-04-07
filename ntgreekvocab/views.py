@@ -60,7 +60,7 @@ def home(request):
     if 'ln' in request.session.keys():
         c['lesson_numbers'] = request.session['ln']
         
-    return render_to_response('ntgreekvocab/home.html', c, RequestContext(request))
+    return render_to_response('home.html', c, RequestContext(request))
 
 @login_required
 def card_edit(request, card_id):
@@ -91,7 +91,7 @@ def card_edit(request, card_id):
         'form': form,
         'card': card,
     }
-    return render_to_response('ntgreekvocab/editcard.html', context, RequestContext(request))
+    return render_to_response('editcard.html', context, RequestContext(request))
 
 def card_view(request, card_id):
     try:
@@ -111,7 +111,7 @@ def card_view(request, card_id):
         if request.GET.has_key('show'):
             context['show_word_info'] = True
         
-        return render_to_response('ntgreekvocab/home.html', context, RequestContext(request))
+        return render_to_response('home.html', context, RequestContext(request))
     
     except SimpleCard.DoesNotExist:
         raise Http404("Sorry, card with id " + str(card_id) + " does not exist!")
@@ -151,7 +151,7 @@ def card_list(request):
         'lessons': lesson_nums,
         'parts_of_speech': sorted(parts_of_speech)
     }
-    return render_to_response('ntgreekvocab/listcards.html', context, RequestContext(request))
+    return render_to_response('listcards.html', context, RequestContext(request))
 
 def cards_by_lesson(request, lesson_num):
     try:
@@ -163,13 +163,13 @@ def cards_by_lesson(request, lesson_num):
             'cards': cards,
             'lesson_number': lesson_num,
         }
-        return render_to_response('ntgreekvocab/lesson.html', context, RequestContext(request))
+        return render_to_response('lesson.html', context, RequestContext(request))
     except:
         return HttpResponseRedirect(reverse('ntgreekvocab:cards-list'))
 
 def card_lookup(request):
     context = {}
-    return render_to_response('ntgreekvocab/lookupcard.html', context, RequestContext(request))
+    return render_to_response('lookupcard.html', context, RequestContext(request))
 
 # ajax views
 def ajax_card_autocomplete(request):
@@ -196,7 +196,7 @@ def ajax_card_fetch(request, card_id):
             'card': card,
             'def_article': card.get_def_article()
         }
-        return render_to_response('ntgreekvocab/fetchcard.html', context, RequestContext(request))
+        return render_to_response('fetchcard.html', context, RequestContext(request))
 
     except SimpleCard.DoesNotExist:
         return HttpResponse("Sorry, card with id " + str(card_id) + " does not exist!")

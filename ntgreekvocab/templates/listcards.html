@@ -1,4 +1,4 @@
-{% extends "ntgreekvocab/base.html" %}
+{% extends "base.html" %}
 {% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/listcards.css" />{% endblock %}
 {% block content %}
     <p>({{total_fetched }}/{{ total_words }} word{{ total_words|pluralize }} fetched)</p>
