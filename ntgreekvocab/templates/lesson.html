@@ -1,7 +1,9 @@
-{% extends 'ntgreekvocab/base.html' %}
+{% extends 'base.html' %}
 {% block additionalcss %}
     <style type="text/css">
-
+    #content_container {
+        margin-bottom: 400px;
+    }
     #slider {
       width: 620px;
       margin: 0 0 0 230px;
@@ -61,7 +63,7 @@
     <div class="scroll">
         <div class="scrollContainer">
             {% for card in cards %}
-                {% include 'ntgreekvocab/fetchcard.html' %}
+                {% include 'fetchcard.html' %}
             {% endfor %}
         </div>
     </div>

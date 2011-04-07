@@ -13,7 +13,8 @@
         <p id="feedback_text"><span>click for random word</span><!--a id="toggle_info_link">[+] Show</a--></p>
         <p><a id="toggle_info_link" class="toggle_link">{% if show_word_info %}[-] Hide{% else %}[+] Show{% endif %}</a>{% if card.hints %}&nbsp;&nbsp;&nbsp;&nbsp;<a class="toggle_link" title="{{ card.hints }}">[?] Hints</a>{% endif %}</p>
         <section class="word_info"{% if not show_word_info %} style="display:none;{% endif %}">
-            <p><span class="italic" title="part of speech">{{ card.get_part_of_speech }}</span>. <span class="strong" title="definition">{{ card.definition }}</span>{% if card.lesson_number %}&nbsp;&nbsp;|&nbsp;&nbsp;lesson {{ card.lesson_number }}{% endif %}</p>
+            <p><span class="italic" title="part of speech">{{ card.get_part_of_speech }}</span>. <span class="strong" title="definition">{{ card.definition }}</span>{% if card.lesson_number %}&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="{% url ntgreekvocab:lesson lesson_num=card.lesson_number %}">lesson {{ card.lesson_number }}</a>{% endif %}</p>
             {% if card.notes %}<p title="notes">{{ card.notes|linebreaksbr }}</p>{% endif %}
             {% if card.parsing_info %}<p title="parsing"><span class="italic">{{ card.parsing_info }}</span></p>{% endif %}
 

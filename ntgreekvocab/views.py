@@ -165,8 +165,7 @@ def cards_by_lesson(request, lesson_num):
         }
         return render_to_response('lesson.html', context, RequestContext(request))
     except:
-        # return HttpResponseRedirect(reverse('ntgreekvocab:cards-list'))
-        return render_to_response('ntgreekvocab/lesson.html', context, RequestContext(request))
+        return HttpResponseRedirect(reverse('ntgreekvocab:cards-list'))
 
 def card_lookup(request):
     context = {}
