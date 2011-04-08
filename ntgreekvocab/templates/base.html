@@ -33,7 +33,14 @@
                 <li><a href="{% url ntgreekvocab:home %}">Home</a></li>
                 <li><a href="{% url ntgreekvocab:cards-list %}">Word List</a></li>
                 <li><a href="{% url ntgreekvocab:card-lookup %}">Word Lookup</a></li>
+                <li><a href="#">Lessons</a></li>
             </ul>
+            <div id="lessons">
+                <ul>
+                    <li><a href="{% url ntgreekvocab:lesson lesson_num='NA' %}">NA</a></li>{% for ln in lessons %}
+                    <li><a href="{% url ntgreekvocab:lesson lesson_num=ln %}">{{ ln }}</a></li>{% endfor %}
+                </ul>
+            </div>
         </nav>
     </header>
     {% block content %}{% endblock %}
@@ -46,7 +53,31 @@
     </footer>
     </div>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.4.min.js"></script>
-
+    <script type="text/javascript">
+        var hideLessons = function() {
+            $("#lessons").slideUp(300);
+        }
+        var showLessons = function() {
+            $("#lessons").slideDown(300);
+        }
+        var toggleLessons = function() {
+            $("#lessons").slideToggle(300);
+        }
+        $("#topheader>nav>ul>li>a").last().click(toggleLessons);
+        $(document).click(function(event) {
+            var el = $("#lessons");
+            var offset = el.offset();
+            var width = el.outerWidth()
+            var height = el.outerHeight();
+            var x = event.clientX;
+            var y = event.clientY;
+            if ((x < offset.left || x > offset.left + width || y < offset.top || y > offset.top + height)
+                && el.css('display') != 'none'
+                && event.toElement != $("#topheader>nav>ul>li>a").last()[0]) {
+                hideLessons.call();
+            }
+        })
+    </script>
     <!-- jQuery contactable plugin (also contactable.css in header) -->
     <div id="contact">
     </div>

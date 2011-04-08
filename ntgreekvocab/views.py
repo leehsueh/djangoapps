@@ -38,6 +38,33 @@ def get_random_ids(request, num, lesson_number=-1, lesson_numbers=[]):
     card_ids = cards.values_list('id', flat=True)
     return random.sample(card_ids, num)
 
+def get_lesson_numbers():
+    # build list of tuples (ln_int, ln_str)
+    lessons = SimpleCard.objects.all().values_list('lesson_number', flat=True).order_by('lesson_number').distinct()
+    tuples_list = []
+    for lesson in lessons:
+        try:
+            tuples_list.append((int(lesson), lesson))
+        except:
+            if lesson == '18A':
+                tuples_list.append((18.1, lesson))
+            elif lesson == '18B':
+                tuples_list.append((18.2, lesson))
+    tuples_list.sort()
+    
+    # undecorate list of tuples
+    lesson_nums = []
+    for ln_int, ln_str in tuples_list:
+        lesson_nums.append(ln_str)
+    return lesson_nums
+
+def common_context(request):
+    """context processor for common information for all templates"""
+    c = {
+        'lessons': get_lesson_numbers(),
+    }
+    return c
+
 # Create your views here.
 def clear_session(request):
     request.session.flush()
@@ -60,7 +87,8 @@ def home(request):
     if 'ln' in request.session.keys():
         c['lesson_numbers'] = request.session['ln']
         
-    return render_to_response('home.html', c, RequestContext(request))
+    return render_to_response('home.html', c, RequestContext(request,
+                                                processors=[common_context,]))
 
 @login_required
 def card_edit(request, card_id):
@@ -91,7 +119,8 @@ def card_edit(request, card_id):
         'form': form,
         'card': card,
     }
-    return render_to_response('editcard.html', context, RequestContext(request))
+    return render_to_response('editcard.html', context, RequestContext(request,
+                                                processors=[common_context,]))
 
 def card_view(request, card_id):
     try:
@@ -111,7 +140,8 @@ def card_view(request, card_id):
         if request.GET.has_key('show'):
             context['show_word_info'] = True
         
-        return render_to_response('home.html', context, RequestContext(request))
+        return render_to_response('home.html', context, RequestContext(request,
+                                                processors=[common_context,]))
     
     except SimpleCard.DoesNotExist:
         raise Http404("Sorry, card with id " + str(card_id) + " does not exist!")
@@ -124,52 +154,42 @@ def card_list(request):
         total_fetched += letter_qs.count()
         words_by_letter.append((letter, letter_qs))
 
-    # build list of tuples (ln_int, ln_str)
-    lessons = SimpleCard.objects.all().values_list('lesson_number', flat=True).order_by('lesson_number').distinct()
-    tuples_list = []
-    for lesson in lessons:
-        try:
-            tuples_list.append((int(lesson), lesson))
-        except:
-            if lesson == '18A':
-                tuples_list.append((18.1, lesson))
-            elif lesson == '18B':
-                tuples_list.append((18.2, lesson))
-    tuples_list.sort()
-    
-    # undecorate list of tuples
-    lesson_nums = []
-    for ln_int, ln_str in tuples_list:
-        lesson_nums.append(ln_str)
-
     parts_of_speech = [(short,long) for short, long in siteapps_v1.ntgreekvocab.models.PARTS_OF_SPEECH_MAP.items()]
     context = {
         'total_fetched': total_fetched,
         'total_words': SimpleCard.objects.all().count(),
         'letters': greek.alphabet.lc_letters,
         'words_by_letter': words_by_letter,
-        'lessons': lesson_nums,
         'parts_of_speech': sorted(parts_of_speech)
     }
-    return render_to_response('listcards.html', context, RequestContext(request))
+    return render_to_response('listcards.html', context, RequestContext(request,
+                                                processors=[common_context,]))
 
 def cards_by_lesson(request, lesson_num):
     try:
-        cards = SimpleCard.objects.filter(lesson_number__iexact=lesson_num)
+        if lesson_num == '0' or lesson_num == 'NA':
+            # words not associated with a lesson
+            lesson_num = '(None)'
+            cards = SimpleCard.objects.filter(lesson_number='') | SimpleCard.objects.filter(lesson_number__isnull=True)
+        else:
+            cards = SimpleCard.objects.filter(lesson_number__iexact=lesson_num)
+
         if cards.count() == 0:
-            return Http404(u'No words for lesson ' + lesson_num + '.')
+            raise Http404(u'No words for lesson ' + lesson_num + '.')
             
         context = {
             'cards': cards,
             'lesson_number': lesson_num,
         }
-        return render_to_response('lesson.html', context, RequestContext(request))
+        return render_to_response('lesson.html', context, RequestContext(request,
+                                                processors=[common_context,]))
     except:
         return HttpResponseRedirect(reverse('ntgreekvocab:cards-list'))
 
 def card_lookup(request):
     context = {}
-    return render_to_response('lookupcard.html', context, RequestContext(request))
+    return render_to_response('lookupcard.html', context, RequestContext(request,
+                                                processors=[common_context,]))
 
 # ajax views
 def ajax_card_autocomplete(request):

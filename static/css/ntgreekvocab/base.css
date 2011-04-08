@@ -24,6 +24,19 @@ nav ul {
 nav ul li {
     display:inline;
 }
+#topheader nav {
+    position: relative;
+}
+#lessons {
+    width: 20em;
+    margin: 0.5em 0;
+    position: absolute;
+    top: 20px; left: 5.6em;
+    z-index:2;
+    display: none;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FAFAFA), to(#EFEFEF));
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
 ul li {
     text-align: left;
 }
