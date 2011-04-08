@@ -56,6 +56,7 @@
 
 {% block content %}
 <div id="content_container">
+<h2>Lesson {{ lesson_number }}</h2>
 <ul class="navigation">{% for word in cards %}
     <li><a href="#{{ word.greek_word }}">{{ word.greek_word }}</a></li>{% endfor %}
 </ul>
