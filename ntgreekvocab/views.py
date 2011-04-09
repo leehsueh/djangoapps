@@ -181,7 +181,7 @@ def cards_by_lesson(request, lesson_num):
             'cards': cards,
             'lesson_number': lesson_num,
         }
-        return render_to_response('lesson.html', context, RequestContext(request,
+        return render_to_response('lesson_slider.html', context, RequestContext(request,
                                                 processors=[common_context,]))
     except:
         return HttpResponseRedirect(reverse('ntgreekvocab:cards-list'))

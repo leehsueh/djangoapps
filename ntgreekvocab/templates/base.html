@@ -73,12 +73,13 @@
             var y = event.clientY;
             if ((x < offset.left || x > offset.left + width || y < offset.top || y > offset.top + height)
                 && el.css('display') != 'none'
-                && event.toElement != $("#topheader>nav>ul>li>a").last()[0]) {
+                && event.target != $("#topheader>nav>ul>li>a").last()[0]) {
                 hideLessons.call();
             }
         })
     </script>
     <!-- jQuery contactable plugin (also contactable.css in header) -->
+    <!-- temporarily comment out; slows down page loading and not used..
     <div id="contact">
     </div>
     <script type="text/javascript" src="{{ MEDIA_URL }}js/contactable/jquery.validate.pack.js"></script>
@@ -90,6 +91,7 @@
                         actionUrl: '{% url ajax-contactable %}'
 	 });
     </script>
+    -->
     <!-- End jQuery contactable plugin -->
     
     {% block customjs %}{% endblock %}
