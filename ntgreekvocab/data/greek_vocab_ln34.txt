@@ -1,0 +1,26 @@
+#Word	Part of Speech	definition	lesson number	parsing info	notes	hints
+ἄρα	conjunction	"then, therefore"	34			
+ἀπόλλυμι	verb	"I destroy; middle, I perish"	34	"present, active, indicative, 1st person, singular"	-μι form of ἀπολλύω.	
+ἀπολλύω	verb	"I destroy; middle, I perish"	34	"present, active, indicative, 1st person, singular"		
+ἄχρι	conjunction	"with gen., up to, as far as, until"	34		An improper preposition when followed by a genitive.	
+δείκνυμι	verb	"I show, I demonstrate"	34	"present, active, indicative, 1st person, singular"	-μι form of δεικνύω.	
+δεικνύω	verb	"I show, I demonstrate"	34	"present, active, indicative, 1st person, singular"		
+διό	conjunction	"therefore, for this reason"	34			
+ἐπιθυμία	noun	"a strong desire, lust"	34	"feminine, singular, nominative"		
+ἐργάζομαι	verb	I work	34	"present, middle, indicative, 1st person, singular"	deponent	
+ἕως	conjunction	"until, while; as a preposition with gen., up to, as far as, unto"	34		An improper preposition when followed by a genitive. More common than ἄχρι and μέχρι.	
+"θλῖψις, -εως"	noun	tribulation	34	"feminine, singular, nominative, genitive"		
+θρόνος	noun	a throne	34	"masculine, singular, nominative"		
+"μέσος, -η, -ον"	adjective	"middle, in the midst"	34	"masculine, feminine, neuter, singular, nominative"		
+μέχρι	conjunction	"with gen., until, as far as, to the degree that; as a conj., until"	34		An improper preposition when followed by a genitive.	
+οἶδα	verb	I know	34	"perfect, active, indicative, 1st person, singular"	perfect tense with a present meaning; very common word in the Bible	
+εἱδῶ	verb	I know (subjunctive)	34	"perfect, active, subjunctive, 1st person, singular"		
+τε	conjunction	"and, furthermore, also"	34		"enclitic conjunction. τε is somewhat closer to ""and,"" while δέ is closer to ""but."""	
+τε...τε	construct	not only...but also	34			
+τελέω	verb	"I finish, I complete, I bring to an end"	34	"present, active, indicative, 1st person, singular"		
+τελέσω	verb	"I will finish, I will complete, I will bring to an end"	34	"future, active, indicative, 1st person, singular"		
+ἐτέλεσα	verb	"I finished, I completed, I brought to an end"	34	"1st aorist, active, indicative, 1st person, singular"		
+τύπος	noun	"a type, a pattern"	34	"masculine, singular, nominative"		
+φαίνω	verb	"I shine; mid., I appear, I become visible"	34	"present, active, indicative, 1st person, singular"		
+φεύγω	verb	I flee	34	"present, active, indicative, 1st person, singular"		"""fugitive"""
+χρεία	noun	a need	34	"feminine, singular, nominative"		
