@@ -20,6 +20,10 @@ urlpatterns = patterns('',
         'siteapps_v1.ntgreekvocab.views.card_view',
         name='card-view'
     ),
+    url(r'^card/add/$',
+        'siteapps_v1.ntgreekvocab.views.card_add',
+        name='card-add'
+    ),
     url(r'^card/edit/(?P<card_id>\d+)/$',
         'siteapps_v1.ntgreekvocab.views.card_edit',
         name='card-edit'

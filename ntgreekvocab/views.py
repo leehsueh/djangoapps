@@ -122,27 +122,57 @@ def card_edit(request, card_id):
     return render_to_response('editcard.html', context, RequestContext(request,
                                                 processors=[common_context,]))
 
+@login_required
+def card_add(request):
+    if request.method == 'POST':
+        form = SimpleCardAdminForm(request.POST)
+        if form.is_valid():
+            cleandata = form.cleaned_data
+            # @type card SimpleCard
+            card = SimpleCard()
+            card.greek_word = cleandata['greek_word']
+            card.definition = cleandata['definition']
+            card.lesson_number = cleandata['lesson_number']
+            card.notes = cleandata['notes']
+            card.hints = cleandata['hints']
+            card.parsing_info = cleandata['parsing_info']
+            card.part_of_speech = cleandata['part_of_speech']
+            card.save() # create primary key before saving many to many relationship
+            card.related_cards = cleandata['related_cards']
+            card.save()
+            return HttpResponseRedirect(reverse('ntgreekvocab:card-view', kwargs={'card_id':card.id}))
+    else:
+        form = SimpleCardAdminForm()
+
+    context = {
+        'form': form,
+    }
+    return render_to_response('editcard.html', context, RequestContext(request,
+                                                processors=[common_context,]))
+
 def card_view(request, card_id):
     try:
         card = SimpleCard.objects.get(id=card_id)
-        ln = request.session.get('ln',-1)
-        context = { 
-            'card': card,
-            'random_card_id': get_random_ids(request, 1,lesson_numbers=ln)[0],
-            'def_article': card.get_def_article()
-        }
-        # TODO: make cleaner
-        # add the lesson number to the context if filtering by lesson
-        if 'ln' in request.session.keys():
-            context['lesson_numbers'] = request.session['ln']
+        lesson_num = card.lesson_number
+        cards_in_lesson = SimpleCard.objects.filter(
+                            lesson_number=lesson_num
+                        ).order_by(
+                            "greek_word"
+                        ).values_list(
+                            "id","greek_word"
+                        )
+        # find which index word occurs in alphabetical list within the lesson
+        # index used for cross linking on the lesson slider page
+        for i in range(0,len(cards_in_lesson)):
+            if card.greek_word == cards_in_lesson[i][1]:
+                num = i + 1
 
-        # parameter for initially showing the word info
-        if request.GET.has_key('show'):
-            context['show_word_info'] = True
-        
-        return render_to_response('home.html', context, RequestContext(request,
-                                                processors=[common_context,]))
-    
+        if lesson_num == '' or not lesson_num:
+            lesson_num = 0
+        return HttpResponseRedirect(reverse(
+                    'ntgreekvocab:lesson', kwargs={'lesson_num':lesson_num}
+                ) + '#' + str(num))
+
     except SimpleCard.DoesNotExist:
         raise Http404("Sorry, card with id " + str(card_id) + " does not exist!")
 
@@ -201,7 +231,7 @@ def ajax_card_autocomplete(request):
             # Ignore queries shorter than length 3
             if len(value) > 2:
                 model_results = SimpleCard.objects.filter(greek_word__icontains=value) | SimpleCard.objects.filter(definition__icontains=value)
-                if request.GET.has_key(u'id'):
+                if request.GET.has_key(u'id') and request.GET[u'id']:
                     # exclude current card from list
                     card_id = request.GET[u'id']
                     model_results = model_results.exclude(pk=card_id)

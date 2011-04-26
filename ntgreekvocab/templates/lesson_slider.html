@@ -1,29 +1,6 @@
 {% extends 'base.html' %}
 {% block additionalcss %}
-    <style type="text/css">
-    #content_container {
-        margin-bottom: 40px;
-    }
-    #coda-slider-1 {
-        margin-left: 200px;
-        position: fixed;
-        display: none;
-    }
-    #coda-nav-1 ul { width: 150px; float: left; padding-left: 10px;}
-    #coda-nav-1 ul li a {
-        -webkit-transition: all 0.3s ease-in-out;
-        -moz-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-    }
-    #coda-nav-1 ul li a:hover {
-        -webkit-transform: scale(1.1);
-        -moz-transform: scale(1.1);
-        -o-transform: scale(1.1);
-    }
-    section.word_info { margin: 0;}
-    
-    </style>
-    
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/lesson_slider.css" />
     <link rel="stylesheet" href="{{ MEDIA_URL }}coda-slider-2/coda-slider-2.0-custom.css">
 {% endblock %}
 
@@ -55,7 +32,8 @@
             dynamicTabs: false,
             firstPanelToLoad: 0,
             autoHeightEaseDuration: 500,
-            slideEaseDuration: 500
+            slideEaseDuration: 500,
+            crossLinking: true
         });
         $('#coda-slider-1').show();
     })

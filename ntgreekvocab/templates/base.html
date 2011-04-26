@@ -6,7 +6,7 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <!--link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/html5reset-1.6.1.css" /-->
-        <link rel="stylesheet" href="{{ MEDIA_URL }}js/contactable/contactable.css" type="text/css" />
+        <!--link rel="stylesheet" href="{{ MEDIA_URL }}js/contactable/contactable.css" type="text/css" /-->
         <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/base.css" />
         {% block additionalcss %}{% endblock %}
         <title>NT Greek Vocabulary</title>
@@ -27,10 +27,10 @@
     <body>
     <div id="container">
     <header id="topheader">
-        <h1>NT Greek Vocabulary</h1>
+        <h1><a href="{% url ntgreekvocab:home %}">NT Greek Vocabulary</a></h1>
         <nav>
             <ul>
-                <li><a href="{% url ntgreekvocab:home %}">Home</a></li>
+                <li><a href="{% url ntgreekvocab:card-add %}">Add Word</a></li>
                 <li><a href="{% url ntgreekvocab:cards-list %}">Word List</a></li>
                 <li><a href="{% url ntgreekvocab:card-lookup %}">Word Lookup</a></li>
                 <li><a href="#">Lessons</a></li>

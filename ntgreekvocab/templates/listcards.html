@@ -7,7 +7,7 @@
         <h1>{{ letter }}</h1>
         <!--p><a href="#container">[Top]</a></p-->
         <ul>{% for card in words %}
-            <li class="greekword ln{{card.lesson_number }} {{ card.part_of_speech }}"><a href="{% url ntgreekvocab:card-view card_id=card.id %}?show" title="{{ card.part_of_speech }}., {{ card.definition }}">{{ card.greek_word }}</a>
+            <li class="greekword ln{{card.lesson_number }} {{ card.part_of_speech }}"><a href="{% url ntgreekvocab:card-view card_id=card.id %}" title="{{ card.part_of_speech }}., {{ card.definition }}">{{ card.greek_word }}</a>
                 <span class="hidden"><a href="{% url ntgreekvocab:card-edit card_id=card.id %}">edit</a></span>
             </li>
         {% endfor %}</ul>

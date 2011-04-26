@@ -30,9 +30,9 @@ $(document).ready(function() {
 {% endblock %}
 
 {% block content %}
-<h2>Edit {{ card.greek_word }}</h2>
+<h2>{% if card %}Edit {{ card.greek_word }}{% else %}Add Word{% endif %}</h2>
 {{ form.errors }}
-<form action="{% url ntgreekvocab:card-edit card_id=card.id %}" method="post">
+<form action="{% if card %}{% url ntgreekvocab:card-edit card_id=card.id %}{% else %}{% url ntgreekvocab:card-add %}{% endif%}" method="post">
     <div class="row">
         <div class="firstCol">
             <table>
