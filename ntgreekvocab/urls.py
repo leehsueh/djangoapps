@@ -16,6 +16,10 @@ urlpatterns = patterns('',
         'siteapps_v1.ntgreekvocab.views.home',
         name='home'
     ),
+    url(r'^card/random/(?P<card_id>\d+)/$',
+        'siteapps_v1.ntgreekvocab.views.card_random_view',
+        name='card-random-view'
+    ),
     url(r'^card/(?P<card_id>\d+)/$',
         'siteapps_v1.ntgreekvocab.views.card_view',
         name='card-view'

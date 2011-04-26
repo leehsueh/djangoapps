@@ -89,6 +89,29 @@ def home(request):
         
     return render_to_response('home.html', c, RequestContext(request,
                                                 processors=[common_context,]))
+def card_random_view(request, card_id):
+    try:
+        card = SimpleCard.objects.get(id=card_id)
+        ln = request.session.get('ln',-1)
+        context = {
+            'card': card,
+            'random_card_id': get_random_ids(request, 1,lesson_numbers=ln)[0],
+            'def_article': card.get_def_article()
+        }
+        # TODO: make cleaner
+        # add the lesson number to the context if filtering by lesson
+        if 'ln' in request.session.keys():
+            context['lesson_numbers'] = request.session['ln']
+
+        # parameter for initially showing the word info
+        if request.GET.has_key('show'):
+            context['show_word_info'] = True
+
+        return render_to_response('home.html', context, RequestContext(request,
+                                                processors=[common_context,]))
+
+    except SimpleCard.DoesNotExist:
+        raise Http404("Sorry, card with id " + str(card_id) + " does not exist!")
 
 @login_required
 def card_edit(request, card_id):
