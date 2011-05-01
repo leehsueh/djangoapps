@@ -15,11 +15,11 @@
 
 @font-face {
     font-family: 'GentiumPlusRegular';
-    src: url('gentiumplus-r-webfont.eot');
-    src: url('gentiumplus-r-webfont.eot?#iefix') format('embedded-opentype'),
-         url('gentiumplus-r-webfont.woff') format('woff'),
-         url('gentiumplus-r-webfont.ttf') format('truetype'),
-         url('gentiumplus-r-webfont.svg#GentiumPlusRegular') format('svg');
+    src: url('/static/fonts/gentiumplus-r-webfont.eot');
+    src: url('/static/fonts/gentiumplus-r-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/gentiumplus-r-webfont.woff') format('woff'),
+         url('/static/fonts/gentiumplus-r-webfont.ttf') format('truetype'),
+         url('/static/fonts/gentiumplus-r-webfont.svg#GentiumPlusRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -27,11 +27,11 @@
 
 @font-face {
     font-family: 'GentiumPlusItalic';
-    src: url('gentiumplus-i-webfont.eot');
-    src: url('gentiumplus-i-webfont.eot?#iefix') format('embedded-opentype'),
-         url('gentiumplus-i-webfont.woff') format('woff'),
-         url('gentiumplus-i-webfont.ttf') format('truetype'),
-         url('gentiumplus-i-webfont.svg#GentiumPlusItalic') format('svg');
+    src: url('/static/fonts/gentiumplus-i-webfont.eot');
+    src: url('/static/fonts/gentiumplus-i-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/fonts/gentiumplus-i-webfont.woff') format('woff'),
+         url('/static/fonts/gentiumplus-i-webfont.ttf') format('truetype'),
+         url('/static/fonts/gentiumplus-i-webfont.svg#GentiumPlusItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -70,7 +70,7 @@ root {
 }
 
 body {
-    font-family: GentiumPlusRegular, "Gentium Plus", "Gentium", Tahoma;
+    font-family: 'GentiumPlusRegular', "Gentium Plus", "Gentium", Tahoma;
     font-size: 1em;
     text-align: center;
     color: rgb(35,35,35);
