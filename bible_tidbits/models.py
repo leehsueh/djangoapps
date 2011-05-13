@@ -13,7 +13,7 @@ class Verse(models.Model):
         ordering = ['id']
 
 class CrossRef(models.Model):
-    """Encapsulates a "passage" or "cross reference.
+    """Encapsulates a "passage" or "cross reference."
     startverse should be before endverse. If there is only one verse,
     then startverse = endverse (neither should be null). In addition,
     should restrict that both verses be contained in the same book.
@@ -46,6 +46,7 @@ class Tidbit(models.Model):
     tidbit = models.TextField()
     cross_refs = models.ManyToManyField(CrossRef)
     reflection = models.TextField(blank=True, null=True)
+    is_question = models.BooleanField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User)
