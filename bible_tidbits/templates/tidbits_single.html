@@ -1,0 +1,10 @@
+<article>
+    <p>{{ tidbit.tidbit }}</p>
+    {% if tidbit.is_question %}<p>???</p>{% endif %}
+    {% if tidbit.reflection %}<p>{{ tidbit.reflection }}</p>{% endif %}
+    <h1>Cross References</h1>
+    <ul>{% for cf in tidbit.cross_refs.all %}
+        <li>{{ cf }}</li>
+    {% endfor %}</ul>
+    <p><span><a href="{% url tidbits:edit tidbit_id=tidbit.id %}">[edit]</a> <a href="{% url tidbits:delete tidbit_id=tidbit.id %}">[delete]</a></span></p>
+</article>

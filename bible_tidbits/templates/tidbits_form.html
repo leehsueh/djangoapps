@@ -1,0 +1,30 @@
+{% comment %}
+Calling template must include the css/js necessary for the form to work.
+Context variables:
+    - action_url
+    - form_id
+    - tidbit
+{% endcomment %}
+<form action="{{ action_url }}" method="post" id="{{ form_id }}">
+    <textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit">{% if tidbit.tidbit %}{{ tidbit.tidbit }}{% endif %}</textarea>
+    <br>
+    <label for="is_question">This is a question</label>
+    <input type="checkbox" name="is_question" value="Yes" {% if tidbit.is_question %}checked{% endif %}>
+    <br>
+    <label for="more">More:</label><br>
+    <textarea id="more" name="more" placeholder="Further thoughts or reflections">{% if tidbit.reflection %}{{ tidbit.reflection }}{% endif %}</textarea>
+    <fieldset>
+        <legend>Cross References</legend>
+        <ul id="cross_refs">
+        {% if tidbit %}{% for cf in tidbit.cross_refs.all %}
+            <li><input type="text" name="cf" class="cf" type="text" placeholder="Enter passage" value="{{ cf }}"> <a>x</a></li>
+        {% endfor %}
+        {% endif %}
+            <li><input type="text" name="cf" class="cf" type="text" placeholder="Enter passage"> <a>x</a></li>
+        </ul>
+        <button>Add Another</button>
+    </fieldset>
+    <input type="submit" value="Save" id="save_btn">
+    <input type="submit" value="Cancel" id="cancel_btn">
+    {% csrf_token %}
+</form>
