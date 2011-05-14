@@ -68,7 +68,7 @@ BIBLIA_API_KEY = 'd43cf9c9e02a3f4187e917a0e4f682a1'
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.filesystem.load_template_source',
+    'django.template.loaders.filesystem.Loader',
 #     'django.template.loaders.eggs.load_template_source',
 )
 
