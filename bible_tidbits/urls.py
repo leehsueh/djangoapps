@@ -21,7 +21,7 @@ urlpatterns = patterns('',
         'siteapps_v1.bible_tidbits.views.delete',
         name='delete'
     ),
-    url(r'^test/$',
-        'siteapps_v1.bible_tidbits.views.test_form',
+    url(r'^ajax/tags/$',
+        'siteapps_v1.bible_tidbits.views.ajax_tags',
     ),
 )

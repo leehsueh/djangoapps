@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import re
 
 class Verse(models.Model):
     book = models.CharField(max_length=64, editable=False)
@@ -42,11 +43,23 @@ class Tag(models.Model):
     tag = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
 
+    regex = re.compile(r'[^a-zA-Z0-9-]')
+
+    def __unicode__(self):
+        return self.tag
+    
+    def save(self, *args, **kwargs):
+        if (self.tag):
+            s = self.tag.strip().lower().replace(' ','-')
+            self.slug = re.sub(self.regex, '', s)
+        super(Tag, self).save(*args, **kwargs)
+
 class Tidbit(models.Model):
     tidbit = models.TextField()
     cross_refs = models.ManyToManyField(CrossRef)
     reflection = models.TextField(blank=True, null=True)
     is_question = models.BooleanField()
+    tags = models.ManyToManyField(Tag)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User)

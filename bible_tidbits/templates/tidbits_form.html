@@ -5,8 +5,8 @@ Context variables:
     - form_id
     - tidbit
 {% endcomment %}
-<form action="{{ action_url }}" method="post" id="{{ form_id }}">
-    <textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit">{% if tidbit.tidbit %}{{ tidbit.tidbit }}{% endif %}</textarea>
+<form action="{{ action_url }}" method="post" id="{{ form_id }}" novalidate>
+    <textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit" required>{% if tidbit.tidbit %}{{ tidbit.tidbit }}{% endif %}</textarea>
     <br>
     <label for="is_question">This is a question</label>
     <input type="checkbox" name="is_question" value="Yes" {% if tidbit.is_question %}checked{% endif %}>
@@ -17,14 +17,17 @@ Context variables:
         <legend>Cross References</legend>
         <ul id="cross_refs">
         {% if tidbit %}{% for cf in tidbit.cross_refs.all %}
-            <li><input type="text" name="cf" class="cf" type="text" placeholder="Enter passage" value="{{ cf }}"> <a>x</a></li>
+            <li><input type="text" name="cf" class="cf" type="text" pattern="[12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$" data-message="Invalid Bible reference format" placeholder="Enter passage" value="{{ cf }}"> <a>x</a></li>
         {% endfor %}
+        {% else %}
+            <li><input type="text" name="cf" class="cf" type="text" pattern="([12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$)?" data-message="Invalid Bible reference format" placeholder="Enter passage"> <a>x</a></li>
         {% endif %}
-            <li><input type="text" name="cf" class="cf" type="text" placeholder="Enter passage"> <a>x</a></li>
         </ul>
         <button>Add Another</button>
     </fieldset>
+    <label for="tags">Tags</label>:
+    <textarea id="tags" name="tags" placeholder="Enter comma-separated tags">{% if tidbit %}{% for tag in tidbit.tags.all %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</textarea>
+    <br>
     <input type="submit" value="Save" id="save_btn">
-    <input type="submit" value="Cancel" id="cancel_btn">
     {% csrf_token %}
 </form>

@@ -1,0 +1,45 @@
+#cross_refs {
+    li {
+        list-style-type: none;
+        a {
+            cursor: pointer;
+        }
+    }
+}
+.rounded-corners(@r: 4px) {
+    -moz-border-radius:@r;
+	-webkit-border-radius:@r;
+    border-radius: @r;
+}
+.box-shadow(@x: 0px, @y: 0px, @r: 6px, @color: #ddd) {
+	-moz-box-shadow:@x @y @r @color;
+	-webkit-box-shadow:@x @y @r @color;
+    box-shadow: @x @y @r @color;
+}
+
+.error {
+	/* supply height to ensure consistent positioning for every browser */
+	height:15px;
+	background-color:#FFFE36;
+	border:1px solid #E1E16D;
+	font-size:11px;
+	color:#000;
+	padding:3px 10px;
+	margin-left:-2px;
+
+	.rounded-corners;
+    .box-shadow;
+
+    em {
+        display:block;
+        width:0;
+        height:0;
+        border:10px solid;
+        border-color:#FFFE36 transparent transparent;
+
+        /* positioning */
+        position:absolute;
+        bottom:-17px;
+        left:60px;
+    }
+}

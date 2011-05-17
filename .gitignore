@@ -1,6 +1,7 @@
-# Netbeans project folder #
+# misc project folders #
 ###########################
 nbproject/
+static/tidbits/jquery-ui-1.8.12.custom/development-bundle/
 
 # Compiled source #
 ###################

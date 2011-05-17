@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from siteapps_v1.bible_tidbits.models import *
 import re
+from django.utils import simplejson
 
 def test_form(request):
     return render_to_response("testform.html", 
@@ -19,86 +20,133 @@ def home(request):
     return render_to_response("tidbits_home.html", c,
                             context_instance=RequestContext(request))
 
+def process_tidbit_form(request, tidbit_id=None):
+    """
+    params are the request parameters; mode is either "edit" or "add"
+    """
+    params = dict(request.POST) # values are lists
+    keys = params.keys()
+    if 'tidbit' not in keys or 'cf' not in keys:
+        return HttpResponse("Missing parameters.")
+
+    # get form values
+    tidbit = params['tidbit'][0]
+    is_question = 'is_question' in keys
+    if 'more' in keys:
+        reflection = params['more'][0]
+    else:
+        reflection = None
+
+    # filter out blank cf's
+    crossrefs = [cf.strip() for cf in params['cf'] if cf != u'']
+    if tidbit == u'' or crossrefs == []:
+        return HttpResponse("Tidbit and at least one cf is required.")
+
+    # extract tags
+    if 'tags' in keys:
+        tags = [t.strip() for t in params['tags'][0].split(',') if t.strip() != u'']
+    else:
+        tags = []
+
+    # create new Tidbit if id not supplied
+    if tidbit_id == None:
+        tidbit_obj = Tidbit()
+    else:
+        try:
+            tidbit_obj = Tidbit.objects.get(id=tidbit_id)
+        except Tidbit.DoesNotExist:
+            return HttpResponse("Tidbit not found!")
+
+    tidbit_obj.tidbit = tidbit
+    if reflection:
+        tidbit_obj.reflection = reflection
+    tidbit_obj.is_question = is_question
+
+    tidbit_obj.created_by = request.user
+
+    # add and/or create cross references
+    cfs_to_add = []
+    regex = re.compile("(?P<book>([12]?[A-Za-z ]+[A-Za-z]))( ?(?P<start_chapter>[0-9]+)((:(?P<start_verse>[0-9]+))? ?(- ?(?P<end_chp_or_verse>[0-9]+)(:(?P<end_verse>[0-9]+))?)?)?)?$")
+    for cf in crossrefs:
+        matches = regex.search(cf)
+        if matches == None:
+            continue
+        groups = matches.groupdict()
+        book = groups['book']
+        startchp = groups['start_chapter']
+        startvs = groups['start_verse']
+        endchporvs = groups['end_chp_or_verse']
+        endvs = groups['end_verse']
+
+        if not endchporvs:
+            endchp = startchp
+            endvs = startvs
+        elif not endvs:
+            endvs = endchporvs
+            endchp = startchp
+        else:
+            endchp = endchporvs
+        try:
+            startverse = Verse.objects.get(book__istartswith=book,
+                                            chapter_ref=int(startchp),
+                                            verse_ref=int(startvs))
+            endverse = Verse.objects.get(book__istartswith=book,
+                                            chapter_ref=int(endchp),
+                                            verse_ref=int(endvs))
+        except Verse.DoesNotExist:
+            return HttpResponse("A cf is invalid: " + cf)
+
+        # check for existing cf
+        try:
+            cf = CrossRef.objects.get(startverse=startverse, endverse=endverse)
+            cfs_to_add.append(cf)
+        except CrossRef.DoesNotExist:
+            newcf = CrossRef()
+            newcf.startverse = startverse
+            newcf.endverse = endverse
+            newcf.save()
+            cfs_to_add.append(newcf)
+
+    # create tag objects
+    tags_to_add = []
+    for tag in tags:
+        try:
+            t = Tag.objects.get(tag=tag)
+        except Tag.DoesNotExist:
+            t = Tag()
+            t.tag = tag
+            t.save()
+        tags_to_add.append(t)
+
+    # save tidbit to generate a PK before adding cfs via m2m relation
+    tidbit_obj.save()
+
+    # clear tags and crossrefs if updating
+    if tidbit_id:
+        tidbit_obj.cross_refs.clear()
+        tidbit_obj.tags.clear()
+        
+    for cf in cfs_to_add:
+        tidbit_obj.cross_refs.add(cf)
+    for tag in tags_to_add:
+        tidbit_obj.tags.add(tag)
+    tidbit_obj.save()
+
+    if not tidbit_id:
+        # redirect to home
+        return HttpResponseRedirect(reverse("tidbits:home"))
+    else:
+        c = {
+            'tidbit': tidbit_obj,
+            'action_url': reverse("tidbits:edit", kwargs={'tidbit_id': tidbit_obj.id})
+        }
+        return render_to_response("tidbits_edittidbit.html", c, context_instance=RequestContext(request))
+
+@login_required
 def add(request):
     """Render form for adding a tidbit"""
     if request.method == 'POST':
-        params = dict(request.POST) # values are lists
-        #import pdb; pdb.set_trace()
-        # check for required parameters
-        keys = params.keys()
-        if 'tidbit' not in keys or 'cf' not in keys:
-            return HttpResponse("Missing parameters.")
-        
-        tidbit = params['tidbit'][0]
-        is_question = 'is_question' in keys
-        if 'more' in keys:
-            reflection = params['more'][0]
-        
-        # filter out blank cf's
-        crossrefs = [cf for cf in params['cf'] if cf != u'']
-        if tidbit == u'' or crossrefs == []:
-            return HttpResponse("Tidbit and at least one cf is required.")
-
-        # required values populated; create new Tidbit
-        newtidbit = Tidbit()
-        newtidbit.tidbit = tidbit
-        if reflection:
-            newtidbit.reflection = reflection
-        newtidbit.is_question = is_question
-        
-        newtidbit.created_by = request.user
-        
-        # add and/or create cross references
-        cfs_to_add = []
-        regex = re.compile("(?P<book>([12]?[A-Za-z ]+[A-Za-z]))( ?(?P<start_chapter>[0-9]+)((:(?P<start_verse>[0-9]+))? ?(- ?(?P<end_chp_or_verse>[0-9]+)(:(?P<end_verse>[0-9]+))?)?)?)?$")
-        for cf in crossrefs:
-            matches = regex.search(cf)
-            if matches == None:
-                continue
-            groups = matches.groupdict()
-            book = groups['book']
-            startchp = groups['start_chapter']
-            startvs = groups['start_verse']
-            endchporvs = groups['end_chp_or_verse']
-            endvs = groups['end_verse']
-            
-            if not endchporvs:
-                endchp = startchp
-                endvs = startvs
-            elif not endvs:
-                endvs = endchporvs
-                endchp = startchp
-            else:
-                endchp = endchporvs
-            try:
-                startverse = Verse.objects.get(book__istartswith=book,
-                                                chapter_ref=int(startchp),
-                                                verse_ref=int(startvs))
-                endverse = Verse.objects.get(book__istartswith=book,
-                                                chapter_ref=int(endchp),
-                                                verse_ref=int(endvs))
-            except Verse.DoesNotExist:
-                return HttpResponse("A cf is invalid: " + cf)
-            
-            # check for existing cf
-            try:
-                cf = CrossRef.objects.get(startverse=startverse, endverse=endverse)
-                cfs_to_add.append(cf)
-            except CrossRef.DoesNotExist:
-                newcf = CrossRef()
-                newcf.startverse = startverse
-                newcf.endverse = endverse
-                newcf.save()
-                cfs_to_add.append(newcf)
-
-        # save tidbit to generate a PK before adding cfs via m2m relation
-        newtidbit.save()
-        for cf in cfs_to_add:
-            newtidbit.cross_refs.add(cf)
-        newtidbit.save()
-        
-        # redirect to home
-        return HttpResponseRedirect(reverse("tidbits:home"))
+        return process_tidbit_form(request)
 
     else:
         c = {
@@ -116,86 +164,13 @@ def edit(request, tidbit_id):
             return HttpResponse("You are not authorized to edit this Tidbit.")
         
         if request.method == 'POST':
-            params = dict(request.POST) # values are lists
-            
-            # check for required parameters
-            keys = params.keys()
-            if 'tidbit' not in keys or 'cf' not in keys:
-                return HttpResponse("Missing parameters.")
-
-            updated_tidbit = params['tidbit'][0]
-            updated_is_question = 'is_question' in keys
-            if 'more' in keys:
-                updated_reflection = params['more'][0]
-
-            # filter out blank cf's
-            updated_crossrefs = [cf for cf in params['cf'] if cf != u'']
-            if updated_tidbit == u'' or updated_crossrefs == []:
-                return HttpResponse("Tidbit and at least one cf is required.")
-
-            # required values populated; update Tidbit
-            tidbit.tidbit = updated_tidbit
-            if updated_reflection:
-                tidbit.reflection = updated_reflection
-            tidbit.is_question = updated_is_question
-
-
-            # add and/or create cross references
-            cfs_to_add = []
-            regex = re.compile("(?P<book>([12]?[A-Za-z ]+[A-Za-z]))( ?(?P<start_chapter>[0-9]+)((:(?P<start_verse>[0-9]+))? ?(- ?(?P<end_chp_or_verse>[0-9]+)(:(?P<end_verse>[0-9]+))?)?)?)?$")
-            for cf in updated_crossrefs:
-                matches = regex.search(cf)
-                if matches == None:
-                    continue
-                groups = matches.groupdict()
-                book = groups['book']
-                startchp = groups['start_chapter']
-                startvs = groups['start_verse']
-                endchporvs = groups['end_chp_or_verse']
-                endvs = groups['end_verse']
-
-                if not endchporvs:
-                    endchp = startchp
-                    endvs = startvs
-                elif not endvs:
-                    endvs = endchporvs
-                    endchp = startchp
-                else:
-                    endchp = endchporvs
-                try:
-                    startverse = Verse.objects.get(book__istartswith=book,
-                                                    chapter_ref=int(startchp),
-                                                    verse_ref=int(startvs))
-                    endverse = Verse.objects.get(book__istartswith=book,
-                                                    chapter_ref=int(endchp),
-                                                    verse_ref=int(endvs))
-                except Verse.DoesNotExist:
-                    return HttpResponse("A cf is invalid: " + cf)
-
-                # check for existing cf
-                try:
-                    cf = CrossRef.objects.get(startverse=startverse, endverse=endverse)
-                    cfs_to_add.append(cf)
-                except CrossRef.DoesNotExist:
-                    newcf = CrossRef()
-                    newcf.startverse = startverse
-                    newcf.endverse = endverse
-                    newcf.save()
-                    cfs_to_add.append(newcf)
-
-            # clear cfs
-            tidbit.cross_refs.clear()
-
-            # add updated cfs
-            for cf in cfs_to_add:
-                tidbit.cross_refs.add(cf)
-            tidbit.save()
-
-        c = {
-            'tidbit': tidbit,
-            'action_url': reverse("tidbits:edit", kwargs={'tidbit_id': tidbit.id})
-        }
-        return render_to_response("tidbits_edittidbit.html", c, context_instance=RequestContext(request))
+            return process_tidbit_form(request, tidbit_id)
+        else:
+            c = {
+                'tidbit': tidbit,
+                'action_url': reverse("tidbits:edit", kwargs={'tidbit_id': tidbit.id})
+            }
+            return render_to_response("tidbits_edittidbit.html", c, context_instance=RequestContext(request))
     
     except Tidbit.DoesNotExist:
         return HttpResponse("Tidbit not found!")
@@ -228,3 +203,15 @@ def tidbits_by_book(request, book):
         'tidbits': tidbits,
     }
     return render_to_response("tidbits_home.html", c, context_instance=RequestContext(request))
+
+def ajax_tags(request):
+    results = []
+    if request.method == "GET":
+        if request.GET.has_key(u'term'):
+            term = request.GET[u'term']
+            # Ignore queries shorter than length 3
+            if len(term) >= 2:
+                model_results = Tag.objects.filter(tag__icontains=term)
+                results = [ x.tag for x in model_results ]
+    json = simplejson.dumps(results)
+    return HttpResponse(json, mimetype='application/json')

@@ -25,7 +25,7 @@
 /* Interaction Cues
 ----------------------------------*/
 .ui-state-disabled { cursor: default !important; }
-
+.ui-autocomplete-loading { background: white url('images/ui-anim-basic_16x16.gif') right center no-repeat; }
 
 /* Icons
 ----------------------------------*/

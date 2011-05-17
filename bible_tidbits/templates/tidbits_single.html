@@ -6,5 +6,9 @@
     <ul>{% for cf in tidbit.cross_refs.all %}
         <li>{{ cf }}</li>
     {% endfor %}</ul>
+    <h1>Tags</h1>
+    <ul>{% for tag in tidbit.tags.all %}
+        <li>{{ tag }}</li>
+    {% endfor %}</ul>
     <p><span><a href="{% url tidbits:edit tidbit_id=tidbit.id %}">[edit]</a> <a href="{% url tidbits:delete tidbit_id=tidbit.id %}">[delete]</a></span></p>
 </article>

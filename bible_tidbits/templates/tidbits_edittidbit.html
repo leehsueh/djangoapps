@@ -1,8 +1,7 @@
 {% extends "tidbits_layout.html" %}
 {% block additionalcss %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}tidbits/css/livevalidation.css">
 <link rel="stylesheet" href="{{ MEDIA_URL }}tidbits/jquery-ui-1.8.12.custom/css/ui-lightness/jquery-ui-1.8.12.custom.css">
-<link rel="stylesheet/less" href="{{ MEDIA_URL }}tidbits/css/addtidbit.less">
+<link rel="stylesheet/less" href="{{ MEDIA_URL }}tidbits/css/tidbit_form.less">
 {% endblock %}
 
 {% block content %}
@@ -10,7 +9,7 @@
 {% endblock %}
 
 {% block additionaljs %}
-<script src="{{ MEDIA_URL }}js/livevalidation1.3.min.js"></script>
+<script src="{{ MEDIA_URL }}js/form.jquery.tools.1.2.5.min.js"></script>
 <script src="{{ MEDIA_URL }}tidbits/jquery-ui-1.8.12.custom/js/jquery-ui-1.8.12.custom.min.js"></script>
 <script src="{{ MEDIA_URL }}tidbits/js/tidbit_form.js"></script>
 {% endblock %}

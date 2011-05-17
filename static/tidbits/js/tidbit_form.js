@@ -67,56 +67,96 @@ var books = [
         "Zephaniah"
 
     ];
-    
+
+re = new RegExp(/[12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$/);
+
 add_input_text = function(event) {
     event.preventDefault();
-    //TODO: use jquery templates instead
-    $("#cross_refs").append('<li><input type="text" name="cf" class="cf" placeholder="Enter passage"> <a>x</a></li>');
+    var newLiNode = $("#cross_refs li").last().clone();
+    newLiNode.children("input.cf").val("");
+    $("#cross_refs").append(newLiNode);
     $("#cross_refs a").click(remove_input_text);
-    addCfRegExpValidation($("#cross_refs input[type=text]").last());
     $("#cross_refs input.cf").last().autocomplete({
         source: books
     });
+    reset_form_validation();
 }
 
 remove_input_text = function(event) {
     event.preventDefault();
-    var liItem = $(this).parentsUntil("ul")
-
-    // animate/remove list item
-    liItem[0].style.visibility = 'hidden';
-    liItem.animate({
-                opacity: 0,
-                height: 0
-              }, 300, function() { liItem.remove(); });
-}
-
-cancel_action = function(event) {
-    event.preventDefault();
-}
-
-function addCfRegExpValidation(inputElems) {
-    for (var i = 0; i < inputElems.length; i++) {
-        var lv = new LiveValidation(inputElems[i], {validMessage: ":)"});
-        lv.add(Validate.Presence, {failureMessage: "required"});
-        re = new RegExp(/[12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$/);
-        lv.add(Validate.Format,{pattern: re, failureMessage: ":("});
+    var liItem = $(this).parentsUntil("ul");
+    if (liItem.siblings().length < 1) {
+        liItem.children("input").val("");
+    } else {
+        // animate/remove list item
+        liItem[0].style.visibility = 'hidden';
+        liItem.animate({
+                    opacity: 0,
+                    height: 0
+                  }, 300, function() {liItem.remove();});
     }
+    reset_form_validation();
+}
+
+function reset_form_validation() {
+    $("form").validator({
+        position: 'top left',
+        offset: [-12, 0],
+        message: '<div><em/></div>', // em element is the arrow
+        messageAttr: 'data-message'
+    });
+}
+
+function split( val ) {
+    return val.split( /,\s*/ );
+}
+function extractLast( term ) {
+    return split( term ).pop();
 }
 
 $(document).ready(function() {
     // initial event binding
     $("button").click(add_input_text);
     $("#cross_refs a").click(remove_input_text);
-    $("#cancel_btn").click(cancel_action);
-
-
     $("#cross_refs input.cf").autocomplete({
         source: books
     });
-
-    addCfRegExpValidation($("#cross_refs input[type=text]"));
-    var tidbit_ta = new LiveValidation("tidbit", {validMessage: ":)"});
-    tidbit_ta.add(Validate.Presence, {failureMessage: "required"})
-    tidbit_ta.add(Validate.Length, {minimum: 10, tooShortMessage: "too short!"})
+    $("#tags")
+    // don't navigate away from the field on tab when selecting an item
+    .bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+                $( this ).data( "autocomplete" ).menu.active ) {
+            event.preventDefault();
+        }
+    })
+    .autocomplete({
+        source: function( request, response ) {
+					$.getJSON( "/tidbits/ajax/tags/", {
+						term: extractLast( request.term )
+					}, response );
+				},
+        search: function() {
+            // custom minLength
+            var term = extractLast( this.value );
+            if ( term.length < 2 ) {
+                return false;
+            }
+        },
+        focus: function() {
+            // prevent value inserted on focus
+            return false;
+        },
+        select: function( event, ui ) {
+            var terms = split( this.value );
+            // remove the current input
+            terms.pop();
+            // add the selected item
+            terms.push( ui.item.value );
+            // add placeholder to get the comma-and-space at the end
+            terms.push( "" );
+            this.value = terms.join( ", " );
+            return false;
+        }
+    });
+    reset_form_validation();
 })
