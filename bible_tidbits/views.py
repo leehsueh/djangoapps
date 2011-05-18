@@ -20,6 +20,15 @@ def home(request):
     return render_to_response("tidbits_home.html", c,
                             context_instance=RequestContext(request))
 
+@login_required
+def my_tidbits(request):
+    c = {
+        'tidbits': Tidbit.objects.filter(created_by=request.user),
+    }
+    return render_to_response("tidbits_home.html", c,
+                            context_instance=RequestContext(request))
+    
+@login_required
 def process_tidbit_form(request, tidbit_id=None):
     """
     params are the request parameters; mode is either "edit" or "add"

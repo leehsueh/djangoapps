@@ -5,6 +5,10 @@ urlpatterns = patterns('',
         'siteapps_v1.bible_tidbits.views.home',
         name='home'
     ),
+    url(r'^mine/$',
+        'siteapps_v1.bible_tidbits.views.my_tidbits',
+        name='my-tidbits'
+    ),
     url(r'^add/$',
         'siteapps_v1.bible_tidbits.views.add',
         name='add'
