@@ -1,0 +1,54 @@
+@import "lib.less";
+
+/* Global styles and media queries */
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Droid Sans'), local('DroidSans'), url('http://themes.googleusercontent.com/font?kit=s-BiyweUPV0v-yRb-cjciBsxEYwM7FgeyaSgU71cLG0') format('woff');
+}
+@font-face {
+  font-family: 'Droid Serif';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Droid Serif'), local('DroidSerif'), url('http://themes.googleusercontent.com/font?kit=0AKsP294HTD-nvJgucYTaIbN6UDyHWBl620a-IRfuBk') format('woff');
+}
+.meta {
+	font-size: 0.8em;
+	font-style: italic;
+	color: #888;
+}
+
+/* Layout styles */
+body {
+	margin: 35px auto;
+	width: 700px;
+    color: #444;
+    font-family: 'Droid Sans', sans-serif;
+}
+h1 {
+    font-family: 'Droid Serif', serif;
+}
+header {
+	text-align: center;
+	margin: 0 0 20px;
+    h1 {
+        display: inline;
+        font-size: 32px;
+        a:link, a:visited {
+            color: #444;
+            text-decoration: none;
+        }
+    }
+    h2 {
+        font-size: 16px;
+        font-style: italic;
+        color: #999;
+    }
+    nav ul {
+        padding: 0;
+        li {
+            .inline-list;
+        }
+    }
+}

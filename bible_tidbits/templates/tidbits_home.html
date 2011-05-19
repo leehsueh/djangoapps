@@ -1,4 +1,6 @@
 {% extends "tidbits_layout.html" %}
+{% block additionalcss %}<link rel="stylesheet/less" href="{{ MEDIA_URL }}tidbits/css/tidbit_style.less">{% endblock %}
+
 {% block content %}
     {% if filter_criteria %}<p>Tidbits for <span>{{ filter_criteria }}</span></p>{% endif %}
     {% for tidbit in tidbits %}

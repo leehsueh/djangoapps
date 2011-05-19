@@ -1,15 +1,15 @@
 <article>
     <p>{{ tidbit.tidbit }}</p>
     {% if tidbit.is_question %}<p>???</p>{% endif %}
-    {% if tidbit.reflection %}<p>{{ tidbit.reflection|safe|linebreaksbr }}</p>{% endif %}
+    {% if tidbit.reflection %}<p>{{ tidbit.reflection|striptags|truncatewords:2 }}</p>{% endif %}
     <h1>Cross References</h1>
-    <ul>{% for cf in tidbit.cross_refs.all %}
+    <ul class="meta_tags">{% for cf in tidbit.cross_refs.all %}
         <li>{{ cf }}</li>
     {% endfor %}</ul>
     <h1>Tags</h1>
-    <ul>{% for tag in tidbit.tags.all %}
+    <ul class="meta_tags">{% for tag in tidbit.tags.all %}
         <li>{{ tag }}</li>
     {% endfor %}</ul>
-    <p>{{ tidbit.created_by }} on {{ tidbit.created_on|date:"m/d/Y" }}, last updated {{ tidbit.updated_on|date:"m/d/Y" }}
+    <p class="meta">{{ tidbit.created_by }} on {{ tidbit.created_on|date:"m/d/Y" }}, last updated {{ tidbit.updated_on|date:"m/d/Y" }}
     <p><span><a href="{% url tidbits:edit tidbit_id=tidbit.id %}">[edit]</a> <a href="{% url tidbits:delete tidbit_id=tidbit.id %}">[delete]</a></span></p>
 </article>

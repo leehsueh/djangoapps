@@ -1,0 +1,20 @@
+@import "lib.less";
+
+article {
+	border: 1px solid #eee;
+	border-top: none;
+	padding: 15px 10px;
+    &:first-of-type {
+        border: 1px solid #eee;
+    }
+    &:nth-child(even) {
+        background: #fafafa;
+    }
+    h1 {
+        font-size: 100%;
+    }
+    .meta_tags li {
+        .inline-list;
+        .tag-style(4px, 6px, 8px);
+    }
+}

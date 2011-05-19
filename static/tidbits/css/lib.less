@@ -1,0 +1,30 @@
+/* Less variables */
+@black: #333;
+@light-gray: #eee;
+
+
+/* Less classes */
+.rounded-corners(@r: 4px) {
+    -moz-border-radius:@r;
+	-webkit-border-radius:@r;
+    border-radius: @r;
+}
+.box-shadow(@x: 0px, @y: 0px, @r: 6px, @color: #ddd) {
+	-moz-box-shadow:@x @y @r @color;
+	-webkit-box-shadow:@x @y @r @color;
+    box-shadow: @x @y @r @color;
+}
+.meta {
+	font-size: 0.8em;
+	font-style: italic;
+	color: #888;
+}
+.inline-list {
+    display: inline-block;
+}
+.tag-style(@m: 4px, @p: 4px, @radius: 4px) {
+    .rounded-corners(@radius);
+    background: @light-gray;
+    margin: @m;
+    padding: @p;
+}

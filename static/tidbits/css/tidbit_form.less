@@ -1,36 +1,6 @@
-@black: #333;
-@light-gray: #eee;
+@import "lib.less";
 
-#cross_refs {
-    li {
-        list-style-type: none;
-        display: inline-block;
-        .rounded-corners;
-        background: @light-gray;
-        margin: 4px;
-        padding: 4px 4px;
-
-        input.cf {
-            border: 0;
-            background: @light-gray;
-            color: @black;
-        }
-        a {
-            cursor: pointer;
-        }
-    }
-}
-.rounded-corners(@r: 4px) {
-    -moz-border-radius:@r;
-	-webkit-border-radius:@r;
-    border-radius: @r;
-}
-.box-shadow(@x: 0px, @y: 0px, @r: 6px, @color: #ddd) {
-	-moz-box-shadow:@x @y @r @color;
-	-webkit-box-shadow:@x @y @r @color;
-    box-shadow: @x @y @r @color;
-}
-
+/* This is for jquery tools form validator */
 .error {
 	/* supply height to ensure consistent positioning for every browser */
 	height:15px;
@@ -55,5 +25,50 @@
         position:absolute;
         bottom:-17px;
         left:60px;
+    }
+}
+
+/* general form element styles */
+textarea {
+	height: 30px;
+	width: 510px;
+	padding: 10px;
+	border: 1px solid #ddd;
+}
+
+input[type=text] {
+	width: 100px;
+	margin: 0;
+	border: 1px solid #ddd;
+	background: white;
+}
+
+
+input[type=submit] {
+	height: 50px;
+	width: 100px;
+	margin: 1em;
+	border: 1px solid #ddd;
+	background: white;
+}
+
+/* specific class/element styles */
+#cross_refs {
+    li {
+        list-style-type: none;
+        display: inline-block;
+        .rounded-corners;
+        background: @light-gray;
+        margin: 4px;
+        padding: 4px 4px;
+
+        input.cf {
+            border: 0;
+            background: @light-gray;
+            color: @black;
+        }
+        a {
+            cursor: pointer;
+        }
     }
 }
