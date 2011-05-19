@@ -72,7 +72,9 @@ re = new RegExp(/[12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$
 add_input_text = function(event) {
     event.preventDefault();
     var newLiNode = $("#cross_refs li").last().clone();
-    newLiNode.children("input.cf").val("");
+    var inputElem = newLiNode.children("input.cf");
+    inputElem.val("");
+    inputElem.focus(add_cf_on_focus);
     $("#cross_refs").append(newLiNode);
     $("#cross_refs a").click(remove_input_text);
     $("#cross_refs input.cf").last().autocomplete({
@@ -88,13 +90,20 @@ remove_input_text = function(event) {
         liItem.children("input").val("");
     } else {
         // animate/remove list item
-        liItem[0].style.visibility = 'hidden';
+        //liItem[0].style.visibility = 'hidden';
+        //liItem.fadeOut(500, function() {liItem.remove();});
+        liItem.children("a").remove();  // prevent line break forming when width shrinks
         liItem.animate({
                     opacity: 0,
-                    height: 0
+                    width: 0
                   }, 300, function() {liItem.remove();});
     }
     reset_form_validation();
+}
+
+function add_cf_on_focus(event) {
+    if ($(this).parentsUntil("ul").next().length == 0)
+        add_input_text(event);
 }
 
 function reset_form_validation() {
@@ -106,9 +115,11 @@ function reset_form_validation() {
     });
 }
 
+// for tag autocomplete; multiple tags in single textarea
 function split( val ) {
     return val.split( /,\s*/ );
 }
+// for tag autocomplete; multiple tags in single textarea
 function extractLast( term ) {
     return split( term ).pop();
 }
@@ -120,6 +131,8 @@ $(document).ready(function() {
     $("#cross_refs input.cf").autocomplete({
         source: books
     });
+    $("input.cf").focus(add_cf_on_focus);
+    
     $("#tags")
     // don't navigate away from the field on tab when selecting an item
     .bind( "keydown", function( event ) {
