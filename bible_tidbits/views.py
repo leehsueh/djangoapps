@@ -213,6 +213,21 @@ def tidbits_by_book(request, book):
     }
     return render_to_response("tidbits_home.html", c, context_instance=RequestContext(request))
 
+def tidbits_by_tag(request, tag_slug):
+    try:
+        tag = Tag.objects.get(slug__exact=tag_slug)
+    except:
+        return HttpResponse("Does not exist!")
+
+    from django.db.models.query import EmptyQuerySet
+    tidbits = tag.tidbit_set.all()
+
+    c = {
+        'filter_criteria': tag.tag,
+        'tidbits': tidbits,
+    }
+    return render_to_response("tidbits_home.html", c, context_instance=RequestContext(request))
+
 def ajax_tags(request):
     results = []
     if request.method == "GET":

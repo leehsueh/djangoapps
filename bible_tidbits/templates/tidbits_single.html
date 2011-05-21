@@ -11,7 +11,7 @@
     {% endfor %}</ul>
     <h1>Tags</h1>
     <ul class="meta_tags">{% for tag in tidbit.tags.all %}
-        <li>{{ tag }}</li>
+        <li><a href="{% url tidbits:tidbits-by-tag tag_slug=tag.slug %}">{{ tag }}</a></li>
     {% endfor %}</ul>
     <p class="meta">{{ tidbit.created_by }} on {{ tidbit.created_on|date:"m/d/Y" }}, last updated {{ tidbit.updated_on|date:"m/d/Y" }}
     <p><span><a href="{% url tidbits:edit tidbit_id=tidbit.id %}">[edit]</a></span></p>

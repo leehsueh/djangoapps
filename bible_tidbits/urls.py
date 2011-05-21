@@ -17,6 +17,10 @@ urlpatterns = patterns('',
         'siteapps_v1.bible_tidbits.views.tidbits_by_book',
         name='tidbits-by-book'
     ),
+    url(r'^tags/(?P<tag_slug>[\w-]+)/$',
+        'siteapps_v1.bible_tidbits.views.tidbits_by_tag',
+        name='tidbits-by-tag'
+    ),
     url(r'^edit/(?P<tidbit_id>\d+)/$',
         'siteapps_v1.bible_tidbits.views.edit',
         name='edit'
