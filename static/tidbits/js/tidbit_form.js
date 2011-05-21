@@ -115,6 +115,10 @@ function reset_form_validation() {
     });
 }
 
+function on_submit(event) {
+    $("#cross_refs input.cf").first().attr("required", true);
+}
+
 // for tag autocomplete; multiple tags in single textarea
 function split( val ) {
     return val.split( /,\s*/ );
@@ -126,13 +130,21 @@ function extractLast( term ) {
 
 $(document).ready(function() {
     // initial event binding
-    $("button").click(add_input_text);
     $("#cross_refs a").click(remove_input_text);
     $("#cross_refs input.cf").autocomplete({
         source: books
     });
     $("input.cf").focus(add_cf_on_focus);
-    
+    $("#toggle_more").click(function() {
+       $(this).hide();
+       $("#toggle_less").show();
+       $("#more_details").slideDown(200);
+    });
+    $("#toggle_less").click(function() {
+       $(this).hide();
+       $("#toggle_more").show();
+       $("#more_details").slideUp(200);
+    });
     $("#tags")
     // don't navigate away from the field on tab when selecting an item
     .bind( "keydown", function( event ) {
@@ -170,5 +182,58 @@ $(document).ready(function() {
             return false;
         }
     });
+    $("#save_btn").click(on_submit);
     reset_form_validation();
+
 })
+
+/* WYMEditor plugin */
+/* Here we replace each element with class 'wymeditor'
+ * (typically textareas) by a WYMeditor instance.
+ *
+ * We could use the 'html' option, to initialize the editor's content.
+ * If this option isn't set, the content is retrieved from
+ * the element being replaced.
+ */
+$(function() {
+    $("input[id='save_btn']").addClass("wymupdate");
+    $("#more").addClass("wymeditor");
+
+    $('.wymeditor').wymeditor({
+        skin:'compact',
+        boxHtml:   "<div class='wym_box'>"
+              + "<div class='wym_area_top'>"
+              + WYMeditor.TOOLS
+              //+ WYMeditor.CONTAINERS
+              //+ WYMeditor.CLASSES
+              + "</div>"
+              + "<div class='wym_area_left'></div>"
+              + "<div class='wym_area_right'>"
+              + "</div>"
+              + "<div class='wym_area_main'>"
+              + WYMeditor.HTML
+              + WYMeditor.IFRAME
+              + WYMeditor.STATUS
+              + "</div>"
+              + "<div class='wym_area_bottom'>"
+              + "</div>"
+              + "</div>",
+          toolsItems: [
+                {'name': 'Bold', 'title': 'Strong', 'css': 'wym_tools_strong'},
+                {'name': 'Italic', 'title': 'Emphasis', 'css': 'wym_tools_emphasis'},
+                {'name': 'Superscript', 'title': 'Superscript', 'css': 'wym_tools_superscript'},
+                {'name': 'Subscript', 'title': 'Subscript', 'css': 'wym_tools_subscript'},
+                {'name': 'InsertOrderedList', 'title': 'Ordered_List', 'css': 'wym_tools_ordered_list'},
+                {'name': 'InsertUnorderedList', 'title': 'Unordered_List', 'css': 'wym_tools_unordered_list'},
+                {'name': 'Indent', 'title': 'Indent', 'css': 'wym_tools_indent'},
+                {'name': 'Outdent', 'title': 'Outdent', 'css': 'wym_tools_outdent'},
+                {'name': 'Undo', 'title': 'Undo', 'css': 'wym_tools_undo'},
+                {'name': 'Redo', 'title': 'Redo', 'css': 'wym_tools_redo'},
+                {'name': 'CreateLink', 'title': 'Link', 'css': 'wym_tools_link'},
+                {'name': 'Unlink', 'title': 'Unlink', 'css': 'wym_tools_unlink'},
+                {'name': 'Paste', 'title': 'Paste_From_Word', 'css': 'wym_tools_paste'},
+                {'name': 'ToggleHtml', 'title': 'HTML', 'css': 'wym_tools_html'},
+                {'name': 'Preview', 'title': 'Preview', 'css': 'wym_tools_preview'}
+              ]
+    });
+});

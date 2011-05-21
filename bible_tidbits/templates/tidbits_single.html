@@ -1,7 +1,10 @@
 <article>
     <p>{{ tidbit.tidbit }}</p>
     {% if tidbit.is_question %}<p>???</p>{% endif %}
-    {% if tidbit.reflection %}<p>{{ tidbit.reflection|striptags|truncatewords:15 }}</p>{% endif %}
+    {% if tidbit.reflection %}
+        <h1><a class="toggle_more">[ More ]</a><a class="toggle_less" style="display:none;">[ Less ]</a></h1>
+        <div class="more_details" style="display:none;">{{ tidbit.reflection|safe }}</div>
+    {% endif %}
     <h1>Cross References</h1>
     <ul class="meta_tags">{% for cf in tidbit.cross_refs.all %}
         <li>{{ cf }}</li>
