@@ -1,0 +1,106 @@
+
+<!DOCTYPE html> 
+<html lang="en"> 
+ 
+<head> 
+    <meta charset="utf-8"> 
+	<meta http-equiv="x-ua-compatible" content="ie=edge"> 
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]--> 
+ 
+	<title>Bible Tidbits: Home</title> 
+	<meta name="description" content=""> 
+	<base href="/"> 
+ 
+	<!-- for mobile devices --> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+ 
+	<link rel="stylesheet" href="http://tjcbdb.info/static/tidbits/css/reset.css">
+    <link rel="stylesheet/less" href="http://c9.io/leehsueh/djangoapps/workspace/static/tidbits/css/global.less">
+    
+<link rel="stylesheet" href="http://tjcbdb.info/static/tidbits/jquery-ui-1.8.12.custom/css/ui-lightness/jquery-ui-1.8.12.custom.css"> 
+<link rel="stylesheet/less" href="http://c9.io/leehsueh/djangoapps/workspace/static/tidbits/css/tidbit_form.less"> 
+ 
+    
+    <!-- less.js --> 
+    <script src="http://tjcbdb.info/static/js/less-1.0.41.min.js"></script> 
+    
+    <!-- google analytics --> 
+    <!--script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22602946-1']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script--> 
+</head> 
+ 
+<body> 
+    <div id="container"> 
+        <header> 
+        <hgroup> 
+          <h1><a href="/tidbits/">Bible Tidbits</a></h1> 
+          <h2>for those impromptu bits of insight</h2> 
+        </hgroup> 
+        <nav> 
+            <ul> 
+                <li><a href="/tidbits/">Home</a></li> 
+                <li><a href="/tidbits/">Log In</a></li> 
+                <li><a href="/tidbits/add/">New Tidbit</a></li> 
+            </ul> 
+        </nav> 
+        </header> 
+        
+ 
+<form action="/tidbits/add/" method="post" id="tidbit_form" novalidate> 
+    <textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit" required></textarea> 
+    <br> 
+    <label for="is_question">This is a question</label> 
+    <input type="checkbox" name="is_question" value="Yes" > 
+    <br> 
+    <label for="more">More:</label><br> 
+    <textarea id="more" name="more" placeholder="Further thoughts or reflections"></textarea> 
+    <fieldset> 
+        <legend>Cross References</legend> 
+        <ul id="cross_refs"> 
+        
+            <li><input type="text" name="cf" class="cf" type="text" pattern="([12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$)?" data-message="Invalid Bible reference format" placeholder="Enter passage"> <a>x</a></li> 
+        
+        </ul> 
+        <button>Add Another</button> 
+    </fieldset> 
+    <label for="tags">Tags</label>:
+    <textarea id="tags" name="tags" placeholder="Enter comma-separated tags"></textarea> 
+    <br> 
+    <input type="submit" value="Save" id="save_btn"> 
+     <a href="{% url tidbits:delete tidbit_id=tidbit.id %}">[delete]</a>
+</form> 
+ 
+    </div> 
+ 
+ 
+<script src="http://code.jquery.com/jquery-1.5.2.min.js"></script> 
+<script>window.jQuery || document.write("<script src='http://tjcbdb.info/static/js/jquery1.5.2.min.js'>\x3C/script>")</script> 
+ 
+<script src="http://tjcbdb.info/static/js/form.jquery.tools.1.2.5.min.js"></script> 
+<script src="http://tjcbdb.info/static/tidbits/jquery-ui-1.8.12.custom/js/jquery-ui-1.8.12.custom.min.js"></script> 
+<script src="http://c9.io/leehsueh/djangoapps/workspace/static/tidbits/js/tidbit_form.js"></script> 
+
+<script>
+$(document).ready(function() {
+   //$("input.cf").focus(add_cf_on_focus); 
+});
+function add_cf_on_focus(event) {
+    if ($(this).parentsUntil("ul").next().length == 0)
+        add_input_text(event);
+}
+</script>
+ 
+</body> 
+ 
+</html>

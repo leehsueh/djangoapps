@@ -11,5 +11,5 @@
         <li>{{ tag }}</li>
     {% endfor %}</ul>
     <p class="meta">{{ tidbit.created_by }} on {{ tidbit.created_on|date:"m/d/Y" }}, last updated {{ tidbit.updated_on|date:"m/d/Y" }}
-    <p><span><a href="{% url tidbits:edit tidbit_id=tidbit.id %}">[edit]</a> <a href="{% url tidbits:delete tidbit_id=tidbit.id %}">[delete]</a></span></p>
+    <p><span><a href="{% url tidbits:edit tidbit_id=tidbit.id %}">[edit]</a></span></p>
 </article>

@@ -29,5 +29,6 @@ Context variables:
     <textarea id="tags" name="tags" placeholder="Enter comma-separated tags">{% if tidbit %}{% for tag in tidbit.tags.all %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</textarea>
     <br>
     <input type="submit" value="Save" id="save_btn">
+    <a href="{% url tidbits:delete tidbit_id=tidbit.id %}">[delete]</a>
     {% csrf_token %}
 </form>
