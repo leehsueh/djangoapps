@@ -1,6 +1,7 @@
 @import "lib.less";
 
 article {
+    position: relative;
 	border: 1px solid #eee;
 	border-top: none;
 	padding: 15px 10px;
@@ -13,8 +14,22 @@ article {
     h1 {
         font-size: 100%;
     }
+    .question {position:absolute; left:-50px; top: 0; width: 50px; height: 50px; margin:0; text-align:center;background: #BEF56E;}
+    .tidbit_notes {
+        .tidbit {
+            font-style: italic;
+            font-size: 150%;
+        }
+        h1 { text-align: center; margin-top:-10px;}
+    }
+    .tidbit_tags {
+        margin-top: 20px;
+        div {float:left; width: 50%;}
+    }
+    .tidbit_admin {clear:both;}
     .meta_tags li {
         .inline-list;
         .tag-style(4px, 6px, 8px);
+        font-size: 80%;
     }
 }
