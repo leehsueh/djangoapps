@@ -3,19 +3,19 @@
         {% if tidbit.is_question %}<p class="question">?</p>{% endif %}
         <p class="tidbit">{{ tidbit.tidbit }}</p>
         {% if tidbit.reflection %}
-            <h1><a class="toggle_more">[ More ]</a><a class="toggle_less" style="display:none;">[ Less ]</a></h1>
+            <p class="show_details"><a class="toggle_more">[ more ]</a><a class="toggle_less" style="display:none;">[ less ]</a></p>
             <div class="more_details" style="display:none;">{{ tidbit.reflection|safe }}</div>
         {% endif %}
     </section>
     <section class="tidbit_tags">
         <div>
-            <h1>Cross References</h1>
+<!--            <h1>Cross References</h1>-->
             <ul class="meta_tags">{% for cf in tidbit.cross_refs.all %}
                 <li><a>{{ cf }}</a></li>
             {% endfor %}</ul>
         </div>
         <div>
-            <h1>Tags</h1>
+<!--            <h1>Tags</h1>-->
             <ul class="meta_tags">{% for tag in tidbit.tags.all %}
                 <li><a href="{% url tidbits:tidbits-by-tag tag_slug=tag.slug %}">{{ tag }}</a></li>
             {% endfor %}</ul>
