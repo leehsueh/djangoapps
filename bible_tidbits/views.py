@@ -19,6 +19,17 @@ def home(request):
     }
     return render_to_response("tidbits_home.html", c,
                             context_instance=RequestContext(request))
+def tidbits_by_user(request, username):
+    try:
+        user = User.objects.get(username__iexact=username)
+        c = {
+            'tidbits': Tidbit.objects.filter(created_by=user),
+            'filter_criteria': username,
+        }
+        return render_to_response("tidbits_home.html", c,
+                            context_instance=RequestContext(request))
+    except User.DoesNotExist:
+        return HttpResponse("User " + username + " is not valid.")
 
 @login_required
 def my_tidbits(request):

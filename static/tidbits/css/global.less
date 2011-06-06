@@ -25,12 +25,25 @@ body {
 	width: 700px;
     color: #444;
     font-family: 'Droid Sans', sans-serif;
+    background: url('../bg.png');
 }
 h1 {
     font-family: 'Droid Serif', serif;
+    .text-shadow;
+}
+h2 {
+    .text-shadow;
 }
 a {
     cursor: pointer;
+    text-decoration: underline;
+    &:visited, &:link, &:active {
+        color: #D6E0F5;
+        text-decoration: underline;
+    }
+    &:hover {
+        text-decoration: none;
+    }
 }
 header {
 	text-align: center;
@@ -46,10 +59,14 @@ header {
     h2 {
         font-size: 16px;
         font-style: italic;
-        color: #999;
+        color: @black;
     }
     nav ul {
         padding: 0;
         .inline-list;
     }
+}
+#filter_criteria {
+    .text-shadow;
+    span {font-style: italic;}
 }

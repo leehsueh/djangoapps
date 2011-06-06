@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if filter_criteria %}<p>Tidbits for <span>{{ filter_criteria }}</span></p>{% endif %}
+    {% if filter_criteria %}<p id="filter_criteria">Tidbits for <span>{{ filter_criteria }}</span></p>{% endif %}
     {% for tidbit in tidbits %}
     {% include "tidbits_single.html" %}
     {% endfor %}

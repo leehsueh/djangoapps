@@ -1,16 +1,17 @@
 @import "lib.less";
 
 article {
+    background: #fafafa;
     position: relative;
 	border: 1px solid #eee;
 	border-top: none;
 	padding: 15px 10px;
+    margin: 5px 0;
     &:first-of-type {
         border: 1px solid #eee;
     }
-    &:nth-child(even) {
-        background: #fafafa;
-    }
+    
+
     h1 {
         font-size: 100%;
     }
@@ -44,14 +45,19 @@ article {
         .more_details {
             font-family: 'Josefin Sans';
         }
-        .show_details { font-size: 80%;}
+        .show_details { 
+            font-size: 100%;
+        }
     }
     .tidbit_tags {
         margin-top: 20px;
-        div {float:left; width: 30%;}
     }
-    .tidbit_admin {clear:both;}
+    .tidbit_admin {
+        clear:both;
+        a:link, a:visited, a:active {color: #3366cc;}
+    }
     .meta_tags {
+        margin: 5px 0;
         .inline-list;
         li {.tag-style(4px, 6px, 8px); }
         font-size: 80%;
