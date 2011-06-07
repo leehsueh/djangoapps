@@ -1,11 +1,14 @@
 <article>
     <section class="tidbit_notes">
-        {% if tidbit.is_question %}<p class="question">?</p>{% endif %}
+        {% if tidbit.is_question %}<p class="question" title="Marked as a question"><a href="{% url tidbits:question-tidbits %}">?</a></p>{% endif %}
         <p class="tidbit">{{ tidbit.tidbit }}</p>
+        <div class="cross_refs">
+            <h1>Cross References</h1>
         <ul class="meta_tags">{% for cf in tidbit.cross_refs.all %}
                 <li>{{ cf }}</li>
         {% endfor %}</ul>
-        <ul class="meta_tags">{% for tag in tidbit.tags.all %}
+        </div>
+        <ul class="meta_tags tags">{% for tag in tidbit.tags.all %}
                 <li><a href="{% url tidbits:tidbits-by-tag tag_slug=tag.slug %}">{{ tag }}</a></li>
         {% endfor %}</ul>
         {% if tidbit.reflection %}
@@ -13,20 +16,8 @@
             <div class="more_details" style="display:none;">{{ tidbit.reflection|safe }}</div>
         {% endif %}
     </section>
-    <!--section class="tidbit_tags">
-        <div>
-            <ul class="meta_tags">{% for cf in tidbit.cross_refs.all %}
-                <li>{{ cf }}</li>
-            {% endfor %}</ul>
-        </div>
-        <div>
-            <ul class="meta_tags">{% for tag in tidbit.tags.all %}
-                <li><a href="{% url tidbits:tidbits-by-tag tag_slug=tag.slug %}">{{ tag }}</a></li>
-            {% endfor %}</ul>
-        </div>
-    </section-->
     <section class="tidbit_admin">
-        <p class="tidbit_date">{{ tidbit.updated_on|date:"M d, Y" }}<br><span class="meta">by {{ tidbit.created_by }}</span></p>
+        <p class="tidbit_date">{{ tidbit.updated_on|date:"M d, Y" }}<br><span class="meta">by <a href="{% url tidbits:tidbits-by-user username=tidbit.created_by.username %}">{{ tidbit.created_by }}</a></span></p>
 <!--        <p class="meta">{{ tidbit.created_by }} on {{ tidbit.created_on|date:"m/d/Y" }}, last updated {{ tidbit.updated_on|date:"m/d/Y" }}-->
         <p><span>[ <a href="{% url tidbits:edit tidbit_id=tidbit.id %}">edit</a> ]</span></p>
     </section>

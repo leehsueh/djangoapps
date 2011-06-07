@@ -10,7 +10,6 @@ article {
     &:first-of-type {
         border: 1px solid #eee;
     }
-    
 
     h1 {
         font-size: 100%;
@@ -18,8 +17,23 @@ article {
     .question {
         position:absolute; left: 96%;
         top: 10px; width: 50px;
-        padding: 15px 0; margin:0;
-        text-align:center;background: #BEF56E;
+        margin:0;
+        text-align:center;
+        font-size: 150%;font-weight: bold;
+        a {
+            border: 1px solid darken(#BEF56E, 40);
+            padding: 10px 0;
+            .rounded-corners(25px);
+            background: #BEF56E;
+        }
+        a:link, a:visited, a:active {
+            color: darken(#BEF56E, 40);
+            text-decoration: none;
+            display: block;
+        }
+        a:hover {
+            background: lighten(#BEF56E, 10);
+        }
     }
     .tidbit_date {
         position: absolute;
@@ -35,12 +49,12 @@ article {
             border: 1px lighten(@black,70) solid;
             background: @light-gray;
             .box-shadow(1px, 1px, 4px, lighten(@black, 50));
-            padding: 5px;
-            margin: 50px 0 0 -50px;
+            padding: 10px;
+            margin: 50px 0 0 -60px;
             width: 95%;
             font-family: 'OFL Sorts Mill Goudy TT' serif;
             font-style: italic;
-            font-size: 150%;
+            font-size: 160%;
         }
         .more_details {
             font-family: 'Josefin Sans';
@@ -48,9 +62,6 @@ article {
         .show_details { 
             font-size: 100%;
         }
-    }
-    .tidbit_tags {
-        margin-top: 20px;
     }
     .tidbit_admin {
         clear:both;
@@ -60,6 +71,14 @@ article {
         margin: 5px 0;
         .inline-list;
         li {.tag-style(4px, 6px, 8px); }
-        font-size: 80%;
+        font-size: 90%;
+    }
+    .cross_refs {
+        margin-bottom: 0; float: right;
+        width: 30%;
+        li {display:block;}
+    }
+    .tags {
+        font-size: 70%;
     }
 }

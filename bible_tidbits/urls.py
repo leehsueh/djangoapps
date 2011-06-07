@@ -9,6 +9,10 @@ urlpatterns = patterns('',
         'siteapps_v1.bible_tidbits.views.my_tidbits',
         name='my-tidbits'
     ),
+    url(r'^questions/$',
+        'siteapps_v1.bible_tidbits.views.question_tidbits',
+        name='question-tidbits'
+    ),
     url(r'^user/(?P<username>[\w]+)/$',
         'siteapps_v1.bible_tidbits.views.tidbits_by_user',
         name='tidbits-by-user'

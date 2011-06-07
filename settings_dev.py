@@ -65,6 +65,15 @@ SECRET_KEY = 'u%828kd-+1o6xe!$bx!*rllw+uj8#g!05c%c3r_bs8d2kv#pt!'
 # Biblia API key
 BIBLIA_API_KEY = 'd43cf9c9e02a3f4187e917a0e4f682a1'
 
+TEMPLATE_CONTEXT_PROCESSORS =  ("django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
+    'django.core.context_processors.request',
+)
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',

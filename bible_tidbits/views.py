@@ -3,28 +3,51 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 from siteapps_v1.bible_tidbits.models import *
 import re
 from django.utils import simplejson
 
-def test_form(request):
-    return render_to_response("testform.html", 
-                            context_instance=RequestContext(request))
+# TODO: refactor total_count into common context processor
+
+def paginate_tidbits(request, tidbit_qs):
+    """ returns the paginator for the given query set"""
+    paginator = Paginator(tidbit_qs, 10)
+
+    # Make sure page request is an int. If not, deliver first page.
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    # If page request (9999) is out of range, deliver last page of results.
+    try:
+        tidbits = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        tidbits = paginator.page(paginator.num_pages)
+
+    return tidbits
 
 def home(request):
     """The home view"""
+    tidbits_qs = Tidbit.objects.all()
+    tidbits = paginate_tidbits(request, tidbits_qs)
     c = {
-        'tidbits': Tidbit.objects.all(),
+        'tidbits': tidbits,
+        'total_count': tidbits_qs.count()
     }
     return render_to_response("tidbits_home.html", c,
                             context_instance=RequestContext(request))
 def tidbits_by_user(request, username):
     try:
         user = User.objects.get(username__iexact=username)
+        tidbit_qs = Tidbit.objects.filter(created_by=user)
         c = {
-            'tidbits': Tidbit.objects.filter(created_by=user),
+            'tidbits': paginate_tidbits(request, tidbit_qs),
             'filter_criteria': username,
+            'filter_count': tidbit_qs.count(),
+            'total_count': Tidbit.objects.all().count()
         }
         return render_to_response("tidbits_home.html", c,
                             context_instance=RequestContext(request))
@@ -33,8 +56,12 @@ def tidbits_by_user(request, username):
 
 @login_required
 def my_tidbits(request):
+    tidbits_qs = Tidbit.objects.filter(created_by=request.user)
     c = {
-        'tidbits': Tidbit.objects.filter(created_by=request.user),
+        'tidbits': paginate_tidbits(request, tidbits_qs),
+        'filter_count': tidbit_qs.count(),
+        'filter_criteria': request.user.username,
+        'total_count': Tidbit.objects.all().count()
     }
     return render_to_response("tidbits_home.html", c,
                             context_instance=RequestContext(request))
@@ -220,7 +247,9 @@ def tidbits_by_book(request, book):
 
     c = {
         'filter_criteria': book,
-        'tidbits': tidbits,
+        'filter_count': tidbits.count(),
+        'tidbits': paginate_tidbits(request, tidbits),
+        'total_count': Tidbit.objects.all().count()
     }
     return render_to_response("tidbits_home.html", c, context_instance=RequestContext(request))
 
@@ -235,7 +264,19 @@ def tidbits_by_tag(request, tag_slug):
 
     c = {
         'filter_criteria': tag.tag,
-        'tidbits': tidbits,
+        'tidbits': paginate_tidbits(request, tidbits),
+        'filter_count': tidbits.count(),
+        'total_count': Tidbit.objects.all().count()
+    }
+    return render_to_response("tidbits_home.html", c, context_instance=RequestContext(request))
+
+def question_tidbits(request):
+    tidbits_qs = Tidbit.objects.filter(is_question=True)
+    c = {
+        'filter_criteria': 'marked as question',
+        'tidbits': paginate_tidbits(request, tidbits_qs),
+        'filter_count': tidbits_qs.count(),
+        'total_count': Tidbit.objects.all().count()
     }
     return render_to_response("tidbits_home.html", c, context_instance=RequestContext(request))
 
