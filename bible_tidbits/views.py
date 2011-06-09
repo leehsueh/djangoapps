@@ -244,7 +244,7 @@ def tidbits_by_book(request, book):
     tidbits = EmptyQuerySet()
     for cf in cfs:
         tidbits |= cf.tidbit_set.all()
-
+    tidbits = tidbits.distinct()
     c = {
         'filter_criteria': book,
         'filter_count': tidbits.count(),
