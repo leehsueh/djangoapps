@@ -25,37 +25,32 @@ def ajax_contactable(request):
         return HttpResponse(u'Invalid')
 
 def janrain_token_url(request):
-    if request.method == 'POST':
-        token = request.POST['token']
-        api_key = "d8cd96a5b5372c15e235211eac81059c6b4df50c"
-        api_params = {
-            'token': token,
-            'apiKey': api_key,
-            'format': 'json',   
-        }
-        # make the api call
-        http_response = urllib2.urlopen('https://rpxnow.com/api/v2/auth_info',
-                                urllib.urlencode(api_params))
+    token = request.POST['token']
+    api_key = "d8cd96a5b5372c15e235211eac81059c6b4df50c"
+    api_params = {
+        'token': token,
+        'apiKey': api_key,
+        'format': 'json',   
+    }
+    # make the api call
+    http_response = urllib2.urlopen('https://rpxnow.com/api/v2/auth_info',
+                            urllib.urlencode(api_params))
+    
+    # read json response
+    auth_info_json = http_respnse.read()
+    auth_info = simplejson.loads(auth_info_json)
+    if auth_info['stat'] == 'ok':
+        profile = auth_info['profile']
         
-        # read json response
-        auth_info_json = http_respnse.read()
-        auth_info = simplejson.loads(auth_info_json)
-        if auth_info['stat'] == 'ok':
-            profile = auth_info['profile']
-            
-            # identifier is the unique identifier used to sign user into site
-            identifier = profile['identifier']
+        # identifier is the unique identifier used to sign user into site
+        identifier = profile['identifier']
 
-            # these fields MAY be in the profile, but are not guaranteed. it
-            # depends on the provider and their implementation.
-            name = profile.get('displayName')
-            email = profile.get('email')
+        # these fields MAY be in the profile, but are not guaranteed. it
+        # depends on the provider and their implementation.
+        name = profile.get('displayName')
+        email = profile.get('email')
 
-            # TODO: sign user in with custom backend
+        # TODO: sign user in with custom backend
 
-            return HttpResponse(identifier + '\n' + name
-                + '\n' + email)
-
-
-    else:
-        return HttpResponse("What are you doing?")
+        return HttpResponse(identifier + '\n' + name
+            + '\n' + email)
