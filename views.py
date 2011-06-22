@@ -26,7 +26,7 @@ def ajax_contactable(request):
 
 def janrain_token_url(request):
     params = dict(request.POST)
-    token = params'token'][0]
+    token = params['token'][0]
     api_key = "d8cd96a5b5372c15e235211eac81059c6b4df50c"
     api_params = {
         'token': token,
