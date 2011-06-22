@@ -29,6 +29,9 @@ urlpatterns = patterns('',
     url(r'^accounts/pc/$', 'django.contrib.auth.views.password_change', name='passwd-change'),
     url(r'^accounts/pc/done/$', 'django.contrib.auth.views.password_change_done', name='passwd-change-done'),
 
+    # janrain sign-in token url
+    url(r'^accounts/janrain/token/$', 'siteapps_v1.views.janrain_token_url', name='janrain-token-url'),
+
     # contactable ajax url; should have POST parameters
     url(r'^contact/$', 'siteapps_v1.views.ajax_contactable', name='ajax-contactable'),
 )
