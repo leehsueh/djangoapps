@@ -173,11 +173,11 @@ article #lesson_filters {
 article header h1 {
     font-size:6em;
     margin:0.5em 0 0 0;
-    -webkit-transition: all 0.2s ease-in-out;
+/*    -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;*/
 }
-article header h1:hover { -webkit-transform: rotate(-2deg); -moz-transform: rotate(-2deg); -o-transform: rotate(-2deg); }
+/*article header h1:hover { -webkit-transform: rotate(-2deg); -moz-transform: rotate(-2deg); -o-transform: rotate(-2deg); }*/
 
 article header h1 span#def_article {
     color: #cecece;
