@@ -6,6 +6,11 @@ from django.core.mail import send_mail
 def hub(request):
     return render_to_response('hub.html', {})
 
+def env_info(request):
+    import sys
+    import django
+    return HttpResponse(sys.version + '<br>' + django.get_version())
+
 def ajax_contactable(request):
     if request.is_ajax():
         try:

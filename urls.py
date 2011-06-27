@@ -31,6 +31,8 @@ urlpatterns = patterns('',
 
     # contactable ajax url; should have POST parameters
     url(r'^contact/$', 'siteapps_v1.views.ajax_contactable', name='ajax-contactable'),
+
+    url(r'^env_info/$', 'siteapps_v1.views.env_info', name='env-info'),
 )
 
 from django.conf import settings
