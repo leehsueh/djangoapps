@@ -4,6 +4,7 @@
 DEBUG = True
 PRNT_STMT = True
 TEMPLATE_DEBUG = DEBUG
+USE_DEPLOYED_DB = False
 
 ADMINS = (
     # ('Hain-Lee', 'leehsueh7@gmail.com'),
@@ -12,16 +13,29 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # Database settings
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'leehsueh_appsv1_test',
-        'USER': 'leehsueh_appsv1',
-        'PASSWORD': 'trunksu',
-        'HOST': '',
-        'PORT': '',
+if not USE_DEPLOYED_DB:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2', # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'leehsueh_appsv1_test',
+            'USER': 'leehsueh_appsv1',
+            'PASSWORD': 'trunksu',
+            'HOST': '',
+            'PORT': '',
+        },
+
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2', # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'leehsueh_appsv1',
+            'USER': 'leehsueh_appsv1',
+            'PASSWORD': 'trunksu',
+            'HOST': 'web110.webfaction.com',
+            'PORT': '5432',
+        }
+    }
 
 
 # Local time zone for this installation. Choices can be found here:

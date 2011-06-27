@@ -4,15 +4,20 @@ article {
     background: #fafafa;
     position: relative;
 	border: 1px solid #eee;
-	border-top: none;
 	padding: 15px 10px;
     margin: 25px 0;
-    box-shadow: 0px 0px 20px @black;
+    .box-shadow(0px, 0px, 25px, @black);
     &:first-of-type {
         border: 1px solid #eee;
     }
-    &:hover {
-        box-shadow: 0px 0px 50px @black;
+
+    a {
+        &:visited, &:link, &:active {
+            color: #36C;
+        }
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     h1 {
@@ -28,7 +33,7 @@ article {
             border: 1px solid darken(#BEF56E, 40);
             padding: 10px 0;
             .rounded-corners(25px);
-            background: #BEF56E;
+            background: lighten(#BEF56E, 10);
         }
         a:link, a:visited, a:active {
             color: darken(#BEF56E, 40);
@@ -36,12 +41,12 @@ article {
             display: block;
         }
         a:hover {
-            background: lighten(#BEF56E, 10);
+            background: #BEF56E;
         }
     }
     .tidbit_date {
         position: absolute;
-        left: -50px;
+        left: -30px;
         top: 10px;
         padding: 5px 0; margin: 0;
         width: 120px;
@@ -54,11 +59,12 @@ article {
             background: @light-gray;
             .box-shadow(1px, 1px, 4px, lighten(@black, 50));
             padding: 10px;
-            margin: 50px 0 0 -60px;
-            width: 95%;
+            margin: 60px 0 0 0;
+            width: 68%;
             font-family: 'Annie Use Your Telescope' 'OFL Sorts Mill Goudy TT' serif;
             font-style: italic;
             font-size: 160%;
+            float: left;
         }
         .more_details {
             font-family: 'Josefin Sans';
@@ -69,20 +75,23 @@ article {
     }
     .tidbit_admin {
         clear:both;
-        a:link, a:visited, a:active {color: #3366cc;}
     }
     .meta_tags {
         margin: 5px 0;
         .inline-list;
         li {.tag-style(4px, 6px, 8px); }
-        font-size: 90%;
+        font-size: 80%;
     }
     .cross_refs {
-        margin-bottom: 0; float: right;
-        width: 30%;
-        li {display:block;}
+        margin: 56px 0 0 0;
+        float: left;
+        width: 25%;
+        margin-left: 0.5em;
+        ul>li {display:block;}
     }
     .tags {
         font-size: 70%;
+        clear: both;
+        padding-top: 0.5em;
     }
 }

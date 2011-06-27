@@ -6,8 +6,10 @@ Context variables:
     - tidbit
 {% endcomment %}
 <form action="{{ action_url }}" method="post" id="{{ form_id }}" novalidate>
-    <h2>Cross References</h2>
-    <p>
+    <div class="row1">
+        <h2>Tidbit</h2>
+        <p><textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit" required>{% if tidbit.tidbit %}{{ tidbit.tidbit }}{% endif %}</textarea></p>
+<!--         <h2>Cross References</h2>-->
         <ul id="cross_refs">
         {% if tidbit %}{% for cf in tidbit.cross_refs.all %}
             <li><input type="text" name="cf" class="cf" type="text" pattern="[12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$" data-message="Invalid Bible reference format" placeholder="Enter passage" value="{{ cf }}"> <a>x</a></li>
@@ -16,20 +18,19 @@ Context variables:
             <li><input type="text" name="cf" class="cf" type="text" pattern="([12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$)?" data-message="Invalid Bible reference format" placeholder="Enter passage"> <a>x</a></li>
         
         </ul>
-    </p>
-    <h2>Tidbit</h2>
-    <p><textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit" required>{% if tidbit.tidbit %}{{ tidbit.tidbit }}{% endif %}</textarea></p>
+    </div>
     <p>
         <label for="is_question">Mark as a question</label>
         <input type="checkbox" name="is_question" value="Yes" {% if tidbit.is_question %}checked{% endif %}>
+    </p>
+    <h2>Tags</h2>
+    <p>
+    <textarea id="tags" name="tags" placeholder="Enter comma-separated tags">{% if tidbit %}{% for tag in tidbit.tags.all %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</textarea>
     </p>
     <h2><a id="toggle_more"{% if tidbit.reflection %} style="display:none;"{% endif %}>[ More ]</a><a id="toggle_less"{% if not tidbit.reflection %} style="display:none;"{% endif %}>[ Less ]</a></h2>
     <div id="more_details"{% if not tidbit.reflection %} style="display:none;"{% endif %}>
         <p><textarea id="more" name="more" placeholder="Further thoughts or reflections">{% if tidbit.reflection %}{{ tidbit.reflection }}{% endif %}</textarea></p>
     </div>
-    <p>
-    <textarea id="tags" name="tags" placeholder="Enter comma-separated tags">{% if tidbit %}{% for tag in tidbit.tags.all %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</textarea>
-    </p>
     <p>
     <input type="submit" value="Save" id="save_btn">
     {% if tidbit %}<a href="{% url tidbits:delete tidbit_id=tidbit.id %}">[delete]</a>{% endif %}

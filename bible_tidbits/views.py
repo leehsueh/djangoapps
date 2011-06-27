@@ -158,7 +158,7 @@ def process_tidbit_form(request, tidbit_id=None):
     tags_to_add = []
     for tag in tags:
         try:
-            t = Tag.objects.get(tag=tag)
+            t = Tag.objects.get(tag__iexact=tag)
         except Tag.DoesNotExist:
             t = Tag()
             t.tag = tag

@@ -3,7 +3,7 @@
         {% if tidbit.is_question %}<p class="question" title="Marked as a question"><a href="{% url tidbits:question-tidbits %}">?</a></p>{% endif %}
         <p class="tidbit">{{ tidbit.tidbit }}</p>
         <div class="cross_refs">
-            <h1>Cross References</h1>
+            <!-- <h1>Cross References</h1> -->
         <ul class="meta_tags">{% for cf in tidbit.cross_refs.all %}
                 <li>{{ cf }}</li>
         {% endfor %}</ul>

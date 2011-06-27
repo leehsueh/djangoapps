@@ -14,9 +14,17 @@
 	-webkit-box-shadow:@x @y @r @color;
     box-shadow: @x @y @r @color;
 }
-.text-shadow(@x: 0px, @y: 1px, @r: 1px, @color: #cecece) {
+.text-shadow(@x: 0px, @y: 1px, @r: 0, @color: #cecece) {
     text-shadow: @x @y @r @color;
 }
+.rotate(@deg: 1deg) {
+    transform: rotate(@deg);
+    -ms-transform: rotate(@deg); /* IE 9 */
+    -webkit-transform: rotate(@deg); /* Safari and Chrome */
+    -o-transform: rotate(@deg); /* Opera */
+    -moz-transform: rotate(@deg); /* Firefox */
+}
+
 .meta {
 	font-size: 0.8em;
 	font-style: italic;
