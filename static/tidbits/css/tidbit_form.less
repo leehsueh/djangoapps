@@ -82,6 +82,8 @@ input[type=submit] {
 
 form {
     background: #fafafa;
+    .background-linear-gradient;
+    .box-shadow(0, 0, 30px, @black);
     border: 1px solid #eee;
     padding: 15px 10px;
     div.row1 {
@@ -93,9 +95,14 @@ form {
             textarea {
                 height: 100px;
                 width: 95%;
-                border: 1px lighten(@black,70) solid;
-                background: @light-gray;
-                .box-shadow(1px, 1px, 8px, lighten(@black, 0));
+                border: 1px darken(@post-it-yellow,10) solid;
+                .background-linear-gradient(left, top, right, bottom, @post-it-yellow, 0.15, darken(@post-it-yellow, 5), 0.54);
+                font-family: 'Annie Use Your Telescope';
+                font-size: 150%;
+                /*.box-shadow(1px, 1px, 8px, lighten(@black, 0));*/
+                box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.4), 
+                    1px 6px 10px rgba(0, 0, 0, 0.1), 
+                    1px 14px 20px rgba(0, 0, 0, 0.1);
             }
         }
         ul {

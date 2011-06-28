@@ -1,7 +1,7 @@
 /* Less variables */
 @black: #333;
-@light-gray: #eee;
-
+@light-gray: #fefefe;
+@post-it-yellow: #FCF6C5;
 
 /* Less classes */
 .rounded-corners(@r: 4px) {
@@ -17,12 +17,21 @@
 .text-shadow(@x: 0px, @y: 1px, @r: 0, @color: #cecece) {
     text-shadow: @x @y @r @color;
 }
+.text-spacing(@ls: 0.1em, @ws: 0.2em, @lh: 1.8em) {
+    letter-spacing: @ls;
+    word-spacing: @ws;
+    line-height: @lh;
+}
 .rotate(@deg: 1deg) {
     transform: rotate(@deg);
     -ms-transform: rotate(@deg); /* IE 9 */
     -webkit-transform: rotate(@deg); /* Safari and Chrome */
     -o-transform: rotate(@deg); /* Opera */
     -moz-transform: rotate(@deg); /* Firefox */
+}
+.background-linear-gradient(@xstart: left, @ystart: top, @xstop: right, @ystop: bottom, @c1: rgb(245,245,245), @c1s: 0.35, @c2: rgb(237,237,237), @c2s: 0.84) {
+    background-image: -webkit-gradient(linear,@xstart @ystart,@xstop @ystop, color-stop(@c1s, @c1),color-stop(@c2s, @c2) );
+    background-image: -moz-linear-gradient(@xstart @ystart, @c1 @c1s*100%, @c2 @c2s*100%);
 }
 
 .meta {
@@ -38,10 +47,10 @@
     margin: @m;
     a {
         .rounded-corners(@radius);
-        background: @light-gray;
+        background: rgba(10, 120, 250, 0.2);
         padding: @p;
         display: block;
         &:link, &:visited { color: @black; text-decoration: none;}
-        &:hover {background: darken(@light-gray,15);}
+        &:hover {background: rgba(10, 120, 250, 0.5);}
     }
 }
