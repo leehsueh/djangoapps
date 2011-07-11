@@ -99,6 +99,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -122,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.comments',
+    'django.contrib.messages',
     'siteapps_v1.bibledb',
     'siteapps_v1.ntgreekvocab',
     'siteapps_v1.bible_tidbits',
