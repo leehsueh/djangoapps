@@ -4,7 +4,7 @@
 DEBUG = True
 PRNT_STMT = True
 TEMPLATE_DEBUG = DEBUG
-USE_DEPLOYED_DB = True
+USE_DEPLOYED_DB = False
 
 ADMINS = (
     # ('Hain-Lee', 'leehsueh7@gmail.com'),
@@ -72,11 +72,13 @@ ADMIN_MEDIA_PREFIX = '/admin/media/'
 
 # Absolute path to the directory that holds static files.
 # Example: "/home/static/static.lawrence.com/"
-STATIC_ROOT = 'c://Users//leehsueh//webdev//gitstuff//siteapps_v1//static//'
+#STATIC_ROOT = 'c://Users//leehsueh//webdev//gitstuff//siteapps_v1//static//'
 
 # URL that handles the media served from STATIC_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = ('c://Users//leehsueh//webdev//gitstuff//siteapps_v1//static//',)
     
 LOGIN_URL = '/accounts/login/'
     

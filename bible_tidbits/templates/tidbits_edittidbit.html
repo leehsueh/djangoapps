@@ -1,7 +1,7 @@
 {% extends "tidbits_layout.html" %}
 {% block additionalcss %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}tidbits/jquery-ui-1.8.12.custom/css/ui-lightness/jquery-ui-1.8.12.custom.css">
-<link rel="stylesheet/less" href="{{ MEDIA_URL }}tidbits/css/tidbit_form.less">
+<link rel="stylesheet" href="{{ STATIC_URL }}jquery-ui-1.8.12.custom/css/ui-lightness/jquery-ui-1.8.12.custom.css">
+<link rel="stylesheet/less" href="{{ STATIC_URL }}css/tidbit_form.less">
 {% endblock %}
 
 {% block content %}
@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block additionaljs %}
-<script src="{{ MEDIA_URL }}js/form.jquery.tools.1.2.5.min.js"></script>
-<script src="{{ MEDIA_URL }}tidbits/jquery-ui-1.8.12.custom/js/jquery-ui-1.8.12.custom.min.js"></script>
+<script src="{{ STATIC_URL }}js/form.jquery.tools.1.2.5.min.js"></script>
+<script src="{{ STATIC_URL }}jquery-ui-1.8.12.custom/js/jquery-ui-1.8.12.custom.min.js"></script>
 
 <!-- wymeditor -->
-<script type="text/javascript" src="{{ MEDIA_URL }}js/wymeditor/wymeditor/jquery.wymeditor.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/wymeditor/wymeditor/jquery.wymeditor.min.js"></script>
 
-<script src="{{ MEDIA_URL }}tidbits/js/tidbit_form.js"></script>
+<script src="{{ STATIC_URL }}js/tidbit_form.js"></script>
 {% endblock %}
