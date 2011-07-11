@@ -1,0 +1,48 @@
+{% extends 'bibledb_base_twoCol.html' %}
+{% load comments %}
+{% block additionalcss %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_forms.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_entry_list.css" />
+{% endblock %}
+
+{% block leftcolcontent %}
+<h2>By Passage</h2>
+<div id="verseForm">
+<form action="{% url bibledb:entries-browse %}" method="get">
+{% if browse_bible_form.errors or browse_bible_form.non_field_errors %}
+    <ul>
+    	{% for error in browse_bible_form.book.errors %}<li>Book: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.chapter.errors %}<li>Chapter: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.startverse.errors %}<li>Start verse: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.endverse.errors %}<li>End verse: {{ error }}</li>{% endfor %}
+        {% for error in browse_bible_form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+<p>{{ browse_bible_form.book }} {{ browse_bible_form.chapter }}<!--:{{ browse_bible_form.startverse }}-{{ browse_bible_form.endverse }}--> <button class="button_as_link" type="submit" value="Submit"><span>Go</span></button></p>
+</form>
+</div>
+
+<h2><a href="{% url bibledb:categories %}">Categories</a></h2>
+<h2><a href="{% url bibledb:tags %}">Tags</a></h2>
+<h2><a href="{% url bibledb:users %}">Users</a></h2>
+<h2><a href="{% url bibledb:entries-all %}">View All</a></h2>
+{% endblock %}
+
+{% block rightcolcontent %}
+{% if tag_list_full %}
+	{% with tag_list_full as tag_list %}{% include "bibledb_tag_list_fragment.html" %}{% endwith %}
+{% else %}
+{% if category_list %}{% include "bibledb_cat_list_fragment.html" %}
+{% else %}
+{% if user_list %}<h2>All Users</h2>
+<ul>{% for user in user_list %}
+	<li><a href="{% url bibledb:entries-username slug=user.username %}">{{ user.username }}</a></li>
+{% endfor %}</ul>
+{% else %}
+<h2>Browse Entries</h2>
+<p>Currently entries can be browsed by book (optionally with chapter), category, tag, or user. Alternatively, <a href="{% url bibledb:entries-all %}">view all entries</a>.</p>
+{% endif %}
+{% endif %}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,105 @@
+<div id="addEntryForm">
+	{% if form.errors or form.non_field_errors %}
+    <ul class="errorlist">
+        {% for error in form.chapter.errors %}<li>Chapter: {{ error }}</li>{% endfor %}
+        {% for error in form.startverse.errors %}<li>Start verse: {{ error }}</li>{% endfor %}
+        {% for error in form.endverse.errors %}<li>End verse: {{ error }}</li>{% endfor %}
+        {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    <div>
+    	<div id="formCol1" class="lightBorder fltlft">
+        	<div class="fieldWrapper" id="verseForm">
+            	{{ form.book }} &nbsp;{{ form.chapter }}:{{ form.startverse }}-{{ form.endverse }}&nbsp;<a class="hidden smalltext" id="refresh_link" href="#" title="refresh passage">Refresh</a><span class="smalltext hidden loading_text">Loading...</span>
+                <br /><a class="smalltext" id="preview_link" href="#" title="preview passage">Preview Passage</a>
+    		</div>
+            <div id="passage_preview" class="lightBorder paddedDiv smalltext hidden">
+            	<span class="hidden loading_text"><strong>LOADING...</strong></span>
+            	<p id="passage_text" class="hidden"></p>
+            </div>
+            <div class="fieldWrapper">
+                {{ form.title.errors }}
+                {{ form.title.label_tag }}: {{ form.title }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.context_notes.errors }}
+                {{ form.context_notes.label_tag }}: <br />{{ form.context_notes }}
+            </div>
+            <div class="fieldWrapper">
+                {{ form.notes.errors }}
+                {{ form.notes.label_tag }}: <br />{{ form.notes }}
+                
+            </div>
+            <div class="fieldWrapper">
+                {{ form.additional_tags.errors }}
+                {{ form.additional_tags.label_tag }}: <br />{{ form.additional_tags }}
+            </div>
+            {% if form_submit_name == "editEntry" %}<p><button type="submit" name="{{ form_submit_name }}" value="Submit">Update Entry</button><button type="submit" name="{{ form_submit_name }}" value="Cancel">Cancel</button></p>
+            {% else %}<p><button type="submit" name="{{ form_submit_name }}" value="Submit">Submit</button></p>{% endif %}
+        </div><!-- end formCol1 -->
+        <div id="formCol2" class="lightBorder paddedDiv fltrt">
+            <p class="entry_field">{{ form.categories.label_tag }}</p>
+            <ul>{% for cat in category_tree %}
+                <li><input type="checkbox" name="categories" value="{{ cat.id }}" id="id_categories_{{ forloop.counter0 }}" {% if cat in categories %} checked{% endif %} /> {{ cat.category }}{% if not cat.subcategories.all %}</li>{% else %}
+                <ul>
+                {% for subcat in cat.subcategories.all %}<li><input type="checkbox" name="categories" value="{{ subcat.id }}" id="id_categories_{{ forloop.parentloop.counter0 }}" {% if subcat in categories %} checked{% endif %} /> {{ subcat.category }}</li>
+                {% endfor %}
+                </ul></li>{% endif %}
+            {% endfor %}
+            </ul>
+        </div><!-- end formCol2 -->
+    </div>
+</div><!-- end addEntryForm -->
+
+<!--script type="text/javascript" src="{{ STATIC_URL }}js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+	mode : "textareas",
+	theme : "simple"
+    });
+</script-->
+
+<!-- wymeditor -->
+<script type="text/javascript" src="{{ STATIC_URL }}commonjs/wymeditor/src/jquery.wymeditor.min.js"></script>
+<script type="text/javascript">
+
+/* Here we replace each element with class 'wymeditor'
+ * (typically textareas) by a WYMeditor instance.
+ *
+ * We could use the 'html' option, to initialize the editor's content.
+ * If this option isn't set, the content is retrieved from
+ * the element being replaced.
+ */
+
+jQuery(function() {
+    $("button[name='{{ form_submit_name }}']").addClass("wymupdate");
+    $("#id_notes, #id_context_notes").addClass("wymeditor");
+    
+    jQuery('.wymeditor').wymeditor({
+        skin:'compact',
+        boxHtml:   "<div class='wym_box'>"
+              + "<div class='wym_area_top'>"
+              + WYMeditor.TOOLS
+              //+ WYMeditor.CONTAINERS
+              //+ WYMeditor.CLASSES
+              + "</div>"
+              + "<div class='wym_area_left'></div>"
+              + "<div class='wym_area_right'>"
+              + "</div>"
+              + "<div class='wym_area_main'>"
+              + WYMeditor.HTML
+              + WYMeditor.IFRAME
+              + WYMeditor.STATUS
+              + "</div>"
+              + "<div class='wym_area_bottom'>"
+              + "</div>"
+              + "</div>"
+    });
+
+    
+});
+
+</script>
+
+<!-- passage preview -->
+<script type="text/javascript" src="{{ STATIC_URL }}js/bibledb_passage_preview.js"></script>

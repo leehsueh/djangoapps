@@ -1,0 +1,22 @@
+{% extends 'bibledb_base_twoCol.html' %}
+{% block additionalcss %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_faq.css" />
+{% endblock %}
+{% block rightcolcontent %}
+<h2>Frequently Asked Questions</h2>
+<div>{% autoescape off %}
+{% if faqs %}
+{% for faq in faqs %}<div class="faqWrapper">
+    <h3 class="faq">{{ faq.question }}</h3>
+    <p class="answer">{{ faq.answer }}</p>
+</div>{% endfor %}
+{% endif %}{% endautoescape %}
+
+</div>
+
+{% endblock %}
+
+
+{% block leftcolcontent %}
+{{ faqblurb.content|safe }}
+{% endblock %}

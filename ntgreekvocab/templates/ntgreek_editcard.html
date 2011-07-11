@@ -1,0 +1,89 @@
+{% extends "ntgreek_base.html" %}
+{% block additionalcss %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ntgreek_editcard.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/oldjqueryautocomplete/jquery.autocomplete.css" />
+{% endblock %}
+
+{% block customjs %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/ntgreek_jquery-ui-1.8.7.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/oldjqueryautocomplete/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/ntgreek_editcard.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() {
+    $("#id_related_cards").attr('size',10).slideUp(200);
+    $("#related_cards_autocomplete").autocomplete(
+        "{% url ntgreekvocab:ajax-card-autocomplete %}?id={{ card.id }}",
+        {
+            dataType: 'json',
+            formatItem: function(row) {
+                return row['greek_word'] + ', ' + row['definition'];
+            },
+            parse: function(data) {
+                return $.map(data, function(row) {
+                    return {data:row, value:row['greek_word'], result:row['id']};
+                })
+            }
+        }).result(processResults);
+    $("#related_cards_list li a").click(removeRelatedCardFromList);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<h2>{% if card %}Edit {{ card.greek_word }}{% else %}Add Word{% endif %}</h2>
+{{ form.errors }}
+<form action="{% if card %}{% url ntgreekvocab:card-edit card_id=card.id %}{% else %}{% url ntgreekvocab:card-add %}{% endif%}" method="post">
+    <div class="row">
+        <div class="firstCol">
+            <table>
+                <tr>
+                    <td>{{ form.greek_word.label_tag }}</td>
+                    <td>{{ form.greek_word }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.definition.label_tag }}</td>
+                    <td>{{ form.definition }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.hints.label_tag }}</td>
+                    <td>{{ form.hints }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.notes.label_tag }}</td>
+                    <td>{{ form.notes }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.parsing_info.label_tag }}</td>
+                    <td>{{ form.parsing_info }}</td>
+                </tr>
+            </table>
+        </div>
+        <table>
+            <tr>
+                <td>{{ form.part_of_speech.label_tag }}</td>
+                <td>{{ form.part_of_speech }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.lesson_number.label_tag }}</td>
+                <td>{{ form.lesson_number }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="row" id="related_cards_container">
+        <div class="floatLeft">
+            <p><label for="related_cards_autocomplete">Add related cards</label>: <input type="text" placeholder="Type word or definition" autocomplete="off" id="related_cards_autocomplete" /></p>
+            <p id="toggle_link"><a href="#" onclick="$('#id_related_cards').slideToggle(200);">Toggle</a></p>
+            {{ form.related_cards }}
+        </div>
+        <div class="floatLeft">
+            <h3>Related Cards</h3>
+            <ul id="related_cards_list">
+                {% for c in card.related_cards.all %}<li title="{{ c.definition }}">{{ c.greek_word }}<a class="x_style" title="remove {{ c.greek_word }}" href="{{ c.id }}">x</a></li>{% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    {% csrf_token %}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

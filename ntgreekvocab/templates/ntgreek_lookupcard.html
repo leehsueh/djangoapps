@@ -1,0 +1,42 @@
+{% extends "ntgreek_base.html" %}
+{% block additionalcss %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ntgreek_lookupcard.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/oldjqueryautocomplete/jquery.autocomplete.css" />
+{% endblock %}
+
+{% block customjs %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/oldjqueryautocomplete/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/ntgreek_lookupcard.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // autocomplete logic, dependency on oldjqueryautocomplete/jquery.autocomplete.js
+        // which must be included before this file in the HTML
+        $("#card_autocomplete").autocomplete(
+            "{% url ntgreekvocab:ajax-card-autocomplete %}",    // variable needs to be defined in host HTML file
+            {
+                dataType: 'json',
+                formatItem: function(row) {
+                    return row['greek_word'] + ', ' + row['definition'];
+                },
+                parse: function(data) {
+                    return $.map(data, function(row) {
+                        return {data:row, value:row['greek_word'], result:row['id']};
+                    })
+                }
+            }
+        ).result(function(e, data, value) {
+            e.currentTarget.value = '';
+
+            // fetch card info; function defined in lookupcard.js
+            fetchCard("#word_info_container", data['id']);
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<h2>Lookup Word</h2>
+<p><input type="text" placeholder="Type word or definition" autocomplete="off" id="card_autocomplete" /></p>
+<div id="word_info_container" style="display:none;"></div>
+
+{% endblock %}

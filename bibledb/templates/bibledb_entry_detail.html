@@ -1,0 +1,101 @@
+{% extends 'bibledb_base_threeCol.html' %}
+{% load comments %}
+{% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_entry_detail.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_forms.css" />{% endblock %}
+
+  {% block sidebar1content %}
+  	<div class="entryMeta">
+        <h4>This Entry</h4>
+        <p>Filed under:</p>
+          <ul>{% for cat in entry.categories.all %}
+			<li><a href="{% url bibledb:entries-cat slug=cat.slug %}">{{ cat.category }}</a></li>{%empty%}
+            <li><a href="{% url bibledb:entries-cat slug='uncategorized' %}">Uncategorized</a></li>
+          {% endfor %}</ul>
+		<p>Tagged as:</p>
+        	<ul class="tagUl">
+              {% for tag in entry.tags.all %}<li><a href="{% url bibledb:entries-tag slug=tag.slug %}">{{ tag.name }}</a></li>
+			  {% empty %}<li>(No tags yet...)</li>{% endfor %}
+            </ul>
+            {% if user.is_authenticated %}
+            <form action="" id="addTagsForm" method="post">
+            <p><input type="text" size="15" name="additional_tags" id="tags_input" /><button class="button_as_link" type="submit" name="addTags" value="Tag"><span>Add Tags</span></button></p>
+            {% csrf_token %}
+            </form>{% endif %}
+
+    </div>
+    <div class="entryMeta">
+        <h4>Related Entries</h4>
+        <p>By Passage</p>
+        	<ul>{% for entry in related_entries_passage %}
+              <li><a href="{% url bibledb:entry-view entry_id=entry.id %}" title="{{entry.get_book}} {{ entry.get_passage_ref }}">{% if entry.title %}{{ entry.title }}{% else %}(Untitled)...{{entry.get_book}} {{ entry.get_passage_ref }}{% endif %}</a></li>
+			  {% empty %}<li>(None yet...)</li>
+            {% endfor %}</ul>
+        <p>By Categories</p>
+        	<ul>{% for entry in related_entries_category %}
+              <li><a href="{% url bibledb:entry-view entry_id=entry.id %}" title="{{entry.get_book}} {{ entry.get_passage_ref }}">{% if entry.title %}{{ entry.title }}{% else %}(Untitled)...{{entry.get_book}} {{ entry.get_passage_ref }}{% endif %}</a></li>
+              {% empty %}<li>(None yet...)</li>
+            {% endfor %}</ul>
+        <p>By Tags</p>
+        	<ul>{% for entry in related_entries_tag %}
+              <li><a href="{% url bibledb:entry-view entry_id=entry.id %}" title="{{entry.get_book}} {{ entry.get_passage_ref }}">{% if entry.title %}{{ entry.title }}{% else %}(Untitled)...{{entry.get_book}} {{ entry.get_passage_ref }}{% endif %}</a></li>
+			  {% empty %}<li>(None yet...)</li>
+            {% endfor %}</ul>
+    </div>
+  {% endblock %}
+  
+  {% block sidebar2content %}
+  	<div class="discussion" id="comments">
+        <div class="discussionHeaderWrapper"><span class="discussionHeader">{% get_comment_count for entry as comment_count %}{{ comment_count }} Comment{{ comment_count|pluralize }}</span>&nbsp;&nbsp;<span class="editLink">[ <a href="#commentForm">Add comment</a> ]</span></div>
+        {% get_comment_list for entry as comments %}
+        {% for comment in comments %}
+        <div class="discussionHeaderWrapper commentWrapper">
+          <table><tr><td class="colSpacer"></td><td></td>
+          <td>
+          <div class="commentText">{{ comment.comment }}</div>
+          <div class="commentAudit">by <a href="#">{{ comment.user.username }}</a> on <span class="date">{{ comment.submit_date|date:"m/d/Y" }}</span></div>
+          </td></tr></table>
+        </div>{% endfor %}
+    </div>
+    <div class="discussion" id="commentForm">
+		<div class="discussionHeaderWrapper"><span class="discussionHeader">Add Comment</span>&nbsp;&nbsp;{% if not user.is_authenticated %}<span class="editLink">[ <a href="{% url login %}?next={% url bibledb:entry-view entry_id=entry.id %}">Login</a> ]</span>{% endif %}</div>
+        {% if user.is_authenticated %}{% get_comment_form for entry as form %}
+        <form action="{% comment_form_target %}" method="post">
+        <p>{{ form.content_type }}</p>
+        {% csrf_token %}
+        <p>{{ form.object_pk }}</p>
+        <p>{{ form.timestamp }}</p>
+        <p>{{ form.security_hash }}</p>
+        <p style="display: none">{{ form.honeypot }}</p>
+        <p><textarea id="id_comment" rows="10" cols="30" name="comment"></textarea></p>
+        <p class="submit">
+            <input type="submit" name="submit" class="submit-post" value="Post" />
+            <input type="submit" name="preview" class="submit-preview" value="Preview" />
+            <input type="hidden" name="next" value="{% url bibledb:entry-view entry_id=entry.id %}" />
+        </p>
+        </form>
+        {% else %}<p>Please login first to post a comment.</p>{% endif %}
+    </div>
+  {% endblock %}
+  
+  {% block maincontent %}
+    <h2>{% if entry.title %} {{ entry.title }} {% else %}(Untitled) {{ passage_ref }}{% endif %}</h2>
+    <div id="entryAudit"><form action="" method="post">{% csrf_token %}<p>Posted by <a href="{% url bibledb:entries-username slug=entry.created_by.username %}">{{ entry.created_by.username }}</a> on <span class="date">{{ entry.pub_date|date:"m/d/Y" }}</span>&nbsp;&nbsp;{% if user == entry.created_by %}<span class="editLink">[ <a href="{% url bibledb:entry-edit entry_id=entry.id %}">{{ edit_text }}</a> | <a href="{% url bibledb:entry-remove entry_id=entry.id %}">{{ delete_text }}</a> ]</span>{% endif %}<br />
+      {% if error_message %}<span class="error"><strong>{{ error_message }}</strong></span>&nbsp;{% endif %}<button title="Click to vote!" id="voteButton" class="button_as_link" type="submit" name="addVote" value="vote"><span>{{ entry.num_votes }} vote{{ entry.num_votes|pluralize }}</span></button>&nbsp;<span class="share_link"><a href="http://www.google.com/reader/link?url={{ SITE_URL }}{% url bibledb:entry-view entry_id=entry.id %}&amp;title=BibleDB%20-%20{{ entry.title|urlencode }}" onClick="return buzzPopup(this, 'Buzz this')" style="padding-left:19px; background-image:url(http://tctechcrunch.files.wordpress.com/2010/02/buzz-icon2.png); background-repeat:no-repeat;" title="Share on Buzz">Buzz</a>&nbsp;&nbsp;<a href="http://twitter.com/home?status=Currently reading {{ SITE_URL }}{% url bibledb:entry-view entry_id=entry.id %}" title="Share on Twitter"><img src="http://twitter-badges.s3.amazonaws.com/t_mini-b.png" alt="Share on Twitter" /></a><a href="http://twitter.com/home?status=Currently reading {{ SITE_URL }}{% url bibledb:entry-view entry_id=entry.id %}" title="Share on Twitter">Tweet</a>&nbsp;&nbsp;<a title="Share on Facebook" name="fb_share" type="icon_link" href="http://www.facebook.com/sharer.php" share_url="{{ SITE_URL }}{% url bibledb:entry-view entry_id=entry.id %}">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></span></p></form></div>
+    <div class="fieldWrapper">
+        <div class="fieldWrapperHeader"><span class="entryFieldHeader"><a href="{% url bibledb:browse-kjv %}?book={{ entry.get_book }}&chapter={{ entry.startverse.chapter_ref }}&startverse={{ entry.startverse.verse_ref }}&endverse={{ entry.endverse.verse_ref }}">{{ passage_ref }}</a></span> <span class="editLink">| {% for t in translations %}<a href="http://www.blueletterbible.org/Bible.cfm?b={% ifequal verse_list.0.book "Song of Solomon" %}Sgs{% else %}{{ verse_list.0.book|cut:" " }}{% endifequal %}&amp;c={{ verse_list.0.chapter_ref }}&amp;v={{ verse_list.0.verse_ref }}&amp;t={{ t }}#{{ verse_list.0.verse_ref }}" target="_blank">{{ t }}</a>
+{% endfor %}</span></div>
+        <table class="verseTable">
+        {% for verse in verse_list %}<tr>
+            <td class="verseNum">{{ verse.verse_ref }}</td><td class="colSpacer">&nbsp;</td><td class="verseText">{{ verse.verse_text }}</td>
+        </tr>{% endfor %}
+        </table>
+    </div>
+    <div class="fieldWrapper">
+        <div class="fieldWrapperHeader"><span class="entryFieldHeader">Context notes</span>&nbsp;&nbsp;{% if user == entry.created_by %}<span class="editLink">[ <a href="{% url bibledb:entry-edit entry_id=entry.id %}">{{ edit_text }}</a> ]</span>{% endif %}</div>
+        <p>{% if entry.context_notes %}{{ entry.context_notes|safe|linebreaksbr }}{% else %}(None){% endif %}</p>
+    </div>
+    <div class="fieldWrapper">
+        <div class="fieldWrapperHeader"><span class="entryFieldHeader">Reflections</span>&nbsp;&nbsp;{% if user == entry.created_by %}<span class="editLink">[ <a href="{% url bibledb:entry-edit entry_id=entry.id %}">{{ edit_text }}</a> ]</span>{% endif %}</div>
+        <p>{% if entry.notes %}{{ entry.notes|safe|linebreaksbr }}{% else %}(None){% endif %}</p>
+    </div>
+  {% endblock %}

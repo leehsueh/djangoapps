@@ -1,0 +1,15 @@
+{% extends 'bibledb_base_twoCol.html' %}
+{% block additionalcss %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_forms.css" />
+{% endblock %}
+
+{% block rightcolcontent %}
+<h2>{{ form_header }}</h2>
+{% if can_edit %}<form action="" method="post">{% csrf_token %}
+{% include "bibledb_entry_form_fragment.html" %}
+</form>{% else %}
+<p>You are not the creator of this entry, therefore you cannot edit it. If you'd like to say something about it, please use the commenting system. Thank you.</p>
+{% endif %}
+
+
+{% endblock %}
