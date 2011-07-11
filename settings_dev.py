@@ -4,7 +4,7 @@
 DEBUG = True
 PRNT_STMT = True
 TEMPLATE_DEBUG = DEBUG
-USE_DEPLOYED_DB = True
+USE_DEPLOYED_DB = False
 
 ADMINS = (
     # ('Hain-Lee', 'leehsueh7@gmail.com'),
