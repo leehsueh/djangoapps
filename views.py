@@ -24,9 +24,7 @@ def ajax_contactable(request):
     else:
         return HttpResponse(u'Invalid')
 
-def janrain_token_url(request):
-    params = dict(request.POST)
-    token = params['token'][0]
+def janrain_token_url(request, token):
     api_key = "d8cd96a5b5372c15e235211eac81059c6b4df50c"
     api_params = {
         'token': token,
@@ -55,3 +53,5 @@ def janrain_token_url(request):
 
         return HttpResponse(identifier + '\n' + name
             + '\n' + email)
+    else:
+        return HttpResponse("An error occurred: " + auth_info['err']['msg'])
