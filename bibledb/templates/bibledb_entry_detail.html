@@ -1,7 +1,7 @@
-{% extends "bibledb/base_threeCol.html" %}
+{% extends 'bibledb_base_threeCol.html' %}
 {% load comments %}
-{% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/entry_detail.css" />
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/forms.css" />{% endblock %}
+{% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_entry_detail.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_forms.css" />{% endblock %}
 
   {% block sidebar1content %}
   	<div class="entryMeta">

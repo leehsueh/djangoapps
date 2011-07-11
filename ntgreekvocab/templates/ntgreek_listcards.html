@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/listcards.css" />{% endblock %}
+{% extends "ntgreek_base.html" %}
+{% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ntgreek_listcards.css" />{% endblock %}
 {% block content %}
     <p>({{total_fetched }}/{{ total_words }} word{{ total_words|pluralize }} fetched)</p>
     {% for letter, words in words_by_letter %}
@@ -37,5 +37,5 @@
 {% endblock %}
 
 {% block customjs %}
-<script type="text/javascript" src="{{ MEDIA_URL }}js/ntgreekvocab/listcards.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/ntgreek_listcards.js"></script>
 {% endblock %}

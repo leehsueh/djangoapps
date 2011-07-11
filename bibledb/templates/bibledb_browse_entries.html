@@ -1,8 +1,8 @@
-{% extends 'bibledb/base_twoCol.html' %}
+{% extends 'bibledb_base_twoCol.html' %}
 {% load comments %}
 {% block additionalcss %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/forms.css" />
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/entry_list.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_forms.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_entry_list.css" />
 {% endblock %}
 
 {% block leftcolcontent %}
@@ -30,9 +30,9 @@
 
 {% block rightcolcontent %}
 {% if tag_list_full %}
-	{% with tag_list_full as tag_list %}{% include "bibledb/tag_list_fragment.html" %}{% endwith %}
+	{% with tag_list_full as tag_list %}{% include "bibledb_tag_list_fragment.html" %}{% endwith %}
 {% else %}
-{% if category_list %}{% include "bibledb/cat_list_fragment.html" %}
+{% if category_list %}{% include "bibledb_cat_list_fragment.html" %}
 {% else %}
 {% if user_list %}<h2>All Users</h2>
 <ul>{% for user in user_list %}

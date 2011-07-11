@@ -1,8 +1,8 @@
-{% extends "bibledb/base_threeCol.html" %}
+{% extends 'bibledb_base_threeCol.html' %}
 {% load comments %}
-{% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/entry_list.css" />
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/home.css" />
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/forms.css" />{% endblock %}
+{% block additionalcss %}<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_entry_list.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_home.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_forms.css" />{% endblock %}
 
 {% block sidebar1content %}
 <div id="blurb">
@@ -17,8 +17,8 @@
     </div>
     <div class="lightBorder">
 
-    {% include "bibledb/cat_list_fragment.html" %}
-	{% include "bibledb/tag_list_fragment.html" %}
+    {% include "bibledb_cat_list_fragment.html" %}
+	{% include "bibledb_tag_list_fragment.html" %}
 
      <p><a href="{% url bibledb:tags %}">(see all)</a></p>
 	</div>
@@ -28,7 +28,7 @@
 	<div id="recentEntries" class="lightBorder">
     <h2>Recent Entries&nbsp;&nbsp;<span class="smallLink">[ <a href="{% url bibledb:rss-entries %}">RSS</a> ]</span></h2>
     {% for entry in recententries %}
-		{% include "bibledb/entry_list_fragment.html" %}
+		{% include "bibledb_entry_list_fragment.html" %}
     {% endfor %}
     </div>
   <div id="recentComments" class="lightBorder">

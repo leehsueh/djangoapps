@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "ntgreek_base.html" %}
 {% block content %}
     <article>
         {% if lesson_numbers %}<div id="lesson_filters">
@@ -31,5 +31,5 @@
 {% endblock %}
 
 {% block customjs %}
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/ntgreekvocab/home.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/ntgreek_home.js"></script>
 {% endblock %}

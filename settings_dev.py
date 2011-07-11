@@ -79,6 +79,11 @@ ADMIN_MEDIA_PREFIX = '/admin/media/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = ('c://Users//leehsueh//webdev//gitstuff//siteapps_v1//static//',)
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+)
     
 LOGIN_URL = '/accounts/login/'
     

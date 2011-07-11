@@ -156,7 +156,7 @@ def browse_categories(request):
         'category_dict' :get_category_tree(request),
         'url_prefix': cat_url_prefix,
     }
-    return render_to_response('bibledb/category_tree.html', c)
+    return render_to_response('bibledb_category_tree.html', c)
 
 def home(request):
     recent_entries = Entry.objects.all().exclude(removed=True).order_by('-pub_date')[:5]
@@ -171,7 +171,7 @@ def home(request):
         'navcurrent': navbar_home,
 		#'add_entry_form' : EntryForm(),
     }
-    return render_to_response('bibledb/base_home.html', c, 
+    return render_to_response('bibledb_base_home.html', c, 
         RequestContext(request, processors=[common_context, entries_context]))
 
 def faq(request):
@@ -181,7 +181,7 @@ def faq(request):
         'faqblurb': StaticContent.objects.get(name__exact='faq-blurb'),
         'navcurrent': navbar_faq,
     }
-    return render_to_response('bibledb/faq.html', c, 
+    return render_to_response('bibledb_faq.html', c, 
         RequestContext(request, processors=[common_context,]))
 
 def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
@@ -213,7 +213,7 @@ def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
                 'title': 'Browse Entries',
                 'browse_bible_form': bibleForm,
                 }
-                return render_to_response('bibledb/browse_entries.html', c, RequestContext(request, processors=[common_context, entries_context]))
+                return render_to_response('bibledb_browse_entries.html', c, RequestContext(request, processors=[common_context, entries_context]))
             
         elif type == 'all':
             term = '(all)'
@@ -235,7 +235,7 @@ def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
                 'browse_bible_form': bibleForm,
                 'category_list' : True,
                 }
-                return render_to_response('bibledb/browse_entries.html', c, RequestContext(request, processors=[common_context, entries_context]))
+                return render_to_response('bibledb_browse_entries.html', c, RequestContext(request, processors=[common_context, entries_context]))
             if not slug == 'uncategorized':
                 cat = Category.objects.get(slug=slug)
                 term = cat.category
@@ -252,7 +252,7 @@ def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
                 'browse_bible_form': bibleForm,
                 'user_list' : User.objects.all().values('id','username'),
                 }
-                return render_to_response('bibledb/browse_entries.html', c, RequestContext(request, processors=[common_context, entries_context]))
+                return render_to_response('bibledb_browse_entries.html', c, RequestContext(request, processors=[common_context, entries_context]))
                 
             user = User.objects.get(username__iexact=slug)
             entries = Entry.objects.entries_created_by(user)
@@ -266,7 +266,7 @@ def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
                 'browse_bible_form': bibleForm,
                 'tag_list_full' : get_tags(request),
                 }
-                return render_to_response('bibledb/browse_entries.html', c, RequestContext(request, processors=[common_context, entries_context]))
+                return render_to_response('bibledb_browse_entries.html', c, RequestContext(request, processors=[common_context, entries_context]))
                 
             if not slug == no_tags:
                 tag = Tag.objects.get(slug=slug)
@@ -304,7 +304,7 @@ def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
             'entries_paginator': entries_page,
             'content_header': 'Results for ' + term,
         }
-        return render_to_response('bibledb/entry_list.html', c, RequestContext(request, processors=[common_context, entries_context]))
+        return render_to_response('bibledb_entry_list.html', c, RequestContext(request, processors=[common_context, entries_context]))
         
     except Category.MultipleObjectsReturned:
         raise Http404("Uh oh; multiple categories returned for given slug " + slug + "! If you got here by clicking on a link, please inform the webmaster of this error and how you got to it!")
@@ -375,7 +375,7 @@ def display_entry(request, entry_id):
             #'user_authenticated': request.user.is_authenticated(),
             #'user': request.user,
         }
-        return render_to_response('bibledb/entry_detail.html', c, RequestContext(request, processors=[common_context, entries_context]))
+        return render_to_response('bibledb_entry_detail.html', c, RequestContext(request, processors=[common_context, entries_context]))
     except Entry.DoesNotExist:
         raise Http404("Sorry, entry with id " + str(entry_id) + " does not exist!")
 
@@ -477,7 +477,7 @@ def add_content(request, type):
         'form_header': form_header,
         'form_submit_name': form_submit_name,
     }
-    return render_to_response('bibledb/add_form.html', c, RequestContext(request, processors=[common_context, entries_context]))
+    return render_to_response('bibledb_add_form.html', c, RequestContext(request, processors=[common_context, entries_context]))
 
 @login_required
 def remove_entry(request, entry_id):
@@ -548,7 +548,7 @@ def edit_entry(request, entry_id):
             'form_submit_name': 'editEntry',
             'categories': entry.categories.all(),
         }
-        return render_to_response('bibledb/edit_entry.html', c, 
+        return render_to_response('bibledb_edit_entry.html', c, 
             RequestContext(request, processors=[common_context, entries_context]))
         return HttpResponse('You edited this entry! %s' % entry.created_by)
     else:
@@ -578,7 +578,7 @@ def browse_kjv(request):
     else:
         form = BibleVerseForm()
     
-    return render_to_response('bibledb/browse_bible.html',
+    return render_to_response('bibledb_browse_bible.html',
                 {'title': 'Browse KJV Bible',
                  'browse_bible_form': form,
                  'books': books,
@@ -597,7 +597,7 @@ def display_chapters(request, bookname):
         raise Http404('Book does not exist. Check your spelling?')
         
     chp_range = range(1,chp_count+1)
-    return render_to_response('bibledb/browse_bible.html', { 
+    return render_to_response('bibledb_browse_bible.html', { 
             'bookname': bookname,
             'relatedentriesbook': Entry.objects.make_entry_dicts(related_entries[:limit]),
             'chprange': chp_range,
@@ -643,7 +643,7 @@ def display_verses(request, bookname, chpnum, startverse=None, endverse=None):
         
     chp_range = range(1,chp_count+1)
 
-    return render_to_response('bibledb/browse_bible.html', {
+    return render_to_response('bibledb_browse_bible.html', {
             'verse_list': verses,
             'content_header': passage_ref,
             'nextchapter': Verse.objects.get_next_chapter(verses[0]),
@@ -685,7 +685,7 @@ def ajax_passage(request, bookname, chpnum, startverse, endverse=None):
         verse_ref__lte=max(int(startverse),int(endverse)) \
         ).order_by('verse_ref').values('verse_ref','verse_text')
 
-    return render_to_response('bibledb/ajax_passage.html', {
+    return render_to_response('bibledb_ajax_passage.html', {
         'passage': passage,
         'bookname': bookname,
         'chpnum': chpnum,

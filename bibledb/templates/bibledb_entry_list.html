@@ -1,8 +1,8 @@
-{% extends 'bibledb/base_threeCol.html' %}
+{% extends 'bibledb_base_threeCol.html' %}
 
 {% block additionalcss %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/forms.css" />
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/entry_list.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_forms.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_entry_list.css" />
 {% endblock %}
 
 {% block sidebar1content %}
@@ -22,8 +22,8 @@
 </form>
 </div>
 
-{% include "bibledb/cat_list_fragment.html" %}
-{% include "bibledb/tag_list_fragment.html" %}
+{% include "bibledb_cat_list_fragment.html" %}
+{% include "bibledb_tag_list_fragment.html" %}
 
 <h2><a href="{% url bibledb:users %}">Users</a></h2>
 <h2><a href="{% url bibledb:entries-all %}">View All</a></h2>
@@ -32,7 +32,7 @@
 {% block maincontent %}
 <h2>{{ content_header }}</h2>
 {% for entry in entries_paginator.object_list %}
-{% include "bibledb/entry_list_fragment.html" %}
+{% include "bibledb_entry_list_fragment.html" %}
 {% if forloop.last %}
 <div class="pagination">
   <span class="paginationLinks">{% if entries_paginator.has_previous %}

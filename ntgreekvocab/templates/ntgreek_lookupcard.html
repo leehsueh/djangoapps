@@ -1,12 +1,12 @@
-{% extends "base.html" %}
+{% extends "ntgreek_base.html" %}
 {% block additionalcss %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/lookupcard.css" />
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/oldjqueryautocomplete/jquery.autocomplete.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ntgreek_lookupcard.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/oldjqueryautocomplete/jquery.autocomplete.css" />
 {% endblock %}
 
 {% block customjs %}
-<script type="text/javascript" src="{{ MEDIA_URL }}js/oldjqueryautocomplete/jquery.autocomplete.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}js/ntgreekvocab/lookupcard.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/oldjqueryautocomplete/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/ntgreek_lookupcard.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         // autocomplete logic, dependency on oldjqueryautocomplete/jquery.autocomplete.js

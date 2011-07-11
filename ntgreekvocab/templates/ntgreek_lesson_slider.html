@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'ntgreek_base.html' %}
 {% block additionalcss %}
-    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/ntgreekvocab/lesson_slider.css" />
-    <link rel="stylesheet" href="{{ MEDIA_URL }}coda-slider-2/coda-slider-2.0-custom.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ntgreek_lesson_slider.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}js/coda-slider-2/coda-slider-2.0-custom.css">
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
     </div>
     <div class="coda-slider" id="coda-slider-1">
         {% for card in cards %}<div class="panel"><div class="panel-wrapper">
-            {% include 'fetchcard.html' %}
+            {% include 'ntgreek_fetchcard.html' %}
             </div></div>{% endfor %}
     </div>
 </div>
@@ -23,8 +23,8 @@
 {% endblock %}
 
 {% block customjs %}
-<script type="text/javascript" src="{{ MEDIA_URL }}coda-slider-2/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}coda-slider-2/jquery.coda-slider-2.0.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/coda-slider-2/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/coda-slider-2/jquery.coda-slider-2.0.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#coda-slider-1').codaSlider({

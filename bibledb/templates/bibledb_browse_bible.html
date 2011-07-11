@@ -1,7 +1,7 @@
-{% extends 'bibledb/base_threeCol.html' %}
+{% extends 'bibledb_base_threeCol.html' %}
 {% block additionalcss %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/forms.css" />
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/verses.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_forms.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_verses.css" />
 {% endblock %}
 {% block maincontent %}
 <h2>{{ content_header }}</h2>
