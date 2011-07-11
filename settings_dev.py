@@ -58,18 +58,25 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = 'c://Users//leehsueh//webdev//gitstuff//siteapps_v1//static//'
+MEDIA_ROOT = 'c://Users//leehsueh//webdev//gitstuff//siteapps_v1//media//'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/static/'
+MEDIA_URL = '/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/admin/media/'
 
+# Absolute path to the directory that holds static files.
+# Example: "/home/static/static.lawrence.com/"
+STATIC_ROOT = 'c://Users//leehsueh//webdev//gitstuff//siteapps_v1//static//'
+
+# URL that handles the media served from STATIC_ROOT. Make sure to use a
+# trailing slash if there is a path component (optional in other cases).
+STATIC_URL = '/static/'
     
 LOGIN_URL = '/accounts/login/'
     
@@ -124,6 +131,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.comments',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'siteapps_v1.bibledb',
     'siteapps_v1.ntgreekvocab',
     'siteapps_v1.bible_tidbits',
