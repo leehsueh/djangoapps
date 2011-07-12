@@ -64,7 +64,7 @@ STATIC_ROOT = '/home/leehsueh/webapps/django27_apps_static/'
 # trailing slash if there is a path component (optional in other cases).
 STATIC_URL = 'http://tjcbdb.info/static/'
 
-STATICFILES_DIRS = ('/home/leehsueh/webapps/django27_apps/static/',)
+STATICFILES_DIRS = ('/home/leehsueh/webapps/django27_apps/siteapps_v1/static/',)
     
 LOGIN_URL = '/accounts/login/'
     
