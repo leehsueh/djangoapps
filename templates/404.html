@@ -1,18 +1,4 @@
-{% extends 'bibledb/base_twoCol.html' %}
+<h1>404 Page Not Found!</h1>
+<p>{{ request_path }} is not a valid url on this site.</p>
+<p>I'll make this page look prettier at some point. Promise.</p>
 
-{% block rightcolcontent %}
-<h2>404 Page Not Found!</h2>
-<p>{{ request_path }} is not a valid url on this site. Go back <a href="{% url bibledb:home %}">Home</a>.</p>
-
-{% endblock %}
-
-
-{% block leftcolcontent %}
-<p>If you got here by clicking on a link, please let the <a href="mailto:hlee@leehsueh.net">webmaster</a> know.</p>
-<p>Possible causes if you got here by manually typing the URL:</p>
-<ul>
-	<li>If browsing the Bible with the scheme /browse/bookname/chapter/verse, make sure bookname is the entire name of the book and not an abbreviation. Replace spaces with a hyphen ("-") and check your spelling. Use Song of Solomon rather than Song of Songs.</li>
-    <li>If you were trying to list entries by a category (e.g. /category/&lt;category slug&gt;), the category slug you specified is invalid. Try browsing from the list of categories rather than manual typing one in, and update bookmarks if applicable. Same thing with tags (/tag/&lt;tag slug&gt;).</li>
-    <li>If you were trying to access a specified entry (e.g. /entry/&lt;entry id&gt;), the id is obviously invalid. It's possible that if the entry did exist before, it was deleted or removed by the poster or administrator for whatever reason.</li>
-</ul>
-{% endblock %}
