@@ -69,6 +69,25 @@ var books = [
 
 re = new RegExp(/[12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$/);
 
+function get_bible_text(input_elem) {
+    passage = $(input_elem).val();
+    if (passage != null && re.test(passage)) {
+        console.log(passage);
+        $("#passage_preview").text("Loading " + passage);
+        $.get(
+            "/tidbits/ajax/bible_text/",
+            {passage: passage},
+            function(data) {
+                $("#passage_preview").text(data);
+            }
+        );
+    } else if (passage == '') {
+        $("#passage_preview").text("Enter a passage");
+    } else {
+        $("#passage_preview").text("Specify verses.");
+    }
+}
+
 add_input_text = function(event) {
     event.preventDefault();
     var newLiNode = $("#cross_refs li").last().clone();
@@ -79,7 +98,9 @@ add_input_text = function(event) {
     $("#cross_refs a").click(remove_input_text);
     $("#cross_refs input.cf").last().autocomplete({
         source: books
-    });
+    })
+    .keydown(bible_text_key_trigger)
+    .focus(bible_text_mouseover_trigger);
     reset_form_validation();
 }
 
@@ -128,6 +149,22 @@ function extractLast( term ) {
     return split( term ).pop();
 }
 
+timeout_id = 0;
+function bible_text_key_trigger() {
+    clearTimeout(timeout_id);
+    $("#passage_preview").text("Loading");
+    input_elem = $(this);
+    timeout_id = setTimeout(function(){get_bible_text(input_elem);}, 500);
+}
+
+function bible_text_mouseover_trigger() {
+    get_bible_text(this);
+}
+
+function bible_text_mouseoff_trigger() {
+    //$("#passage_preview").text("");
+}
+
 $(document).ready(function() {
     // initial event binding
     $("#cross_refs a").click(remove_input_text);
@@ -135,6 +172,13 @@ $(document).ready(function() {
         source: books
     });
     $("input.cf").focus(add_cf_on_focus);
+    
+    // bible preview setup
+    $("input.cf").keydown(bible_text_key_trigger);
+    //$("input.cf").hover(bible_text_mouseover_trigger, bible_text_mouseoff_trigger);
+    $("input.cf").focus(bible_text_mouseover_trigger);
+    
+    
     $("#toggle_more").click(function() {
        $(this).hide();
        $("#toggle_less").show();

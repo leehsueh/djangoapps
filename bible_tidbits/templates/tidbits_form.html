@@ -8,7 +8,9 @@ Context variables:
 <form action="{{ action_url }}" method="post" id="{{ form_id }}" novalidate>
     <div class="row1">
         <h2>Tidbit</h2>
-        <p><textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit" required>{% if tidbit.tidbit %}{{ tidbit.tidbit }}{% endif %}</textarea></p>
+        <p><textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit" required>{% if tidbit.tidbit %}{{ tidbit.tidbit }}{% endif %}</textarea>
+        <textarea id="passage_preview" placeholder="Hover over passage to preview" readonly></textarea>
+        </p>
 <!--         <h2>Cross References</h2>-->
         <ul id="cross_refs">
         {% if tidbit %}{% for cf in tidbit.cross_refs.all %}

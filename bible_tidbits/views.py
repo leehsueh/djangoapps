@@ -291,3 +291,20 @@ def ajax_tags(request):
                 results = [ x.tag for x in model_results ]
     json = simplejson.dumps(results)
     return HttpResponse(json, mimetype='application/json')
+    
+def ajax_bible_text(request):
+    if request.method == 'GET':
+        if request.GET.has_key(u'passage'):
+            req_params = dict()
+            req_params['passage'] = request.GET[u'passage']
+            import siteapps_v1.biblia as Biblia
+            result_tuple = Biblia.content('KJV', ext='txt', request_params=req_params)
+            if result_tuple['success']:
+                return HttpResponse(result_tuple['response'])
+            else:
+                return HttpResponse('Could not get passage ' + req_params['passage'] + ': ' + result_tuple['response'])
+        else:
+            return HttpResponse('passage parameter missing')
+    else:
+        return HttpResponse('Request method should be GET')
+        

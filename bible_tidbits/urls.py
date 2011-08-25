@@ -40,4 +40,7 @@ urlpatterns = patterns('',
     url(r'^ajax/tags/$',
         'siteapps_v1.bible_tidbits.views.ajax_tags',
     ),
+    url(r'^ajax/bible_text/$',
+        'siteapps_v1.bible_tidbits.views.ajax_bible_text',
+    ),
 )
