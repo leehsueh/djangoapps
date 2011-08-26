@@ -40,19 +40,26 @@ class CrossRef(models.Model):
         verbose_name = "Cross Reference"
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=128, unique=True)
+    tag = models.CharField(max_length=128)
     slug = models.SlugField(max_length=50, unique=True)
+    category = models.CharField(max_length=128, blank=True, null=True)
 
     regex = re.compile(r'[^a-zA-Z0-9-]')
 
     def __unicode__(self):
-        return self.tag
+        if self.category != None and self.category != u'':
+            return self.category + u': ' + self.tag
+        else:
+            return self.tag
     
     def save(self, *args, **kwargs):
         if (self.tag):
-            s = self.tag.strip().lower().replace(' ','-')
+            s = (self.category + ' ' + self.tag).strip().lower().replace(' ','-')
             self.slug = re.sub(self.regex, '', s)
         super(Tag, self).save(*args, **kwargs)
+    
+    class Meta:
+        unique_together = ('tag', 'category')
 
 class Tidbit(models.Model):
     tidbit = models.TextField()

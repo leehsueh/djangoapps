@@ -9,7 +9,7 @@ Context variables:
     <div class="row1">
         <h2>Tidbit</h2>
         <p><textarea id="tidbit" name="tidbit" placeholder="Enter your Tidbit" required>{% if tidbit.tidbit %}{{ tidbit.tidbit }}{% endif %}</textarea>
-        <textarea id="passage_preview" placeholder="Hover over passage to preview" readonly></textarea>
+        <textarea id="passage_preview" placeholder="Click on passage to preview" readonly></textarea>
         </p>
 <!--         <h2>Cross References</h2>-->
         <ul id="cross_refs">
@@ -27,8 +27,13 @@ Context variables:
     </p>
     <h2>Tags</h2>
     <p>
-    <textarea id="tags" name="tags" placeholder="Enter comma-separated tags">{% if tidbit %}{% for tag in tidbit.tags.all %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</textarea>
+    <textarea id="tags" name="tags" placeholder="Enter comma-separated tags">{% if tidbit %}{% for tag in tidbit.tags.all %}{% if tag.category == None %}{{ tag.tag }}{% if not forloop.last %}, {% endif %}{% endif %}{% endfor %}{% endif %}</textarea>
     </p>
+    {% if bible_study_tags %}<p>Bible Study Tags
+        <ul>{% for tag in bible_study_tags %}
+            <li><input type="checkbox" name="bible_study_tags" value="{{ tag.id }}" {% if tidbit and tag in tidbit.tags.all %}checked{% endif %}>{{ tag.tag }}</input></li>{% endfor %}
+        </ul>
+    </p>{% endif %}
     <h2><a id="toggle_more"{% if tidbit.reflection %} style="display:none;"{% endif %}>[ More ]</a><a id="toggle_less"{% if not tidbit.reflection %} style="display:none;"{% endif %}>[ Less ]</a></h2>
     <div id="more_details"{% if not tidbit.reflection %} style="display:none;"{% endif %}>
         <p><textarea id="more" name="more" placeholder="Further thoughts or reflections">{% if tidbit.reflection %}{{ tidbit.reflection }}{% endif %}</textarea></p>

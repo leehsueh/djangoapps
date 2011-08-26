@@ -71,7 +71,6 @@ def process_tidbit_form(request, tidbit_id=None):
     """
     params are the request parameters; mode is either "edit" or "add"
     """
-    import pdb; pdb.set_trace()
     params = dict(request.POST) # values are lists
     keys = params.keys()
     if 'tidbit' not in keys or 'cf' not in keys:
@@ -95,6 +94,9 @@ def process_tidbit_form(request, tidbit_id=None):
         tags = [t.strip() for t in params['tags'][0].split(',') if t.strip() != u'']
     else:
         tags = []
+
+    # TODO: extract bible study tags
+    bible_study_tag_ids = [int(tid) for tid in params['bible_study_tags']]
 
     # create new Tidbit if id not supplied
     if tidbit_id == None:
@@ -161,12 +163,21 @@ def process_tidbit_form(request, tidbit_id=None):
     tags_to_add = []
     for tag in tags:
         try:
-            t = Tag.objects.get(tag__iexact=tag)
+            t = Tag.objects.get(tag__iexact=tag, category=None)
         except Tag.DoesNotExist:
             t = Tag()
             t.tag = tag
             t.save()
         tags_to_add.append(t)
+    
+    # TODO: handle bible study tags; append to tags_to_add
+    for tag_id in bible_study_tag_ids:
+        try:
+            t = Tag.objects.get(pk=tag_id)
+            tags_to_add.append(t)
+        except Tag.DoesNotExist:
+            pass
+
 
     # save tidbit to generate a PK before adding cfs via m2m relation
     tidbit_obj.save()
@@ -188,6 +199,7 @@ def process_tidbit_form(request, tidbit_id=None):
     else:
         c = {
             'tidbit': tidbit_obj,
+            'bible_study_tags': Tag.objects.filter(category__iexact=u'bible study'),
             'action_url': reverse("tidbits:edit", kwargs={'tidbit_id': tidbit_obj.id})
         }
         return render_to_response("tidbits_edittidbit.html", c, context_instance=RequestContext(request))
@@ -200,6 +212,7 @@ def add(request):
 
     else:
         c = {
+            'bible_study_tags': Tag.objects.filter(category__iexact=u'bible study'),
             'action_url': reverse("tidbits:add"),
         }
         return render_to_response("tidbits_edittidbit.html", c, context_instance=RequestContext(request))
@@ -218,6 +231,7 @@ def edit(request, tidbit_id):
         else:
             c = {
                 'tidbit': tidbit,
+                'bible_study_tags': Tag.objects.filter(category__iexact=u'bible study'),
                 'action_url': reverse("tidbits:edit", kwargs={'tidbit_id': tidbit.id})
             }
             return render_to_response("tidbits_edittidbit.html", c, context_instance=RequestContext(request))

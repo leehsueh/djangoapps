@@ -9,7 +9,7 @@
         {% endfor %}</ul>
         </div>
         <ul class="meta_tags tags">{% for tag in tidbit.tags.all %}
-                <li><a href="{% url tidbits:tidbits-by-tag tag_slug=tag.slug %}">{{ tag }}</a></li>
+                <li><a href="{% url tidbits:tidbits-by-tag tag_slug=tag.slug %}" {% if tag.category %}class="{{ tag.category|slugify }}"{% endif %}>{{ tag.tag }}</a></li>
         {% endfor %}</ul>
         {% if tidbit.reflection %}
             <p class="show_details">[ <a class="toggle_more">more</a><a class="toggle_less" style="display:none;">less</a> ]</p>
