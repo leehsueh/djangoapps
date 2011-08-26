@@ -71,6 +71,7 @@ def process_tidbit_form(request, tidbit_id=None):
     """
     params are the request parameters; mode is either "edit" or "add"
     """
+    import pdb; pdb.set_trace()
     params = dict(request.POST) # values are lists
     keys = params.keys()
     if 'tidbit' not in keys or 'cf' not in keys:
@@ -105,8 +106,10 @@ def process_tidbit_form(request, tidbit_id=None):
             return HttpResponse("Tidbit not found!")
 
     tidbit_obj.tidbit = tidbit
-    if reflection:
+    if reflection != None and reflection != u'':
         tidbit_obj.reflection = reflection
+    else:
+        tidbit_obj.reflection = None
     tidbit_obj.is_question = is_question
 
     tidbit_obj.created_by = request.user
