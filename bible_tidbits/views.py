@@ -95,8 +95,11 @@ def process_tidbit_form(request, tidbit_id=None):
     else:
         tags = []
 
-    # TODO: extract bible study tags
-    bible_study_tag_ids = [int(tid) for tid in params['bible_study_tags']]
+    # extract bible study tags
+    if 'bible_study_tags' in keys:
+        bible_study_tag_ids = [int(tid) for tid in params['bible_study_tags']]
+    else:
+        bible_study_tag_ids = []
 
     # create new Tidbit if id not supplied
     if tidbit_id == None:
