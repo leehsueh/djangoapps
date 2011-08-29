@@ -53,9 +53,11 @@ class Tag(models.Model):
             return self.tag
     
     def save(self, *args, **kwargs):
-        if (self.tag):
+        if (self.tag and self.category):
             s = (self.category + ' ' + self.tag).strip().lower().replace(' ','-')
-            self.slug = re.sub(self.regex, '', s)
+        else:
+            s = self.tag.strip().lower().replace(' ','-')
+        self.slug = re.sub(self.regex, '', s)
         super(Tag, self).save(*args, **kwargs)
     
     class Meta:
