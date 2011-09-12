@@ -76,7 +76,7 @@
         </hgroup>
         <nav>
             <ul>
-                <li><a class="janrainEngage" href="#">Sign-In</a></li>
+                <li>{% if request.user.is_authenticated %}Welcome {{ request.user.first_name }}! (<a href="{% url janrain:janrain-logout %}">logout</a>){% else %}<a class="janrainEngage" href="#">Sign-In</a>{% endif %}</li>
                 <li><a href="#">Search</a>
                 </li>
                 <li><a href="{% url tidbits:add %}">New Tidbit</a></li>
