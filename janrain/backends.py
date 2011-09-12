@@ -34,9 +34,9 @@ class JanrainBackend:
 								provider=providerName,
 							display_name=displayName)
 
-			# try to associate with an existing user by first and last name
+			# try to associate with an existing user by first and last name and email
 			try:
-				u = User.objects.get(first_name__iexact=givenName, last_name__iexact=familyName)
+				u = User.objects.get(first_name__iexact=givenName, last_name__iexact=familyName, email__iexact=email)
 			except User.DoesNotExist, User.MultipleObjectsReturned:
 				u = User()
 				# if provider is google make the username the google username
