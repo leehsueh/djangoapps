@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from janrain.models import JanrainUser 
 import django.contrib.auth
+from hashlib import sha1
+from base64 import b64encode
 
 class JanrainBackend:
 	def get_user(self, user_id):
