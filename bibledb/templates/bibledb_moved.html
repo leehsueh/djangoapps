@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="{{ STATIC_URL }}commonjs/jquery.js"></script>
+    <title>BibleDB - {% block title %}{{ title }}{% endblock%}</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bibledb_base.css" />
+    {% block layoutcss %}{% endblock %}
+    {% block additionalcss %}{% endblock %}
+    <!-- google analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22602946-1']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+</head>
+
+<body>
+<div id="container"> 
+  <div id="header">
+	<div>
+    	<div class="fltrt" id="user_actions">
+        	<p>Hello, {% if user.name or user.username %}{% if user.first_name %}{{ user.first_name }} {{ user.last_name }}{% else %}{{ user.username }}{% endif %} | <a href="{% url passwd-change %}">Change Password</a> | <a href="{% url logout %}">Logout</a>{% else %}Guest | <a href="{% url login %}?next={% url bibledb:home %}">Login</a>{% endif %}</p></div>
+        <div class="fltlft">
+        	<h1>Bible Database</h1>
+        	<p id="tagline">An Unofficial TJC Youth Project</p>
+        </div>
+    </div>
+    <div class="clearfloat"></div>
+    <div>
+        <div class="fltrt" id="navbar">
+            <ul>
+              <li><a href="{% url bibledb:home %}" class="navCurrent">Home</a></li>  
+            </ul>
+        </div>
+    </div>
+    <div class="clearfloat"></div>
+  </div><!-- end #header -->
+  
+  {% block contentcontainer %}
+    <div id="updates" class="lightBorder">
+      <h2>Updated {{ updates.pub_date|date:"m/d/Y" }}</h2>
+      <p>{{ updates.content|safe }}</p>
+    </div>
+  {% endblock %}  
+  <div id="footer">{% block footer %}
+	  <p><a href="{% url bibledb:home %}">BibleDB Home</a></p>
+      <p>Recommended links: <a href="http://www.tjc.org">True Jesus Church</a> | <a href="http://blog.tjc.org">Five Loaves Two Fish</a> | <a href="http://rutgers.tjc.us">Rutgers University Campus Fellowship</a></p>
+    {% endblock %}
+  </div><!-- end #footer -->
+</div><!-- end #container -->
+<!-- RefTagger from Logos. Visit http://www.logos.com/reftagger. This code should appear directly before the </body> tag. -->
+<script src="http://bible.logos.com/jsapi/referencetagging.js" type="text/javascript"></script>
+<script type="text/javascript">
+    Logos.ReferenceTagging.lbsBibleVersion = "NKJV";
+    Logos.ReferenceTagging.lbsLinksOpenNewWindow = true;
+    Logos.ReferenceTagging.lbsLibronixLinkIcon = "dark";
+    Logos.ReferenceTagging.lbsNoSearchTagNames = [ "span", "h1", "h2", "h3" ];
+    Logos.ReferenceTagging.tag();
+</script>
+</body>
+</html>

@@ -14,8 +14,8 @@ urlpatterns = patterns('',
     url(r'^entry/user/$', 'siteapps_v1.bibledb.views.display_entries', {'type':'username'}, name='users'),
     url(r'^entry/user/(?P<slug>(([a-z0-9]+-?)+))/$', 'siteapps_v1.bibledb.views.display_entries', {'type':'username'}, name='entries-username'),
     url(r'^entry/(?P<entry_id>\d+)/$', 'siteapps_v1.bibledb.views.display_entry', name='entry-view'),
-    url(r'^entry/(?P<entry_id>\d+)/edit/$', 'siteapps_v1.bibledb.views.edit_entry', name='entry-edit'),
-    url(r'^entry/(?P<entry_id>\d+)/delete/$', 'siteapps_v1.bibledb.views.remove_entry', name='entry-remove'),
+    # url(r'^entry/(?P<entry_id>\d+)/edit/$', 'siteapps_v1.bibledb.views.edit_entry', name='entry-edit'),
+    # url(r'^entry/(?P<entry_id>\d+)/delete/$', 'siteapps_v1.bibledb.views.remove_entry', name='entry-remove'),
     url(r'^entry/(?P<bookname>[0-9]?(-?[a-zA-Z]+)+)/$', 'siteapps_v1.bibledb.views.display_entries', {'type':'passage'}, name='entries-book'),
     url(r'^entry/(?P<bookname>[0-9]?(-?[a-zA-Z]+)+)/(?P<chpnum>[0-9]+)/$', 'siteapps_v1.bibledb.views.display_entries', {'type':'passage'}, name='entries-chapter'),
     url(r'^category/$', 'siteapps_v1.bibledb.views.display_entries',{'type':'category',}, name='categories'),
@@ -32,8 +32,8 @@ urlpatterns = patterns('',
         'siteapps_v1.bibledb.views.display_verses', name='browse-kjv-passage'),
     
     # adding content
-    url(r'^add/entry/$', 'siteapps_v1.bibledb.views.add_content', {'type': 'entry'}, name='add-entry'),
-    url(r'^add/category/$', 'siteapps_v1.bibledb.views.add_content', {'type': 'verse_list'}, name='add-list'),
+    # url(r'^add/entry/$', 'siteapps_v1.bibledb.views.add_content', {'type': 'entry'}, name='add-entry'),
+    # url(r'^add/category/$', 'siteapps_v1.bibledb.views.add_content', {'type': 'verse_list'}, name='add-list'),
     
     # feeds
     url(r'^rss/entries/$', RecentEntriesFeed(), name='rss-entries'),

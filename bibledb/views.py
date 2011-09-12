@@ -171,7 +171,9 @@ def home(request):
         'navcurrent': navbar_home,
 		#'add_entry_form' : EntryForm(),
     }
-    return render_to_response('bibledb_base_home.html', c, 
+    # return render_to_response('bibledb_base_home.html', c, 
+    #     RequestContext(request, processors=[common_context, entries_context]))
+    return render_to_response('bibledb_moved.html', c, 
         RequestContext(request, processors=[common_context, entries_context]))
 
 def faq(request):
