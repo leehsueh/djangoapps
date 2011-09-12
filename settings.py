@@ -66,13 +66,17 @@ STATIC_URL = 'http://tjcbdb.info/static/'
 
 STATICFILES_DIRS = ('/home/leehsueh/webapps/django27_apps/siteapps_v1/static/',)
     
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/janrain/login/'
+LOGIN_REDIRECT_URL = '/tidbits/'
     
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'u%828kd-+1o6xe!$bx!*rllw+uj8#g!05c%c3r_bs8d2kv#pt!'
 
 # Biblia API key
 BIBLIA_API_KEY = 'd43cf9c9e02a3f4187e917a0e4f682a1'
+
+# Janrain API key
+JANRAIN_API_KEY = "d8cd96a5b5372c15e235211eac81059c6b4df50c"
 
 TEMPLATE_CONTEXT_PROCESSORS =  ("django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
@@ -101,6 +105,11 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 1209600/4
 ROOT_URLCONF = 'siteapps_v1.urls'
 
+AUTHENTICATION_BACKENDS = (
+    'siteapps_v1.janrain.backends.JanrainBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 import os.path
 
 TEMPLATE_DIRS = (
@@ -123,6 +132,7 @@ INSTALLED_APPS = (
     'siteapps_v1.bibledb',
     'siteapps_v1.ntgreekvocab',
     'siteapps_v1.bible_tidbits',
+    'siteapps_v1.janrain',
 )
 
 EMAIL_HOST = 'smtp.webfaction.com'

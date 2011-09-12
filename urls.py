@@ -24,13 +24,16 @@ urlpatterns = patterns('',
     (r'^comments/', include('django.contrib.comments.urls')),
     
     # user accounts
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'janrain_login.html'}, name='login'),
     url(r'^accounts/logout/$', 'siteapps_v1.bibledb.views.logout_view', name='logout'),
     url(r'^accounts/pc/$', 'django.contrib.auth.views.password_change', name='passwd-change'),
     url(r'^accounts/pc/done/$', 'django.contrib.auth.views.password_change_done', name='passwd-change-done'),
 
     # contactable ajax url; should have POST parameters
     url(r'^contact/$', 'siteapps_v1.views.ajax_contactable', name='ajax-contactable'),
+
+    # janrain login urls
+    url(r'^janrain/', include('siteapps_v1.janrain.urls', namespace='janrain', app_name='janrain')),
 
     url(r'^env_info/$', 'siteapps_v1.views.env_info', name='env-info'),
 )

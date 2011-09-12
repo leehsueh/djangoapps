@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
+<title>TJC BDB Log-in</title>
 <script type="text/javascript">
     (function() {
         if (typeof window.janrain !== 'object') window.janrain = {};
         window.janrain.settings = {};
         
-        janrain.settings.tokenUrl = "https://tjcbdb.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2F{{ request.get_host }}%2Fjanrain%2Flogin%2F{{"?next="|urlencode}}{{ next|urlencode }}";
+        janrain.settings.tokenUrl = 'http://{{ request.get_host }}{% url janrain:janrain-login %}?next={{ next }}';
 
         function isReady() { janrain.ready = true; };
         if (document.addEventListener) {
@@ -56,8 +56,9 @@
 <input type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
-
-<div id="janrainEngageEmbed"></div>
+<p>
+<a class="janrainEngage" href="#">Sign in with another account</a>
+</p>
 {% endblock %}
 
 </body>
