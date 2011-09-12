@@ -122,7 +122,13 @@ def common_context(request):
         'SITE_URL': settings.SITE_URL,
         'webmasteremail': 'admin@tjcbdb.info',
         'translations': translations,
-        'navbarItems': [(navbar_home, reverse('bibledb:home')), (navbar_browse_bible, reverse('bibledb:browse-kjv')), (navbar_browse_entries, reverse('bibledb:entries-browse')), (navbar_add_entry, reverse('bibledb:add-entry')), (navbar_add_list, reverse('bibledb:add-list')), (navbar_faq, reverse('bibledb:faq')),],
+        'navbarItems': [
+            (navbar_home, reverse('bibledb:home')), 
+            (navbar_browse_bible, reverse('bibledb:browse-kjv')), 
+            (navbar_browse_entries, reverse('bibledb:entries-browse')), 
+            # (navbar_add_entry, reverse('bibledb:add-entry')), 
+            # (navbar_add_list, reverse('bibledb:add-list')), 
+            (navbar_faq, reverse('bibledb:faq')),],
     }
     return c
     
