@@ -66,5 +66,5 @@ def login(request):
 			return HttpResponse("An error occurred: " + auth_info['err']['msg'])
 
 def logout(request):
-    logout(request)
+    auth.logout(request)
     return HttpResponseRedirect(reverse('tidbits:home'))
