@@ -40,23 +40,8 @@ class JanrainBackend:
 			try:
 				u = User.objects.get(first_name__iexact=givenName, last_name__iexact=familyName, email__iexact=email)
 			except User.DoesNotExist, User.MultipleObjectsReturned:
-				u = User()
-				# if provider is google make the username the google username
-				if providerName == 'Google':
-					u.username = displayName
-				else:
-					# hash the identifier to ensure a unique username for the User object
-					# base64 to ensure that username is 30 characters max
-					u.username = b64encode(sha1(identifier).digest())
-				u.first_name = givenName
-				u.last_name = familyName
-				u.is_superuser = False
-				u.is_active = True
-				u.set_unusable_password()
-				u.is_staff = False
-				if email:
-					u.email = email
-				u.save()
+				# users must request an account explicitly; do not create an account automatically
+				return None
 	
 			# associate django user, and save
 			janrain_user.django_user = u

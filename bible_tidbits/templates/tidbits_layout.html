@@ -18,6 +18,10 @@
     <link href="http://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope:regular" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
 	<link rel="stylesheet/less" href="{{ STATIC_URL }}css/global.less">
+
+    <!-- jQuery UI css -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}commonjs/jquery-ui-1.8.16/css/ui-darkness/jquery-ui-1.8.16.custom.css" type="text/css">
+
     {% block additionalcss %}{% endblock %}
     
     <!-- less.js -->
@@ -68,6 +72,14 @@
 </head>
 
 <body>
+    <div id="topbar">
+        <nav><p>
+            {% if request.user.is_authenticated %}Welcome {{ request.user.first_name }}! | <a href="{% url tidbits:my-tidbits %}">My Tidbits</a> | <a href="{% url janrain:janrain-logout %}">Log Out</a>
+            {% else %}
+            <a href="{% url janrain:janrain-login %}?next={% url tidbits:home %}">Log In</a> | <a class="janrainEngage" href="#">Log with Google or Facebook</a> | <a id="requestLink" href="#">Request an Account</a>
+            {% endif %}
+        </p></nav>
+    </div>
     <div id="container">
         <header>
         <hgroup>
@@ -76,10 +88,13 @@
         </hgroup>
         <nav>
             <ul>
-                <li>{% if request.user.is_authenticated %}Welcome {{ request.user.first_name }}! (<a href="{% url janrain:janrain-logout %}">logout</a>){% else %}<a class="janrainEngage" href="#">Sign-In</a>{% endif %}</li>
-                <li><a href="#">Search</a>
+                <li>
+                    <form id="searchForm" action="{% url tidbits:tidbits-by-passage %}" method="get">
+                    <input type="text" name="passage_ref" placeholder="Enter Bible reference" id="passage_ref">
+                    <input type="submit" value="Search">
+                    </form>
                 </li>
-                <li><a href="{% url tidbits:add %}">New Tidbit</a></li>
+                {% if request.user.is_authenticated %}<li><a href="{% url tidbits:add %}">New Tidbit</a></li>{% endif %}
             </ul>
         </nav>
         </header>
@@ -87,11 +102,107 @@
         <p>This text should be replaced by sub-templates.</p>
         {% endblock %}
     </div>
+    <footer>
+    </footer>
+
+    <!-- jQuery contactable plugin (also contactable.css in header) -->
+    <div id="contact" title="Request an Account">
+    <form id="contactForm">
+        <p class="validateTips"></p>
+        <label for="name">Name</label><input type="text" name="name" placeholder="Full Name">
+        <br>
+        <label for="email">Email</label><input type="email" name="email" placeholder="E-mail">
+        <br>
+        <textarea name="comment" placeholder="Your Message"></textarea>
+    </form>
+    </div>
 
 
-<script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 <script>window.jQuery || document.write("<script src='{{ STATIC_URL }}commonjs/jquery.js'>\x3C/script>")</script>
 {% block additionaljs %}{% endblock %}
+
+<!-- ajax contactactable form -->
+<script type="text/javascript" src="{{ STATIC_URL }}commonjs/contactable/jquery.validate.pack.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}commonjs/contactable/jquery.contactable.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}commonjs/jquery-ui-1.8.16/js/jquery-ui-1.8.16.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/tidbits_contact_form.js"></script>
+<script type="text/javascript">
+var books = [
+    "Genesis",
+    "Exodus",
+    "Leviticus",
+    "Numbers",
+    "Deuteronomy",
+    "Joshua",
+    "Judges",
+    "Ruth",
+    "1 Samuel",
+    "2 Samuel",
+    "1 Kings",
+    "2 Kings",
+    "1 Chronicles",
+    "2 Chronicles",
+    "Ezra",
+    "Nehemiah",
+    "Esther",
+    "Job",
+    "Psalms",
+    "Proverbs",
+    "Ecclesiastes",
+    "Song of Solomon",
+    "Isaiah",
+    "Jeremiah",
+    "Lamentations",
+    "Ezekiel",
+    "Daniel",
+    "Hosea",
+    "Joel",
+    "Amos",
+    "Obadiah",
+    "Jonah",
+    "Micah",
+    "Nahum",
+    "Habakkuk",
+    "Zephaniah",
+    "Haggai",
+    "Zechariah",
+    "Malachi",
+    "Matthew",
+    "Mark",
+    "Luke",
+    "John",
+    "Acts",
+    "Romans",
+    "1 Corinthians",
+    "2 Corinthians",
+    "Galatians",
+    "Ephesians",
+    "Philippians",
+    "Colossians",
+    "1 Thessalonians",
+    "2 Thessalonians",
+    "1 Timothy",
+    "2 Timothy",
+    "Titus",
+    "Philemon",
+    "Hebrews",
+    "James",
+    "1 Peter",
+    "2 Peter",
+    "1 John",
+    "2 John",
+    "3 John",
+    "Jude",
+    "Revelation"
+    ];
+$(document).ready(function() {
+    $("form#searchForm #passage_ref").autocomplete({
+        source: books
+    });
+})
+
+</script>
 
 <!-- RefTagger from Logos. Visit http://www.logos.com/reftagger. This code should appear directly before the </body> tag. -->
 <script src="http://bible.logos.com/jsapi/referencetagging.js" type="text/javascript"></script>

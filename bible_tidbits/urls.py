@@ -17,6 +17,14 @@ urlpatterns = patterns('',
         'siteapps_v1.bible_tidbits.views.tidbits_by_user',
         name='tidbits-by-user'
     ),
+    url(r'^tidbit/(?P<tidbit_id>[0-9]+)/$',
+        'siteapps_v1.bible_tidbits.views.tidbit_detail',
+        name='tidbit-detail'
+    ),
+    url(r'^search/passage/$',
+        'siteapps_v1.bible_tidbits.views.tidbits_by_passage',
+        name='tidbits-by-passage'
+    ),
     url(r'^add/$',
         'siteapps_v1.bible_tidbits.views.add',
         name='add'

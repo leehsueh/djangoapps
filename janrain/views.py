@@ -60,6 +60,8 @@ def login(request):
 
 			# TODO: sign user in with custom backend
 			user = auth.authenticate(profile=profile)
+			if user == None:
+				return HttpResponse("Please request an account to me made for you at <a href=\"/tidbits/\">tjcbdb.info/tidbits/</a>")
 			auth.login(request, user)
 			return HttpResponseRedirect(destination)
 		else:

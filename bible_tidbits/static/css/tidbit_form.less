@@ -30,57 +30,7 @@
     }
 }
 
-/* general form element styles */
-textarea, input {
-    font-family: inherit;
-}
-textarea {
-	height: 60px;
-	width: 95%;
-	padding: 10px;
-	border: 1px solid #ddd;
-}
-
-input[type=text] {
-	width: 60px;
-	margin: 0;
-	border: 1px solid #ddd;
-	background: white;
-}
-
-
-input[type=submit] {
-	height: 50px;
-	width: 100px;
-	margin: 1em;
-	border: 1px solid #ddd;
-	background: white;
-}
-
-/* specific class/element styles */
-#cross_refs {
-    li {
-        list-style-type: none;
-        display: block;
-        .rounded-corners;
-        background: @light-gray;
-        margin: 4px;
-        padding: 4px 4px;
-
-        input.cf {
-            border: 0;
-            background: @light-gray;
-            color: @black;
-            width: 90%;
-            &:focus {border: 0;}
-        }
-        a {
-            cursor: pointer;
-        }
-    }
-}
-
-form {
+form#tidbit_form {
     background: #fafafa;
     .background-linear-gradient;
     .box-shadow(0, 0, 30px, @black);
@@ -120,5 +70,51 @@ form {
     }
     div.row1 + p {
         clear: both;
+    }
+    input[type=submit] {
+        height: 50px;
+        width: 100px;
+        margin: 1em;
+        border: 1px solid #ddd;
+        background: white;
+    }
+    textarea, input {
+        font-family: inherit;
+    }
+    textarea {
+        height: 60px;
+        width: 95%;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    input[type=text] {
+        width: 60px;
+        margin: 0;
+        border: 1px solid #ddd;
+        background: white;
+    }
+    
+    /* specific class/element styles */
+    #cross_refs {
+        li {
+            list-style-type: none;
+            display: block;
+            .rounded-corners;
+            background: @light-gray;
+            margin: 4px;
+            padding: 4px 4px;
+
+            input.cf {
+                border: 0;
+                background: @light-gray;
+                color: @black;
+                width: 90%;
+                &:focus {border: 0;}
+            }
+            a {
+                cursor: pointer;
+            }
+        }
     }
 }

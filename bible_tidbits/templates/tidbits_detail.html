@@ -17,26 +17,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if total_count %}<p id="count"><strong>{{ total_count }}</strong> tidbit{{ total_count|pluralize }} and counting...</p>{% endif %}
-    {% if filter_criteria %}<p id="filter_criteria"><strong>{{ filter_count }}</strong> tidbit{{ filter_count|pluralize }} for <span>{{ filter_criteria }}</span></p>{% endif %}
-    {% for tidbit in tidbits.object_list %}
     {% include "tidbits_single.html" %}
-    {% endfor %}
-    <div class="pagination">
-        <span class="step-links">
-            {% if tidbits.has_previous %}
-                <a href="{{ request.path }}?page={{ tidbits.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ tidbits.number }} of {{ tidbits.paginator.num_pages }}.
-            </span>
-
-            {% if tidbits.has_next %}
-                <a href="{{ request.path }}?page={{ tidbits.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-    </div>
 {% endblock %}
 
 {% block additionaljs %}

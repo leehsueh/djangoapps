@@ -2,7 +2,7 @@
 ###########################
 nbproject/
 static/tidbits/jquery-ui-1.8.12.custom/development-bundle/
-djangoapps.sublime-project
+djangoapps.sublime-*
 
 # Compiled source #
 ###################

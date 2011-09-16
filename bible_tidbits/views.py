@@ -39,6 +39,18 @@ def home(request):
     }
     return render_to_response("tidbits_home.html", c,
                             context_instance=RequestContext(request))
+
+def tidbit_detail(request, tidbit_id):
+    try:
+        tidbit = Tidbit.objects.get(pk=tidbit_id)
+    except Tidbit.DoesNotExist:
+        raise Http404("Oops! This tidbit does not exist!")
+    c = {
+        'tidbit': tidbit,
+    }
+    return render_to_response("tidbits_detail.html", c,
+                            context_instance=RequestContext(request))
+
 def tidbits_by_user(request, username):
     try:
         user = User.objects.get(username__iexact=username)
@@ -59,7 +71,7 @@ def my_tidbits(request):
     tidbits_qs = Tidbit.objects.filter(created_by=request.user)
     c = {
         'tidbits': paginate_tidbits(request, tidbits_qs),
-        'filter_count': tidbit_qs.count(),
+        'filter_count': tidbits_qs.count(),
         'filter_criteria': request.user.username,
         'total_count': Tidbit.objects.all().count()
     }
@@ -121,34 +133,10 @@ def process_tidbit_form(request, tidbit_id=None):
 
     # add and/or create cross references
     cfs_to_add = []
-    regex = re.compile("(?P<book>([12]?[A-Za-z ]+[A-Za-z]))( ?(?P<start_chapter>[0-9]+)((:(?P<start_verse>[0-9]+))? ?(- ?(?P<end_chp_or_verse>[0-9]+)(:(?P<end_verse>[0-9]+))?)?)?)?$")
     for cf in crossrefs:
-        matches = regex.search(cf)
-        if matches == None:
-            continue
-        groups = matches.groupdict()
-        book = groups['book']
-        startchp = groups['start_chapter']
-        startvs = groups['start_verse']
-        endchporvs = groups['end_chp_or_verse']
-        endvs = groups['end_verse']
-
-        if not endchporvs:
-            endchp = startchp
-            endvs = startvs
-        elif not endvs:
-            endvs = endchporvs
-            endchp = startchp
-        else:
-            endchp = endchporvs
         try:
-            startverse = Verse.objects.get(book__istartswith=book,
-                                            chapter_ref=int(startchp),
-                                            verse_ref=int(startvs))
-            endverse = Verse.objects.get(book__istartswith=book,
-                                            chapter_ref=int(endchp),
-                                            verse_ref=int(endvs))
-        except Verse.DoesNotExist:
+            startverse, endverse = CrossRef.objects.parse_reference(cf)
+        except Exception as e:
             return HttpResponse("A cf is invalid: " + cf)
 
         # check for existing cf
@@ -254,11 +242,11 @@ def delete(request, tidbit_id):
 
 def tidbits_by_book(request, book):
     book = book.replace('-',' ')
-    firstverse = Verse.objects.filter(book__iexact=book).order_by('id')[:1]
-    if firstverse.count() == 0:
+    startverse = Verse.objects.filter(book__iexact=book).order_by('id')[:1]
+    if startverse.count() == 0:
         return HttpResponse(book + " is not valid!")
-    lastverse = Verse.objects.filter(book__iexact=book).order_by('-id')[:1]
-    cfs = CrossRef.objects.filter(startverse__gte=firstverse, endverse__lte=lastverse)
+    endverse = Verse.objects.filter(book__iexact=book).order_by('-id')[:1]
+    cfs = CrossRef.objects.filter(startverse__gte=startverse, endverse__lte=endverse)
 
     from django.db.models.query import EmptyQuerySet
     tidbits = EmptyQuerySet()
@@ -327,4 +315,102 @@ def ajax_bible_text(request):
             return HttpResponse('passage parameter missing')
     else:
         return HttpResponse('Request method should be GET')
+
+def tidbits_by_passage(request, user=None):
+    if request.method == 'GET':
+        passage_ref = request.GET['passage_ref']
+        try:
+            startverse, endverse = CrossRef.objects.parse_reference(passage_ref)
+        except Exception as e:
+            # TODO: make this neater
+            return HttpResponse(str(e.args[0]))
+
+        # regex = re.compile("(?P<book>([12]?[A-Za-z ]+[A-Za-z]))( ?(?P<start_chapter>[0-9]+)((:(?P<start_verse>[0-9]+))? ?(- ?(?P<end_chp_or_verse>[0-9]+)(:(?P<end_verse>[0-9]+))?)?)?)?$")
+        # matches = regex.search(passage_ref)
+        # if matches == None:
+        #     # TODO: make this neater
+        #     return HttpResponse("Invalid passage reference: " + passage_ref)
+        # groups = matches.groupdict()
+        # book = groups['book']
+        # startchp = groups['start_chapter']
+        # startvs = groups['start_verse']
+        # endchporvs = groups['end_chp_or_verse']
+        # endvs = groups['end_verse']
+        # cfs = None
         
+        # if not startchp:
+        #     startverse = Verse.objects.filter(book__iexact=book).order_by('id')[:1]
+        #     if startverse.count() == 0:
+        #         return HttpResponse(book + " is not valid!")
+        #     endverse = Verse.objects.filter(book__iexact=book).order_by('-id')[:1]
+        #     cfs = CrossRef.objects.filter(startverse__gte=startverse, endverse__lte=endverse)
+        # elif not startvs:
+        #     startverse = Verse.objects.filter(
+        #                     book__iexact=book, 
+        #                     chapter_ref=int(startchp), 
+        #                     verse_ref=1
+        #                 ).order_by('id')[:1]
+        #     if startverse.count() == 0:
+        #         return HttpResponse(book + " " + int(startchp) + " is not valid!")
+        #     endverse = Verse.objects.filter(
+        #                     book__iexact=book,
+        #                     chapter_ref=int(startchp)
+        #                 ).order_by('-id')[:1]
+        #     cfs = CrossRef.objects.filter(startverse__gte=startverse, endverse__lte=endverse)
+        # elif not endchporvs:
+        #     endchp = startchp
+        #     endvs = startvs
+        # elif not endvs:
+        #     endvs = endchporvs
+        #     endchp = startchp
+        # else:
+        #     endchp = endchporvs
+
+        # startverse = Verse.objects.get(book__istartswith=book,
+        #                                 chapter_ref=int(startchp),
+        #                                 verse_ref=int(startvs))
+        # endverse = Verse.objects.get(book__istartswith=book,
+        #                                 chapter_ref=int(endchp),
+        #                                 verse_ref=int(endvs))
+        # if startverse.id > endverse.id:
+        #     # TODO: handle this
+        #     return HttpResponse("Start verse " + startverse + " must come before end verse " + endverse)
+
+        # get tidbits where a cross ref intersects with a given range (more general)
+        cfs = CrossRef.objects.filter(
+                                startverse__gte=startverse, 
+                                endverse__lte=endverse
+                            )
+        cfs |= CrossRef.objects.filter(
+                                startverse__gte=startverse, 
+                                endverse__gte=endverse, 
+                                startverse__lte=endverse
+                            )
+        cfs |= CrossRef.objects.filter(
+                                startverse__lte=startverse, 
+                                endverse__lte=endverse, 
+                                endverse__gte=startverse
+                            )
+
+        # get tidbits where a cross ref is completely contained in the given range (more precise)
+        cfs = CrossRef.objects.filter(
+                                startverse__gte=startverse, 
+                                endverse__lte=endverse
+                            )
+
+        # get tidbit entries for each cf
+
+        from django.db.models.query import EmptyQuerySet
+        tidbits = EmptyQuerySet()
+        for cf in cfs:
+            tidbits |= cf.tidbit_set.all()
+        tidbits = tidbits.distinct()
+    else:
+        return HttpResponseRedirect(reverse('tidbits:home'))
+    c = {
+        'filter_criteria': passage_ref,
+        'filter_count': tidbits.count(),
+        'tidbits': paginate_tidbits(request, tidbits),
+        'total_count': Tidbit.objects.all().count()
+    }
+    return render_to_response("tidbits_home.html", c, context_instance=RequestContext(request))
