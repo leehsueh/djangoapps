@@ -68,9 +68,10 @@ def test(request):
 
 def oauth_callback(request):
     if request.method == 'GET':
-        oauth_token = request.GET.get('oauth_token')
-        oauth_verifier = request.GET.get('oauth_verifier')
-        if oauth_token != None and oauth_verifier != None:
+        params = dict(request.GET)
+        if 'oauth_token' in params.keys() and 'oauth_verifier' in params.keys():
+            oauth_token = request.GET.get('oauth_token')
+            oauth_verifier = request.GET.get('oauth_verifier')
             request_params = {}
             request_params['oauth_consumer_key'] = consumerKey
             request_params['oauth_signature'] = consumerSecret
@@ -85,11 +86,35 @@ def oauth_callback(request):
 
             import urlparse
             response_params = urlparse.parse_qs(response.read())
-            auth_token = response_params.get('oauth_token')
-            edam_shard = response_params.get('edam_shard')
-            edam_userId = response_params.get('edam_userId')
-            return HttpResponse(str(auth_token)
-                + "<br>" + str(edam_shard) + "<br>" + str(edam_userId))
+            keys = response_params.keys()
+            if 'oauth_token' in keys and 'edam_shard' in keys and 'edam_userId' in keys:
+                auth_token = response_params.get('oauth_token')[0]
+                edam_shard = response_params.get('edam_shard')[0]
+                edam_userId = response_params.get('edam_userId')[0]
+
+                user = userStore.getUser(auth_token)
+
+                noteStoreUri =  noteStoreUriBase + edam_shard
+                noteStoreHttpClient = THttpClient.THttpClient(noteStoreUri)
+                noteStoreProtocol = TBinaryProtocol.TBinaryProtocol(noteStoreHttpClient)
+                noteStore = NoteStore.Client(noteStoreProtocol)
+
+                notebooks = noteStore.listNotebooks(auth_token)
+                print "Found ", len(notebooks), " notebooks:"
+                for notebook in notebooks:
+                    print "  * ", notebook.name
+                    if notebook.defaultNotebook:
+                        defaultNotebook = notebook
+                c = {
+                    'notebooks': notebooks,
+                    'username': user.username,
+                    'auth_token': auth_token,
+                    'edam_userId': edam_userId,
+                }
+                return render_to_response("evernote_reftagger_info.html", c,
+                            context_instance=RequestContext(request)))
+            else:
+                return HttpResponse('Missing oauth_token, edam_shard, or edam_userId')
 
         else:
             return HttpResponse("Missing request parameters.")
@@ -100,21 +125,4 @@ def get_timestamp():
     import time
     timestamp = int(round(time.time() * 1000))
     return timestamp
-
-# user = authResult.user
-# authToken = authResult.authenticationToken
-# print "Authentication was successful for ", user.username
-# print "Authentication token = ", authToken
-
-# noteStoreUri =  noteStoreUriBase + user.shardId
-# noteStoreHttpClient = THttpClient.THttpClient(noteStoreUri)
-# noteStoreProtocol = TBinaryProtocol.TBinaryProtocol(noteStoreHttpClient)
-# noteStore = NoteStore.Client(noteStoreProtocol)
-
-# notebooks = noteStore.listNotebooks(authToken)
-# print "Found ", len(notebooks), " notebooks:"
-# for notebook in notebooks:
-#     print "  * ", notebook.name
-#     if notebook.defaultNotebook:
-#         defaultNotebook = notebook
 
