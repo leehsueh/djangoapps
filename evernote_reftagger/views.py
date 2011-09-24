@@ -48,7 +48,8 @@ def test(request):
     request_params['oauth_consumer_key'] = consumerKey
     request_params['oauth_signature'] = consumerSecret
     request_params['oauth_signature_method'] = 'PLAINTEXT'
-    request_params['oauth_callback'] = request.get_host() + '/evernote/callback'
+    request_params['oauth_callback'] = "https://" + request.get_host() + '/evernote/callback'
+    import pdb; pdb.set_trace()
 
     import time
     timestamp = int(round(time.time() * 1000))
