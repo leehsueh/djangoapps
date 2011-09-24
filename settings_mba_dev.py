@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     'siteapps_v1.ntgreekvocab',
     'siteapps_v1.bible_tidbits',
     'siteapps_v1.janrain',
+    'siteapps_v1.evernote_reftagger'
 )
 
 EMAIL_HOST = 'smtp.webfaction.com'
