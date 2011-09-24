@@ -49,12 +49,12 @@ MEDIA_ROOT = '/home/leehsueh/webapps/django27_apps_media/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://tjcbdb.info/media/'
+MEDIA_URL = '/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = 'http://tjcbdb.info/static/admin/'
+ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Absolute path to the directory that holds static files.
 # Example: "/home/static/static.lawrence.com/"
@@ -62,7 +62,7 @@ STATIC_ROOT = '/home/leehsueh/webapps/django27_apps_static/'
 
 # URL that handles the media served from STATIC_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
-STATIC_URL = 'http://tjcbdb.info/static/'
+STATIC_URL = 'static/'
 
 STATICFILES_DIRS = ('/home/leehsueh/webapps/django27_apps/siteapps_v1/static/',)
     

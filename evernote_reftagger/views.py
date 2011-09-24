@@ -49,7 +49,6 @@ def test(request):
     request_params['oauth_signature'] = consumerSecret
     request_params['oauth_signature_method'] = 'PLAINTEXT'
     request_params['oauth_callback'] = "https://" + request.get_host() + '/evernote/callback'
-    import pdb; pdb.set_trace()
 
     import time
     timestamp = int(round(time.time() * 1000))
@@ -69,11 +68,13 @@ def test(request):
 
 
 def oauth_callback(request):
-    import pdb; pdb.set_trace()
     if request.method == 'GET':
         oauth_token = request.GET.get('oauth_token')
         oauth_verifier = request.GET.get('oauth_verifier')
-        return HttpResponse(oauth_token + "<br>" + oauth_verifier)
+        if oauth_token != None and oauth_verifier != None:
+            return HttpResponse(oauth_token + "<br>" + oauth_verifier)
+        else:
+            return HttpResponse("Missing request parameters.")
     else:
         return HttpResponse("not a get request..")
 
