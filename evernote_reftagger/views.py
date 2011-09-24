@@ -48,7 +48,7 @@ def test(request):
     request_params['oauth_consumer_key'] = consumerKey
     request_params['oauth_signature'] = consumerSecret
     request_params['oauth_signature_method'] = 'PLAINTEXT'
-    request_params['oauth_callback'] = "https://" + request.get_host() + '/evernote/callback'
+    request_params['oauth_callback'] = "http://" + request.get_host() + '/evernote/callback'
 
     timestamp = get_timestamp()
     request_params['oauth_timestamp'] = timestamp
@@ -105,14 +105,27 @@ def oauth_callback(request):
                     print "  * ", notebook.name
                     if notebook.defaultNotebook:
                         defaultNotebook = notebook
+                
+                # get notes in Word studies
+                filter = NoteStore.NoteFilter()
+                filter.notebookGuid = defaultNotebook.guid
+                note_list = noteStore.findNotes(auth_token, filter, 0, 5)
+                notes = []
+                for note in note_list.notes:
+                    notes.append({
+                        'title': note.title, 
+                        'content': noteStore.getNoteContent(auth_token, note.guid),
+                    })
+                    
                 c = {
                     'notebooks': notebooks,
                     'username': user.username,
                     'auth_token': auth_token,
                     'edam_userId': edam_userId,
+                    'notes': notes,
                 }
                 return render_to_response("evernote_reftagger_info.html", c,
-                            context_instance=RequestContext(request)))
+                            context_instance=RequestContext(request))
             else:
                 return HttpResponse('Missing oauth_token, edam_shard, or edam_userId')
 
