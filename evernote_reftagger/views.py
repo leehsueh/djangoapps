@@ -50,8 +50,7 @@ def test(request):
     request_params['oauth_signature_method'] = 'PLAINTEXT'
     request_params['oauth_callback'] = "https://" + request.get_host() + '/evernote/callback'
 
-    import time
-    timestamp = int(round(time.time() * 1000))
+    timestamp = get_timestamp()
     request_params['oauth_timestamp'] = timestamp
 
     data = urllib.urlencode(request_params)
@@ -72,11 +71,35 @@ def oauth_callback(request):
         oauth_token = request.GET.get('oauth_token')
         oauth_verifier = request.GET.get('oauth_verifier')
         if oauth_token != None and oauth_verifier != None:
-            return HttpResponse(oauth_token + "<br>" + oauth_verifier)
+            request_params = {}
+            request_params['oauth_consumer_key'] = consumerKey
+            request_params['oauth_signature'] = consumerSecret
+            request_params['oauth_signature_method'] = 'PLAINTEXT'
+            request_params['oauth_token'] = oauth_token
+            request_params['oauth_verifier'] = oauth_verifier
+            request_params['oauth_timestamp'] = get_timestamp()
+
+            data = urllib.urlencode(request_params)
+            req = urllib2.Request(tokRequestUri, data)
+            response = urllib2.urlopen(req)
+
+            import urlparse
+            response_params = urlparse.parse_qs(response.read())
+            auth_token = response_params.get('oauth_token')
+            edam_shard = response_params.get('edam_shard')
+            edam_userId = response_params.get('edam_userId')
+            return HttpResponse(str(auth_token)
+                + "<br>" + str(edam_shard) + "<br>" + str(edam_userId))
+
         else:
             return HttpResponse("Missing request parameters.")
     else:
         return HttpResponse("not a get request..")
+
+def get_timestamp():
+    import time
+    timestamp = int(round(time.time() * 1000))
+    return timestamp
 
 # user = authResult.user
 # authToken = authResult.authenticationToken
