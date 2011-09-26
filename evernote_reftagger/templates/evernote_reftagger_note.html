@@ -1,0 +1,9 @@
+{% extends "evernote_reftagger_base.html" %}
+{% block content %}
+<article>
+	<h1>{{ note.title }}</h1>
+	<div class="evernoteNote">
+	{{ note.content|safe }}
+	</div>
+</article>
+{% endblock %}

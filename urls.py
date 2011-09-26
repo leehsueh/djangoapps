@@ -12,9 +12,12 @@ urlpatterns = patterns('',
     # Bible tidbits app
     (r'^tidbits/', include('siteapps_v1.bible_tidbits.urls', namespace='tidbits', app_name='bible_tidbits')),
 
-    # evernote reftagger app
-    (r'^evernote/', include('siteapps_v1.evernote_reftagger.urls', namespace='evernote', app_name='evernote_reftagger')),
+    # evernote oauth app
+    (r'^evernote/oauth/', include('siteapps_v1.evernote_oauth.urls', namespace='evernote_oauth', app_name='evernote_oauth')),
     
+    # evernote reftagger
+    (r'^evernote_reftagger/', include('siteapps_v1.evernote_reftagger.urls', namespace='evernote_reftagger', app_name='evernote_reftagger')),
+
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
     #(r'^bibledb/', include('siteapps_v1.bibledb.urls')),

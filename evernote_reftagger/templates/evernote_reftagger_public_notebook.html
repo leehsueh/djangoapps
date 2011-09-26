@@ -1,0 +1,10 @@
+{% extends "evernote_reftagger_base.html" %}
+{% block content %}
+<h2>{{ notebook.name }} by {{ user.username }}</h2>
+
+<h2>Notes</h2>
+{% for note in notes %}
+<h3><a href="{% url evernote_reftagger:public-note user.username notebook.publishing.uri note.guid %}">{{ note.title }}</a></h3>
+{% endfor %}
+
+{% endblock %}

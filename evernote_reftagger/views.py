@@ -1,7 +1,8 @@
-import sys
-import hashlib
-import binascii
-import time
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+
 import thrift.protocol.TBinaryProtocol as TBinaryProtocol
 import thrift.transport.THttpClient as THttpClient
 import evernote.edam.userstore.UserStore as UserStore
@@ -9,133 +10,116 @@ import evernote.edam.userstore.constants as UserStoreConstants
 import evernote.edam.notestore.NoteStore as NoteStore
 import evernote.edam.type.ttypes as Types
 import evernote.edam.error.ttypes as Errors
+import evernote.edam.limits.constants as Constants
 
+from siteapps_v1.evernote_oauth.views import parse_oauth_credentials, redirect_oauth_start, get_user_and_note_stores, unhandled_edam_user_exception
+from siteapps_v1.evernote_oauth.views import EVERNOTE_OAUTH_TOKEN, EVERNOTE_EDAM_SHARD, EVERNOTE_EDAM_USERID
 import urllib
-import urllib2
 
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+def list_notes(request):
+    if request.session.get(EVERNOTE_OAUTH_TOKEN, False) and request.session.get(EVERNOTE_EDAM_SHARD, False) and request.session.get(EVERNOTE_EDAM_USERID, False):
+        auth_token = request.session.get(EVERNOTE_OAUTH_TOKEN)
+        edam_shard = request.session.get(EVERNOTE_EDAM_SHARD)
+        edam_userId = request.session.get(EVERNOTE_EDAM_USERID)
 
-#
-# NOTE: You must change the consumer key and consumer secret to the 
-#       key and secret that you received from Evernote
-#
-consumerKey = "leehsueh"
-consumerSecret = "1ca94529bdb70d97"
+        try:
+            userStore, noteStore = get_user_and_note_stores(edam_shard)
 
-evernoteHost = "sandbox.evernote.com"
-tempCredentialRequestUri = "https://" + evernoteHost + "/oauth"
-resOwnerAuthUri = "https://" + evernoteHost + "/OAuth.action"
-resEmbeddedParam = "?format=microclip"
-resMobileParam = "?format=mobile"
-tokRequestUri = tempCredentialRequestUri
-
-userStoreUri = "https://" + evernoteHost + "/edam/user"
-noteStoreUriBase = "https://" + evernoteHost + "/edam/note/"
-
-userStoreHttpClient = THttpClient.THttpClient(userStoreUri)
-userStoreProtocol = TBinaryProtocol.TBinaryProtocol(userStoreHttpClient)
-userStore = UserStore.Client(userStoreProtocol)
-
-versionOK = userStore.checkVersion("Python EDAMTest",
-                                   UserStoreConstants.EDAM_VERSION_MAJOR,
-                                   UserStoreConstants.EDAM_VERSION_MINOR)
-
-def test(request):
-    request_params = {}
-    request_params['oauth_consumer_key'] = consumerKey
-    request_params['oauth_signature'] = consumerSecret
-    request_params['oauth_signature_method'] = 'PLAINTEXT'
-    request_params['oauth_callback'] = "http://" + request.get_host() + '/evernote/callback'
-
-    timestamp = get_timestamp()
-    request_params['oauth_timestamp'] = timestamp
-
-    data = urllib.urlencode(request_params)
-    req = urllib2.Request(tempCredentialRequestUri, data)
-    response = urllib2.urlopen(req)
-
-    import urlparse
-    response_params = urlparse.parse_qs(response.read())
-    oauth_token = response_params['oauth_token'][0]
-    oauth_callback_confirmed = response_params['oauth_callback_confirmed'][0]
-
-    authUrl = resOwnerAuthUri + "?oauth_token=" + oauth_token
-    return HttpResponseRedirect(authUrl)
-
-
-def oauth_callback(request):
-    if request.method == 'GET':
-        params = dict(request.GET)
-        if 'oauth_token' in params.keys() and 'oauth_verifier' in params.keys():
-            oauth_token = request.GET.get('oauth_token')
-            oauth_verifier = request.GET.get('oauth_verifier')
-            request_params = {}
-            request_params['oauth_consumer_key'] = consumerKey
-            request_params['oauth_signature'] = consumerSecret
-            request_params['oauth_signature_method'] = 'PLAINTEXT'
-            request_params['oauth_token'] = oauth_token
-            request_params['oauth_verifier'] = oauth_verifier
-            request_params['oauth_timestamp'] = get_timestamp()
-
-            data = urllib.urlencode(request_params)
-            req = urllib2.Request(tokRequestUri, data)
-            response = urllib2.urlopen(req)
-
-            import urlparse
-            response_params = urlparse.parse_qs(response.read())
-            keys = response_params.keys()
-            if 'oauth_token' in keys and 'edam_shard' in keys and 'edam_userId' in keys:
-                auth_token = response_params.get('oauth_token')[0]
-                edam_shard = response_params.get('edam_shard')[0]
-                edam_userId = response_params.get('edam_userId')[0]
-
-                user = userStore.getUser(auth_token)
-
-                noteStoreUri =  noteStoreUriBase + edam_shard
-                noteStoreHttpClient = THttpClient.THttpClient(noteStoreUri)
-                noteStoreProtocol = TBinaryProtocol.TBinaryProtocol(noteStoreHttpClient)
-                noteStore = NoteStore.Client(noteStoreProtocol)
-
-                notebooks = noteStore.listNotebooks(auth_token)
-                print "Found ", len(notebooks), " notebooks:"
-                for notebook in notebooks:
-                    print "  * ", notebook.name
-                    if notebook.defaultNotebook:
-                        defaultNotebook = notebook
+            user = userStore.getUser(auth_token)
+            notebooks = noteStore.listNotebooks(auth_token)
+            for notebook in notebooks:
+                if notebook.defaultNotebook:
+                    defaultNotebook = notebook
+            
+            # get notes in default notebook
+            filter = NoteStore.NoteFilter()
+            filter.notebookGuid = defaultNotebook.guid
+            note_list = noteStore.findNotes(auth_token, filter, 0, 5)
+            notes = []
+            for note in note_list.notes:
+                notes.append({
+                    'title': note.title, 
+                    'content': noteStore.getNoteContent(auth_token, note.guid),
+                })
                 
-                # get notes in Word studies
-                filter = NoteStore.NoteFilter()
-                filter.notebookGuid = defaultNotebook.guid
-                note_list = noteStore.findNotes(auth_token, filter, 0, 5)
-                notes = []
-                for note in note_list.notes:
-                    notes.append({
-                        'title': note.title, 
-                        'content': noteStore.getNoteContent(auth_token, note.guid),
-                    })
-                    
-                c = {
-                    'notebooks': notebooks,
-                    'username': user.username,
-                    'auth_token': auth_token,
-                    'edam_userId': edam_userId,
-                    'notes': notes,
-                }
-                return render_to_response("evernote_reftagger_info.html", c,
-                            context_instance=RequestContext(request))
+            c = {
+                'notebooks': notebooks,
+                'username': user.username,
+                'edam_userId': edam_userId,
+                'notes': notes,
+            }
+            return render_to_response("evernote_reftagger_info.html", c,
+                        context_instance=RequestContext(request))
+        except Errors.EDAMUserException as e:
+            if e.errorCode == Errors.EDAMErrorCode.AUTH_EXPIRED:
+                # authentication token expired; re-initiate oauth process
+                return redirect_oauth_start(request)
             else:
-                return HttpResponse('Missing oauth_token, edam_shard, or edam_userId')
-
-        else:
-            return HttpResponse("Missing request parameters.")
+                return unhandled_edam_user_exception(e)
     else:
-        return HttpResponse("not a get request..")
+        # request is either a callback invoked by evernote, or invoked by user to initiate evernote oauth
+        credentials = parse_oauth_credentials(request)
+        if credentials:
+            # authentication has been done; callback invoked by Evernote
+            # values stored in session
+            return HttpResponseRedirect(request.build_absolute_uri(request.path))
+        else:
+            # authentication has not been done; initiate oauth process
+            return redirect_oauth_start(request)
 
-def get_timestamp():
-    import time
-    timestamp = int(round(time.time() * 1000))
-    return timestamp
+def public_notebook(request, username, uri):
+    # if request.GET.get('publicUrl', False):
+    #    return HttpResponse("URI no specified")
+    # notebook_uri = request.GET['publicUrl']
+    # import re
 
+    # # parse the uri for a username
+    # first = notebook_uri.find('/pub/')
+    # if first == -1:
+    #     return HttpResponse('Invalid notebook URI:' + notebook_uri)
+    # last = notebook_uri.find('/', first + 5)
+    # if last == -1:
+    #     return HttpResponse('Invalid notebook URI:' + notebook_uri)
+    # username = notebook_uri[first + 5:last]
+    # uri = notebook_uri[last+1:]
+    # if uri[-1] == '/':
+    #     uri = uri[:-1]
+    
+    userStore, noteStore = get_user_and_note_stores(request.session.get(EVERNOTE_EDAM_SHARD))
+    try:
+        user = userStore.getPublicUserInfo(username)
+        user_id = user.userId
+    except Errors.EDAMUserException as e:
+        return unhandled_edam_user_exception(e)
+
+    try:
+        notebook = noteStore.getPublicNotebook(user_id, uri)
+    except Errors.EDAMNotFoundException as e:
+        return HttpResponse("Notebook not found for user " + username + " and notebook uri " + uri)
+
+    filter = NoteStore.NoteFilter()
+    filter.notebookGuid = notebook.guid
+    note_list = noteStore.findNotes('', filter, 0, Constants.EDAM_USER_NOTES_MAX)
+    c = {
+        'notebook': notebook,
+        'notes': note_list.notes,
+        'user': user,
+    }
+    return render_to_response('evernote_reftagger_public_notebook.html', c,
+        context_instance=RequestContext(request))
+
+def fetch_public_note(request, username, uri, note_guid):
+    userStore, noteStore = get_user_and_note_stores(request.session.get(EVERNOTE_EDAM_SHARD))
+    note = noteStore.getNote(
+        '',
+        note_guid,
+        True,
+        False,
+        False,
+        False
+        )
+    c = {
+        'note': note
+    }
+    return render_to_response('evernote_reftagger_note.html', c,
+        context_instance=RequestContext(request))
