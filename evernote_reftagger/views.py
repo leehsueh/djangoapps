@@ -12,7 +12,7 @@ import evernote.edam.type.ttypes as Types
 import evernote.edam.error.ttypes as Errors
 import evernote.edam.limits.constants as Constants
 
-from siteapps_v1.evernote_oauth.views import parse_oauth_credentials, redirect_oauth_start, get_user_and_note_stores, unhandled_edam_user_exception
+from siteapps_v1.evernote_oauth.views import parse_oauth_credentials, redirect_oauth_start, get_user_store, get_note_store, get_user_and_note_stores, unhandled_edam_user_exception
 from siteapps_v1.evernote_oauth.views import EVERNOTE_OAUTH_TOKEN, EVERNOTE_EDAM_SHARD, EVERNOTE_EDAM_USERID
 import urllib
 
@@ -85,14 +85,16 @@ def public_notebook(request, username, uri):
     # if uri[-1] == '/':
     #     uri = uri[:-1]
     
-    userStore, noteStore = get_user_and_note_stores(request.session.get(EVERNOTE_EDAM_SHARD))
+    userStore = get_user_store()
     try:
         user = userStore.getPublicUserInfo(username)
         user_id = user.userId
+        shard_id = user.shardId
     except Errors.EDAMUserException as e:
         return unhandled_edam_user_exception(e)
 
     try:
+        noteStore = get_note_store(shard_id)
         notebook = noteStore.getPublicNotebook(user_id, uri)
     except Errors.EDAMNotFoundException as e:
         return HttpResponse("Notebook not found for user " + username + " and notebook uri " + uri)
@@ -109,7 +111,15 @@ def public_notebook(request, username, uri):
         context_instance=RequestContext(request))
 
 def fetch_public_note(request, username, uri, note_guid):
-    userStore, noteStore = get_user_and_note_stores(request.session.get(EVERNOTE_EDAM_SHARD))
+    userStore = get_user_store()
+    try:
+        user = userStore.getPublicUserInfo(username)
+        user_id = user.userId
+        shard_id = user.shardId
+    except Errors.EDAMUserException as e:
+        return unhandled_edam_user_exception(e)
+        
+    noteStore = get_note_store(shard_id)
     note = noteStore.getNote(
         '',
         note_guid,

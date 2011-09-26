@@ -190,16 +190,22 @@ def parse_oauth_credentials(request):
         return None
 
 def get_user_and_note_stores(edam_shard):
+    userStore = get_user_store()
+    noteStore = get_note_store(edam_shard)
+    return (userStore, noteStore)
+
+def get_user_store():
     userStoreHttpClient = THttpClient.THttpClient(userStoreUri)
     userStoreProtocol = TBinaryProtocol.TBinaryProtocol(userStoreHttpClient)
     userStore = UserStore.Client(userStoreProtocol)
+    return userStore
 
+def get_note_store(edam_shard):
     noteStoreUri =  noteStoreUriBase + edam_shard
     noteStoreHttpClient = THttpClient.THttpClient(noteStoreUri)
     noteStoreProtocol = TBinaryProtocol.TBinaryProtocol(noteStoreHttpClient)
     noteStore = NoteStore.Client(noteStoreProtocol)
-
-    return (userStore, noteStore)
+    return noteStore
 
 def clear_evernote_oauth_session(request):
     """This is not a view function! It is a utility
