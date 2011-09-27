@@ -183,6 +183,7 @@ def home(request):
         RequestContext(request, processors=[common_context, entries_context]))
 
 def faq(request):
+    return HttpResponseRedirect(reverse('bibledb:home'))
     c = {
         'faqs': FAQ.objects.all(),
         'title': 'FAQ',
@@ -193,6 +194,7 @@ def faq(request):
         RequestContext(request, processors=[common_context,]))
 
 def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
+    return HttpResponseRedirect(reverse('bibledb:home'))
     bibleForm = BibleVerseForm()
     entries = []
     term = '**'
@@ -328,6 +330,7 @@ def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
     
 def display_entry(request, entry_id):
     """ Display detailed information on single Entry record """
+    return HttpResponseRedirect(reverse('bibledb:home'))
     try:
         e = Entry.objects.get(id=entry_id, removed__in=[None, False])
         error_message = None
@@ -397,6 +400,7 @@ add_verse_list_header = 'Add a Verse List'
 @login_required        
 def add_content(request, type):
     """ type parameter (either verse_list or entry) only used for rendering the correct blank form """
+    return HttpResponseRedirect(reverse('bibledb:home'))
     if request.method == 'POST':
         post_keys = request.POST.keys()
         if add_entry_name in post_keys:
@@ -491,6 +495,7 @@ def add_content(request, type):
 
 @login_required
 def remove_entry(request, entry_id):
+    return HttpResponseRedirect(reverse('bibledb:home'))
     try:
         entry = Entry.objects.get(id=entry_id)
     except Entry.DoesNotExist:
@@ -510,6 +515,7 @@ def remove_entry(request, entry_id):
 
 @login_required
 def edit_entry(request, entry_id):
+    return HttpResponseRedirect(reverse('bibledb:home'))
     try:
         entry = Entry.objects.get(id=entry_id)
     except Entry.DoesNotExist:
@@ -567,6 +573,7 @@ def edit_entry(request, entry_id):
 # Below views deal with browsing the Bible ####
 def browse_kjv(request):
     """display a form with book, chapters, and verses fields"""
+    return HttpResponseRedirect(reverse('bibledb:home'))
     books = Verse.objects.get_all_books()
     if request.method == 'GET' and 'book' in request.GET.keys():
         form = BibleVerseForm(request.GET)
@@ -598,6 +605,7 @@ def browse_kjv(request):
 
 def display_chapters(request, bookname):
     """displays a list of chapters for the given book"""
+    return HttpResponseRedirect(reverse('bibledb:home'))
     book_slug = bookname
     bookname = book_slug_to_title(bookname)
     related_entries = Entry.objects.entries_book_chapter_related(bookname, None)
@@ -617,6 +625,7 @@ def display_chapters(request, bookname):
         
 def display_verses(request, bookname, chpnum, startverse=None, endverse=None):
     """ displays verses """
+    return HttpResponseRedirect(reverse('bibledb:home'))
     book_slug = bookname
     bookname = book_slug_to_title(bookname)
     related_entries_book = Entry.objects.entries_book_chapter_related(bookname, None)
