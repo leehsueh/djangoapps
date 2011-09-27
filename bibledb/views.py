@@ -322,6 +322,8 @@ def display_entries(request, slug='', bookname=None, chpnum=None, type='main'):
         raise Http404("Uh oh; multiple tags returned for given slug " + catslug + "! If you got here by clicking on a link, please inform the webmaster of this error and how you got to it!")
     except Tag.DoesNotExist:
         raise Http404("No tag with slug " + slug + " exists.")
+    except User.DoesNotExist:
+        raise Http404("No user with username " + slug)
 
     
 def display_entry(request, entry_id):
