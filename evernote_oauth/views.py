@@ -1,6 +1,4 @@
 import sys
-import hashlib
-import binascii
 import time
 import thrift.protocol.TBinaryProtocol as TBinaryProtocol
 import thrift.transport.THttpClient as THttpClient
@@ -17,7 +15,7 @@ import urlparse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect
 
 #
 # NOTE: You must change the consumer key and consumer secret to the 
