@@ -1,0 +1,3 @@
+[submodule "evernote_oauth"]
+	path = evernote_oauth
+	url = https://leehsueh@github.com/leehsueh/django-evernote-oauth.git
