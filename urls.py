@@ -17,6 +17,12 @@ urlpatterns = patterns('',
     
     # evernote reftagger
     (r'^evernote_reftagger/', include('siteapps_v1.evernote_reftagger.urls', namespace='evernote_reftagger', app_name='evernote_reftagger')),
+    
+    # google oauth
+    (r'^google_oauth/', include('siteapps_v1.google_oauth.urls', namespace='google_oauth', app_name='google_oauth')),
+
+    # google reftagger
+    (r'^google_docs_reftagger/', include('siteapps_v1.google_docs_reftagger.urls', namespace='google_docs_reftagger', app_name='google_docs_reftagger')),
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),

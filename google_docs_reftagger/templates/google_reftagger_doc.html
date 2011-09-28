@@ -1,0 +1,11 @@
+{% extends "google_reftagger_base.html" %}
+
+{% block googledocscss %}
+{{ style|safe }}
+{% end block %}
+
+{% block content %}
+<h2>{{ doc.title.text }}</h2>
+{{ body|safe }}
+
+{% endblock %}

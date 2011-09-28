@@ -1,0 +1,16 @@
+{% extends "google_reftagger_base.html" %}
+{% block content %}
+<h1>Google OAuth Test</h1>
+<h2>Folder: {{ folder.title.text }}</h2>
+<ul>
+{% for entry in feed.entry %}
+	<li><a href="{% url google_oauth:doc entry.resource_id.text %}">{{ entry.title.text }}</a></li>
+{% endfor %}
+</ul>
+
+{% if doc %}
+<h2>{{ doc.title.text }}</h2>
+{{ content|safe }}
+{% endif %}
+
+{% endblock %}

@@ -134,7 +134,9 @@ INSTALLED_APPS = (
     'siteapps_v1.bible_tidbits',
     'siteapps_v1.janrain',
     'siteapps_v1.evernote_oauth',
-    'siteapps_v1.evernote_reftagger'
+    'siteapps_v1.evernote_reftagger',
+    'siteapps_v1.google_oauth',
+    'siteapps_v1.google_docs_reftagger',
 )
 
 EMAIL_HOST = 'smtp.webfaction.com'
