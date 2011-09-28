@@ -9,7 +9,7 @@ from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
-from siteapps_v1.google_oauth.views import oauth_start, get_client, clear_google_oauth_session
+from siteapps_v1.google_oauth.views import oauth_start, get_client, clear_google_oauth_session, oauth_get_access_token
 from siteapps_v1.google_oauth.views import GOOGLE_OAUTH_REQ_TOKEN, GOOGLE_OAUTH_TOKEN
 
 import gdata.gauth
