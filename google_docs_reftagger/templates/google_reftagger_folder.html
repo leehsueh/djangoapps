@@ -4,7 +4,7 @@
 <h2>Folder: {{ folder.title.text }}</h2>
 <ul>
 {% for entry in feed.entry %}
-	<li><a href="{% url google_oauth:doc entry.resource_id.text %}">{{ entry.title.text }}</a></li>
+	<li><a href="{% url google_docs_reftagger:doc entry.resource_id.text %}">{{ entry.title.text }}</a></li>
 {% endfor %}
 </ul>
 
