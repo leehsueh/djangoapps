@@ -78,6 +78,14 @@ BIBLIA_API_KEY = 'd43cf9c9e02a3f4187e917a0e4f682a1'
 # Janrain API key
 JANRAIN_API_KEY = "d8cd96a5b5372c15e235211eac81059c6b4df50c"
 
+# Google gdata API key
+GDATA_CONSUMER_KEY = "tjcbdb.info"
+GDATA_CONSUMER_SECRET = "ybGQU-hcCt9SJdXebFAw7T8e"
+
+# Evernote API key
+EVERNOTE_CONSUMER_KEY = "leehsueh"
+EVERNOTE_CONSUMER_SECRET = "1ca94529bdb70d97"
+
 TEMPLATE_CONTEXT_PROCESSORS =  ("django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
