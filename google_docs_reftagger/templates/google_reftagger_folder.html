@@ -1,7 +1,7 @@
 {% extends "google_reftagger_base.html" %}
 {% block content %}
-<h1>Google OAuth Test</h1>
-<h2>Folder: {{ folder.title.text }}</h2>
+<h1>Folder: {{ folder.title.text }}</h1>
+<p><a href="{% url google_docs_reftagger:folder-list %}">Back to Folder list</a></p>
 <ul>
 {% for entry in feed.entry %}
 	<li><a href="{% url google_docs_reftagger:doc entry.resource_id.text %}">{{ entry.title.text }}</a></li>

@@ -75,7 +75,9 @@ def get_doc_content(request, resource_id):
         body_begin = content.find('<body')
         body_end = content.find('</html>')
         body = content[body_begin:body_end]
+
         c = {
+            'parent_link': request.META.get('HTTP_REFERER', None),
             'doc': doc,
             'style': css_style,
             'body': body

@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+<p><a href="{% url google_docs_reftagger:folder-list %}">Back to Folder list</a>{% if parent_link %} | <a href="{{ parent_link }}">Back to Folder</a>{% endif %}</p>
 <h2>{{ doc.title.text }}</h2>
 {{ body|safe }}
 

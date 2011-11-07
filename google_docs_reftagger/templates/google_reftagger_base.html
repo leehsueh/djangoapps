@@ -8,7 +8,7 @@
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	<title>Google OAuth Test</title>
+	<title>Google Docs{% if doc %}: {{ doc.title.text }}{% endif %}</title>
 	{% block googledocscss %}{% endblock %}
 	<meta name="description" content="">
 	<base href="/">
