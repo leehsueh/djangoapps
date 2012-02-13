@@ -15,22 +15,21 @@ $(document).ready(function() {
     })
 
     // show/hide word info
+    $.fn.fadeSlideToggle = function(speed, easing, callback) {
+        $(this).animate({
+            height: 'toggle',
+            opacity: 'toggle'
+        }, speed, easing, callback);
+    };
     var toggle_show_hide_link = function(event) {
         event.preventDefault();
-        if ($(this).text() == "[-] Hide") {
-            $("section.word_info").animate({
-                opacity: 0,
-                height: 'toggle'
-              }, 300);
-            $(this).empty();
-            $(this).append("[+] Show");
+        $this = $(this);
+        if ($this.text() == "[-] Hide") {
+            $("section.word_info").fadeSlideToggle(300);
+            $this.text("[+] Show");
         } else {
-            $("section.word_info").animate({
-                opacity: 1,
-                height: 'toggle'
-              }, 300);
-            $(this).empty();
-            $(this).append("[-] Hide");
+            $("section.word_info").fadeSlideToggle(300);
+            $this.text("[-] Hide");
         }
     }
 

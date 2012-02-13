@@ -33,7 +33,10 @@ def get_random_ids(request, num, lesson_number=-1, lesson_numbers=[]):
     count = cards.count()
     if count < num:
         cards = SimpleCard.objects.all()
-        del request.session['ln']
+        try:
+            del request.session['ln']
+        except KeyError:
+            pass
         
     card_ids = cards.values_list('id', flat=True)
     return random.sample(card_ids, num)
