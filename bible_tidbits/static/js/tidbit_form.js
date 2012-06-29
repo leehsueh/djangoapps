@@ -1,72 +1,3 @@
-var books = [
-    "Genesis",
-    "Exodus",
-    "Leviticus",
-    "Numbers",
-    "Deuteronomy",
-    "Joshua",
-    "Judges",
-    "Ruth",
-    "1 Samuel",
-    "2 Samuel",
-    "1 Kings",
-    "2 Kings",
-    "1 Chronicles",
-    "2 Chronicles",
-    "Ezra",
-    "Nehemiah",
-    "Esther",
-    "Job",
-    "Psalms",
-    "Proverbs",
-    "Ecclesiastes",
-    "Song of Solomon",
-    "Isaiah",
-    "Jeremiah",
-    "Lamentations",
-    "Ezekiel",
-    "Daniel",
-    "Hosea",
-    "Joel",
-    "Amos",
-    "Obadiah",
-    "Jonah",
-    "Micah",
-    "Nahum",
-    "Habakkuk",
-    "Zephaniah",
-    "Haggai",
-    "Zechariah",
-    "Malachi",
-    "Matthew",
-    "Mark",
-    "Luke",
-    "John",
-    "Acts",
-    "Romans",
-    "1 Corinthians",
-    "2 Corinthians",
-    "Galatians",
-    "Ephesians",
-    "Philippians",
-    "Colossians",
-    "1 Thessalonians",
-    "2 Thessalonians",
-    "1 Timothy",
-    "2 Timothy",
-    "Titus",
-    "Philemon",
-    "Hebrews",
-    "James",
-    "1 Peter",
-    "2 Peter",
-    "1 John",
-    "2 John",
-    "3 John",
-    "Jude",
-    "Revelation"
-    ];
-
 re = new RegExp(/[12]?[A-Za-z ]+[A-Za-z] ?[0-9]+:[0-9]+ ?(- ?[0-9]+(:[0-9]+)?)?$/);
 
 function get_bible_text(input_elem) {
@@ -99,7 +30,7 @@ add_input_text = function(event) {
     $("#cross_refs input.cf").last().autocomplete({
         source: books
     })
-    .keydown(bible_text_key_trigger)
+    .keyup(bible_text_mouseover_trigger)
     .focus(bible_text_mouseover_trigger);
     reset_form_validation();
 }
@@ -111,8 +42,6 @@ remove_input_text = function(event) {
         liItem.children("input").val("");
     } else {
         // animate/remove list item
-        //liItem[0].style.visibility = 'hidden';
-        //liItem.fadeOut(500, function() {liItem.remove();});
         liItem.children("a").remove();  // prevent line break forming when width shrinks
         liItem.animate({
                     opacity: 0,
@@ -149,20 +78,8 @@ function extractLast( term ) {
     return split( term ).pop();
 }
 
-timeout_id = 0;
-function bible_text_key_trigger() {
-    clearTimeout(timeout_id);
-    $("#passage_preview").text("Loading");
-    input_elem = $(this);
-    timeout_id = setTimeout(function(){get_bible_text(input_elem);}, 500);
-}
-
 function bible_text_mouseover_trigger() {
     get_bible_text(this);
-}
-
-function bible_text_mouseoff_trigger() {
-    //$("#passage_preview").text("");
 }
 
 $(document).ready(function() {
@@ -174,8 +91,7 @@ $(document).ready(function() {
     $("input.cf").focus(add_cf_on_focus);
     
     // bible preview setup
-    $("input.cf").keydown(bible_text_key_trigger);
-    //$("input.cf").hover(bible_text_mouseover_trigger, bible_text_mouseoff_trigger);
+    $("input.cf").keyup(bible_text_mouseover_trigger);
     $("input.cf").focus(bible_text_mouseover_trigger);
     
     

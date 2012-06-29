@@ -105,28 +105,13 @@
     <footer>
     </footer>
 
-    <!-- jQuery contactable plugin (also contactable.css in header) -->
-    <div id="contact" title="Request an Account">
-    <form id="contactForm">
-        <p class="validateTips"></p>
-        <label for="name">Name</label><input type="text" name="name" placeholder="Full Name">
-        <br>
-        <label for="email">Email</label><input type="email" name="email" placeholder="E-mail">
-        <br>
-        <textarea name="comment" placeholder="Your Message"></textarea>
-    </form>
-    </div>
-
-
 <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 <script>window.jQuery || document.write("<script src='{{ STATIC_URL }}commonjs/jquery.js'>\x3C/script>")</script>
 {% block additionaljs %}{% endblock %}
 
 <!-- ajax contactactable form -->
 <script type="text/javascript" src="{{ STATIC_URL }}commonjs/contactable/jquery.validate.pack.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}commonjs/contactable/jquery.contactable.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}commonjs/jquery-ui-1.8.16/js/jquery-ui-1.8.16.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/tidbits_contact_form.js"></script>
 <script type="text/javascript">
 var books = [
     "Genesis",

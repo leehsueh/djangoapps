@@ -6,7 +6,6 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <!--link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/html5reset-1.6.1.css" /-->
-        <!--link rel="stylesheet" href="{{ STATIC_URL }}commonjs/contactable/contactable.css" type="text/css" /-->
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ntgreek_base.css" />
         {% block additionalcss %}{% endblock %}
         <title>NT Greek Vocabulary</title>
@@ -78,21 +77,6 @@
             }
         })
     </script>
-    <!-- jQuery contactable plugin (also contactable.css in header) -->
-    <!-- temporarily comment out; slows down page loading and not used..
-    <div id="contact">
-    </div>
-    <script type="text/javascript" src="{{ STATIC_URL }}commonjs/contactable/jquery.validate.pack.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}commonjs/contactable/jquery.contactable.js"></script>
-    <script type="text/javascript">
-	$('#contact').contactable({
-	 		subject: 'NT Greek Feedback',
-                        disclaimer: 'Your feedback is appreciated. Especially if there are mistakes.',
-                        actionUrl: '{% url ajax-contactable %}'
-	 });
-    </script>
-    -->
-    <!-- End jQuery contactable plugin -->
     
     {% block customjs %}{% endblock %}
 </body>
