@@ -81,8 +81,8 @@ JANRAIN_API_KEY = "d8cd96a5b5372c15e235211eac81059c6b4df50c"
 # Google gdata API key
 # GDATA_CONSUMER_KEY = "tjcbdb.info"
 # GDATA_CONSUMER_SECRET = "ybGQU-hcCt9SJdXebFAw7T8e"
-GDATA_CONSUMER_KEY = "leehsueh.com"
-GDATA_CONSUMER_SECRET = "gqGvyp4UfWFOdN6SsWGDhHnH"
+GDATA_CONSUMER_KEY = "anonymous"
+GDATA_CONSUMER_SECRET = "anonymous"
 
 # Evernote API key
 EVERNOTE_CONSUMER_KEY = "leehsueh"
