@@ -1,0 +1,107 @@
+/* Less variables */
+/* Less classes */
+.meta {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #888;
+}
+.inline-list {
+  padding: 0;
+}
+.inline-list li {
+  display: inline-block;
+}
+/* Global styles and media queries */
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Droid Sans'), local('DroidSans'), url('http://themes.googleusercontent.com/font?kit=s-BiyweUPV0v-yRb-cjciBsxEYwM7FgeyaSgU71cLG0') format('woff');
+}
+@font-face {
+  font-family: 'Droid Serif';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Droid Serif'), local('DroidSerif'), url('http://themes.googleusercontent.com/font?kit=0AKsP294HTD-nvJgucYTaIbN6UDyHWBl620a-IRfuBk') format('woff');
+}
+.meta {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #888;
+}
+/* Layout styles */
+body {
+  margin: 35px auto;
+  width: 700px;
+  color: #444;
+  font-family: 'Droid Sans', sans-serif;
+  background: url('../bg.png');
+}
+h1 {
+  font-family: 'Droid Serif', serif;
+  text-shadow: 0px 1px 0 #cecece;
+}
+h2 {
+  text-shadow: 0px 1px 0 #cecece;
+}
+a {
+  cursor: pointer;
+}
+a:visited,
+a:link,
+a:active {
+  color: #D6E0F5;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+header {
+  text-align: center;
+  margin: 0 0 20px;
+}
+header h1 {
+  display: inline;
+  font-size: 32px;
+}
+header h1 a:link,
+header h1 a:visited {
+  color: #444;
+  text-decoration: none;
+}
+header h2 {
+  font-size: 16px;
+  font-style: italic;
+  color: #333333;
+}
+header nav ul {
+  padding: 0;
+  padding: 0;
+}
+header nav ul li {
+  display: inline-block;
+}
+#filter_criteria,
+#count {
+  text-shadow: 0px 1px 0 #cecece;
+}
+#filter_criteria span,
+#count span {
+  font-style: italic;
+}
+#count {
+  font-size: 150%;
+}
+/* Search form */
+/* contact form */
+#contactForm label {
+  display: none;
+}
+#contactForm input,
+#contactForm textarea {
+  margin: 5px;
+  width: 90%;
+}
+#contactForm textarea {
+  height: 60px;
+}

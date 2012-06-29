@@ -1,0 +1,136 @@
+/* Less variables */
+/* Less classes */
+.meta {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #888;
+}
+.inline-list {
+  padding: 0;
+}
+.inline-list li {
+  display: inline-block;
+}
+/* This is for jquery tools form validator */
+.error {
+  /* supply height to ensure consistent positioning for every browser */
+
+  height: 15px;
+  background-color: #FFFE36;
+  border: 1px solid #E1E16D;
+  font-size: 11px;
+  color: #000;
+  padding: 3px 10px;
+  margin-left: -2px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 0px 0px 6px #dddddd;
+  -webkit-box-shadow: 0px 0px 6px #dddddd;
+  box-shadow: 0px 0px 6px #dddddd;
+}
+.error p {
+  margin: 0;
+}
+.error em {
+  display: block;
+  width: 0;
+  height: 0;
+  border: 10px solid;
+  border-color: #FFFE36 transparent transparent;
+  /* positioning */
+
+  position: absolute;
+  bottom: -17px;
+  left: 60px;
+}
+form#tidbit_form {
+  background: #fafafa;
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.35, #f5f5f5), color-stop(0.84, #ededed));
+  background-image: -moz-linear-gradient(left top, #f5f5f5 35%, #ededed 84%);
+  -moz-box-shadow: 0 0 30px #333333;
+  -webkit-box-shadow: 0 0 30px #333333;
+  box-shadow: 0 0 30px #333333;
+  border: 1px solid #eee;
+  padding: 1em;
+  /* specific class/element styles */
+
+}
+form#tidbit_form div.row1 p,
+form#tidbit_form div.row1 ul {
+  float: left;
+}
+form#tidbit_form div.row1 p {
+  width: 68%;
+}
+form#tidbit_form div.row1 p textarea {
+  height: 100px;
+  width: 95%;
+  border: 1px #f9ee95 solid;
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.15, #fcf6c5), color-stop(0.54, #fbf2ad));
+  background-image: -moz-linear-gradient(left top, #fcf6c5 15%, #fbf2ad 54%);
+  font-family: 'Annie Use Your Telescope';
+  font-size: 150%;
+  /*.box-shadow(1px, 1px, 8px, lighten(@black, 0));*/
+
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.4), 1px 6px 10px rgba(0, 0, 0, 0.1), 1px 14px 20px rgba(0, 0, 0, 0.1);
+}
+form#tidbit_form div.row1 p #passage_preview {
+  font-family: inherit;
+  font-weight: normal;
+  font-size: 0.8em;
+  width: 95%;
+}
+form#tidbit_form div.row1 ul {
+  width: 25%;
+  margin-left: 0.5em;
+  padding: 0;
+}
+form#tidbit_form div.row1 + p {
+  clear: both;
+}
+form#tidbit_form input[type=submit] {
+  height: 50px;
+  width: 100px;
+  margin: 1em;
+  border: 1px solid #ddd;
+  background: white;
+}
+form#tidbit_form textarea,
+form#tidbit_form input {
+  font-family: inherit;
+}
+form#tidbit_form textarea {
+  height: 60px;
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+form#tidbit_form input[type=text] {
+  width: 60px;
+  margin: 0;
+  border: 1px solid #ddd;
+  background: white;
+}
+form#tidbit_form #cross_refs li {
+  list-style-type: none;
+  display: block;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: #fefefe;
+  margin: 4px;
+  padding: 4px 4px;
+}
+form#tidbit_form #cross_refs li input.cf {
+  border: 0;
+  background: #fefefe;
+  color: #333333;
+  width: 90%;
+}
+form#tidbit_form #cross_refs li input.cf:focus {
+  border: 0;
+}
+form#tidbit_form #cross_refs li a {
+  cursor: pointer;
+}

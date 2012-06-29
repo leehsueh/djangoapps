@@ -1,0 +1,13 @@
+/* Less variables */
+/* Less classes */
+.meta {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #888;
+}
+.inline-list {
+  padding: 0;
+}
+.inline-list li {
+  display: inline-block;
+}
